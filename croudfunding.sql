@@ -1,0 +1,8 @@
+DROP SCHEMA IF EXISTS crowdfunding;
+CREATE SCHEMA crowdfunding;
+USE crowdfunding;
+
+CREATE TABLE users (
+	id_users SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	PRIMARY KEY (id_users)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
