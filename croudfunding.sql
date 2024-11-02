@@ -49,3 +49,4 @@ CREATE TABLE updates (
 	PRIMARY KEY (id_updates),
 	FOREIGN KEY (id_projects) REFERENCES projects(id_projects)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+

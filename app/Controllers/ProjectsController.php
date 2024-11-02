@@ -8,4 +8,9 @@ class ProjectsController extends BaseController
     {
         return view('projects/index');
     }
+
+    public function list(): string
+    {   
+        return view('projects/list');
+    }
 }

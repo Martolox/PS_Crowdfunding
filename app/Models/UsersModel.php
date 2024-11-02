@@ -6,20 +6,13 @@ use CodeIgniter\Model;
 
 class UsersModel extends Model
 {
-	protected $table = 'users';
+	protected $table 	  = 'users';
+    protected $primaryKey = 'id_users';
+    protected $returnType = UsersModel::class;
+    protected $allowedFields = ['id_users', 'username', 'password', 'email'];
 
-	/**
-	* @param false|string $slug
-	*
-	* @return array|null
-	*/
-
-	/*
-	public function getNews($slug = false)
+	public function getUsers()
 	{
-		if ($slug === false) {
-			return $this->findAll();
-		}
-		return $this->where(['slug' => $slug])->first();
-	} */
+		return $this->findAll();
+	}
 }
