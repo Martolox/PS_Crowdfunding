@@ -17,7 +17,7 @@
 			<img src="img/target2.png">
 			<div class="text">Registrate en Impulsa</div>	
 		</h2>
-		<form autocomplete="off">
+		<form autocomplete="off" action="http://localhost/crowdfunding/public/users/create" method="post">
 			<div class="segment">
 				<div class="field">
 					<div class="text-input">
@@ -37,7 +37,7 @@
 						<input type="password" name="password" placeholder="Contraseña">
 					</div>
 				</div>
-				<button>Ingresar</button>
+				<button type="submit" value="register">Ingresar</button>
 
 				<!-- TODO 1
 				<div class="error-message">
