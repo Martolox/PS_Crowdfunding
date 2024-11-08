@@ -7,6 +7,9 @@ use CodeIgniter\Model;
 class ProjectsModel extends Model
 {
 	protected $table = 'projects';
+	protected $primaryKey = 'id_projects';
+	protected $returnType  = ProjectsModel::class;
+	protected $allowedFields = ["id_users","name","category","impact","budget", "status","end_date", "reward_plan"];
 
 	/**
 	* @param false|string $slug
@@ -22,4 +25,8 @@ class ProjectsModel extends Model
 
 		return $this->where(['slug' => $slug])->first();
 	}
+
+	public function get_published_projects() {
+        return $this->where('status', 'PUBLICADO')->findAll();
+    }
 }
