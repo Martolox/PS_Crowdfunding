@@ -4,7 +4,7 @@ USE crowdfunding;
 
 CREATE TABLE users (
 	id_users SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
-	username VARCHAR(20) NOT NULL,
+	username VARCHAR(20) UNIQUE NOT NULL,
 	password VARCHAR(20) UNIQUE NOT NULL,
 	email VARCHAR(40) UNIQUE NOT NULL,
 	PRIMARY KEY (id_users),
@@ -18,9 +18,10 @@ CREATE TABLE projects (
     category VARCHAR(30) NOT NULL,
     impact VARCHAR(300) NOT NULL,
     budget DECIMAL(10,2) NOT NULL,
-    status ENUM('ACTIVO', 'CANCELADO', 'FINALIZADO') NOT NULL DEFAULT 'ACTIVO',
+    status ENUM('ACTIVO', 'CANCELADO', 'FINALIZADO', 'PUBLICADO') NOT NULL DEFAULT 'ACTIVO', 
     end_date DATE NOT NULL,
     reward_plan varchar(300) NOT NULL,
+    img_name varchar(300) NOT NULL, /*nombre de imagen del proyecto */
     PRIMARY KEY (id_projects),
     FOREIGN KEY (id_users) REFERENCES users(id_users)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -40,7 +41,6 @@ CREATE TABLE investments (
     id_projects SMALLINT UNSIGNED NOT NULL,
     id_users SMALLINT UNSIGNED NOT NULL,
     amount DECIMAL(10,2) NOT NULL,
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     status ENUM('active', 'cancelled') NOT NULL DEFAULT 'active',
     investment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id_investments),
