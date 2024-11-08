@@ -17,6 +17,17 @@ class ProjectsModel extends Model
 	* @return array|null
 	*/
 
+
+	public function insert_project($data) {
+        return $this->save('projects', $data);
+    }
+
+    public function update_project($id, $data) {
+        $this->where('id', $id);
+        return $this->save('projects', $data);
+    }
+
+  
 	public function getProjects($slug = false)
 	{
 		if ($slug === false) {
