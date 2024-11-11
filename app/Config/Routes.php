@@ -13,6 +13,7 @@ $routes->get('/test', 'UsersController::test');
 
 $routes->get('/projects', 'ProjectsController::index');
 $routes->get('/projects/index', 'ProjectsController::index');
+$routes->post('ProjectsController/save_project', 'ProjectsController::save_project');
 
 
 $routes->get('/users', 'UsersController::list');

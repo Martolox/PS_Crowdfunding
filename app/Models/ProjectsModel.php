@@ -8,7 +8,8 @@ class ProjectsModel extends Model
 {
 	protected $table = 'projects';
 	protected $primaryKey = 'id_projects';
-	protected $returnType  = ProjectsModel::class;
+	protected $returnType  = 'array';//ProjectsModel::class;
+	protected $dateFormat = 'date'; // o 'date', 'timestamp'
 	protected $allowedFields = ["id_users","name","category","impact","budget", "status","end_date", "reward_plan"];
 
 	/**
@@ -19,7 +20,10 @@ class ProjectsModel extends Model
 
 
 	public function insert_project($data) {
-        return $this->save('projects', $data);
+		error_log("llege al model".json_encode($data));
+       
+		return $this->insert($data);
+		// return $this->save('projects', $data);
     }
 
     public function update_project($id, $data) {
@@ -39,5 +43,10 @@ class ProjectsModel extends Model
 
 	public function get_published_projects() {
         return $this->where('status', 'PUBLICADO')->findAll();
+    }
+
+	public function getProjectsByUserId($userId)
+    {
+        return $this->where('id_users', $userId)->findAll();
     }
 }

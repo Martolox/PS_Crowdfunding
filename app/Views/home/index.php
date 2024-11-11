@@ -115,7 +115,61 @@
             <img class="rad-shadow" src="https://picsum.photos/350/200?random=3" alt="Imagen 3">
             <img class="rad-shadow" src="https://picsum.photos/350/200?random=4" alt="Imagen 4">
         </div>
+
+
+
+
     </section>
+
+	
+<div class="container">
+    <h3>Mis Proyectos</h3>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Categoria</th>
+				<th>Impacto</th>
+				<th>Estado</th>
+				<th>Fondo</th>
+				<th>Fecha Cierre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($projects as $project): ?>
+                <tr>
+                    <td><?= $project['id_projects'] ?></td>
+                    <td><?= $project['name'] ?></td>
+					<td><?= $project['category'] ?></td>
+                    <td><?= $project['impact'] ?></td>
+                    <td><?= $project['status'] ?></td>
+					<td><?= $project['budget'] ?></td>
+					<td><?= $project['end_date'] ?></td>
+                    <td>
+                        <!-- Botón de edición -->
+                        <a href="<?= base_url('projects/edit/' . $project['id_projects']) ?>" class="btn btn-primary btn-sm">
+                            <i class="fas fa-edit"></i> Editar
+                        </a>
+                        
+                        <!-- Botón de cambio de estado -->
+                        <?php if ($project['status'] == 'activo'): ?>
+                            <a href="<?= base_url('projects/changeStatus/' . $project['id_projects'] . '/inactivo') ?>" class="btn btn-warning btn-sm">
+                                <i class="fas fa-toggle-off"></i> Desactivar
+                            </a>
+                        <?php else: ?>
+                            <a href="<?= base_url('projects/changeStatus/' . $project['id_projects'] . '/activo') ?>" class="btn btn-success btn-sm">
+                                <i class="fas fa-toggle-on"></i> Activar
+                            </a>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
 
     <section>
         <div class="text">
@@ -148,7 +202,7 @@
 <div class="modal fade" id="projectModal" tabindex="-1" role="dialog" aria-labelledby="projectModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <form action="<?= base_url('ProjectController/save_project') ?>" method="post">
+            <form action="<?= base_url('ProjectsController/save_project') ?>" method="post">
                 <div class="modal-header">
                     <h5 class="modal-title" id="projectModalLabel">Proyecto</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -156,7 +210,7 @@
                     </button>
                 </div>
 				<div class="modal-body">
-   					 <input type="hidden" name="project_id" value="<?= isset($project) ? $project->id : '' ?>">
+   					 <input type="hidden" name="project_id" value="<?= isset($projecto) ? $projecto->id_projects : '' ?>">
 		
 						<table class="table table-bordered">
 							<tbody>
@@ -164,7 +218,7 @@
 								<tr>
 									<td><label for="name">Nombre</label></td>
 									<td>
-										<input type="text" class="form-control" id="name" name="name" required value="<?= isset($project) ? $project->name : '' ?>">
+										<input type="text" class="form-control" id="name" name="name" required value="<?= isset($projecto) ? $projecto->name : '' ?>">
 									</td>
 								</tr>
 
@@ -172,7 +226,13 @@
 								<tr>
 									<td><label for="category">Categoría</label></td>
 									<td>
-										<input type="text" class="form-control" id="category" name="category" required value="<?= isset($project) ? $project->category : '' ?>">
+										<select class="form-control" id="category" name="category">
+											<option value="TECNOLOGIA" <?= isset($projecto) && $projecto->category == 'TECNOLOGIA' ? 'selected' : '' ?>>Tecnolog&iacute;a</option>
+											<option value="PETROLEO" <?= isset($projecto) && $projecto->category == 'PETROLEO' ? 'selected' : '' ?>>Petr&oacute;leo</option>
+											<option value="INMOBILIARIO" <?= isset($projecto) && $projecto->category == 'INMOBILIADIO' ? 'selected' : '' ?>>Inmobiliario</option>
+											<option value="OTROS" <?= isset($projecto) && $projecto->category == 'OTROS' ? 'selected' : '' ?>>Otros</option>
+										</select>
+
 									</td>
 								</tr>
 
@@ -180,7 +240,12 @@
 								<tr>
 									<td><label for="impact">Impacto</label></td>
 									<td>
-										<input type="text" class="form-control" id="impact" name="impact" required value="<?= isset($project) ? $project->impact : '' ?>">
+										<select class="form-control" id="category" name="category">
+											<option value="ALTO" <?= isset($projecto) && $projecto->category == 'ALTO' ? 'selected' : '' ?>>Alto</option>
+											<option value="MEDIO" <?= isset($projecto) && $projecto->category == 'MEDIO' ? 'selected' : '' ?>>Medio</option>
+											<option value="BAJO" <?= isset($projecto) && $projecto->category == 'BAJO' ? 'selected' : '' ?>>Bajo</option>
+											
+										</select>
 									</td>
 								</tr>
 
@@ -188,7 +253,7 @@
 								<tr>
 									<td><label for="budget">Presupuesto</label></td>
 									<td>
-										<input type="number" class="form-control" id="budget" name="budget" required value="<?= isset($project) ? $project->budget : '' ?>">
+										<input type="number" class="form-control" id="budget" name="budget" required value="<?= isset($projecto) ? $projecto->budget : '' ?>">
 									</td>
 								</tr>
 
@@ -197,8 +262,10 @@
 									<td><label for="status">Estado</label></td>
 									<td>
 										<select class="form-control" id="status" name="status">
-											<option value="activo" <?= isset($project) && $project->status == 'activo' ? 'selected' : '' ?>>Activo</option>
-											<option value="inactivo" <?= isset($project) && $project->status == 'inactivo' ? 'selected' : '' ?>>Inactivo</option>
+											<option value="CARGA" <?= isset($projecto) && $projecto->status == 'CARGA' ? 'selected' : '' ?>>Carga</option>
+											<option value="ACTIVO" <?= isset($projecto) && $projecto->status == 'ACTIVO' ? 'selected' : '' ?>>Activo</option>
+											<option value="CANCELADO" <?= isset($projecto) && $projecto->status == 'CANCELADO' ? 'selected' : '' ?>>Cancelado</option>
+											<option value="FINALIZADO" <?= isset($projecto) && $projecto->status == 'FINALIZADO' ? 'selected' : '' ?>>Finalizado</option>
 										</select>
 									</td>
 								</tr>
@@ -207,7 +274,7 @@
 								<tr>
 									<td><label for="end_date">Fecha de Fin</label></td>
 									<td>
-										<input type="date" class="form-control" id="end_date" name="end_date" required value="<?= isset($project) ? $project->end_date : '' ?>">
+										<input type="date" class="form-control" id="end_date" name="end_date" required value="<?= isset($projecto) ? $projecto->end_date : '' ?>">
 									</td>
 								</tr>
 
@@ -215,7 +282,7 @@
 								<tr>
 									<td><label for="reward_plan">Plan de Recompensas</label></td>
 									<td>
-										<textarea class="form-control" id="reward_plan" name="reward_plan" rows="3"><?= isset($project) ? $project->reward_plan : '' ?></textarea>
+										<textarea class="form-control" id="reward_plan" name="reward_plan" rows="3"><?= isset($projecto) ? $projecto->reward_plan : '' ?></textarea>
 									</td>
 								</tr>
 							</tbody>
