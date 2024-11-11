@@ -154,15 +154,27 @@
                         </a>
                         
                         <!-- Botón de cambio de estado -->
-                        <?php if ($project['status'] == 'activo'): ?>
-                            <a href="<?= base_url('projects/changeStatus/' . $project['id_projects'] . '/inactivo') ?>" class="btn btn-warning btn-sm">
-                                <i class="fas fa-toggle-off"></i> Desactivar
-                            </a>
-                        <?php else: ?>
-                            <a href="<?= base_url('projects/changeStatus/' . $project['id_projects'] . '/activo') ?>" class="btn btn-success btn-sm">
-                                <i class="fas fa-toggle-on"></i> Activar
-                            </a>
-                        <?php endif; ?>
+						<?php if ($project['status'] == 'CARGA'): ?>
+							<!-- Botón para activar el proyecto -->
+							<a href="<?= base_url('ProjectsController/changeStatus/' . $project['id_projects'] . '/ACTIVO') ?>" class="btn btn-warning btn-sm">
+								<i class="fas fa-toggle-off"></i> Activar
+							</a>
+						<?php elseif ($project['status'] == 'ACTIVO'): ?>
+							<!-- Botón para finalizar el proyecto -->
+							<a href="<?= base_url('ProjectsController/changeStatus/' . $project['id_projects'] . '/FINALIZADO') ?>" class="btn btn-warning btn-sm">
+								<i class="fas fa-toggle-off"></i> Finalizar
+							</a>
+							<!-- Botón para cancelar el proyecto -->
+							<a href="<?= base_url('ProjectsController/changeStatus/' . $project['id_projects'] . '/CANCELADO') ?>" class="btn btn-danger btn-sm">
+								<i class="fas fa-times-circle"></i> Cancelar
+							</a>
+						<?php elseif ($project['status'] == 'FINALIZADO'): ?>
+							<!-- Proyecto finalizado - sin acciones adicionales -->
+							<span class="badge badge-success">Finalizado</span>
+						<?php elseif ($project['status'] == 'CANCELADO'): ?>
+							<!-- Proyecto cancelado - sin acciones adicionales -->
+							<span class="badge badge-danger">Cancelado</span>
+						<?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -170,6 +182,44 @@
     </table>
 </div>
 
+<div class="container">
+    <h3>Proyectos para Invertir</h3>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Categoria</th>
+				<th>Impacto</th>
+				<th>Estado</th>
+				<th>Fondo</th>
+				<th>Fecha Cierre</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($projectsInv as $projectInv): ?>
+                <tr>
+                    <td><?= $projectInv['id_projects'] ?></td>
+                    <td><?= $projectInv['name'] ?></td>
+					<td><?= $projectInv['category'] ?></td>
+                    <td><?= $projectInv['impact'] ?></td>
+                    <td><?= $projectInv['status'] ?></td>
+					<td><?= $projectInv['budget'] ?></td>
+					<td><?= $projectInv['end_date'] ?></td>
+                    <td>
+                        <!-- Botón de edición -->
+                        <a href="<?= base_url('projects/invertir/' . $project['id_projects']) ?>" class="btn btn-primary btn-sm">
+                            <i class="fas fa-edit"></i> Invertir
+                        </a>
+                        
+                        
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
     <section>
         <div class="text">
@@ -240,7 +290,7 @@
 								<tr>
 									<td><label for="impact">Impacto</label></td>
 									<td>
-										<select class="form-control" id="category" name="category">
+										<select class="form-control" id="impact" name="impact">
 											<option value="ALTO" <?= isset($projecto) && $projecto->category == 'ALTO' ? 'selected' : '' ?>>Alto</option>
 											<option value="MEDIO" <?= isset($projecto) && $projecto->category == 'MEDIO' ? 'selected' : '' ?>>Medio</option>
 											<option value="BAJO" <?= isset($projecto) && $projecto->category == 'BAJO' ? 'selected' : '' ?>>Bajo</option>

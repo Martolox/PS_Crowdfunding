@@ -86,7 +86,9 @@ error_log("llegue lejos");
             $model->insert_project($projectData);
         }
 
-        return view('home/index');
+
+
+        return redirect()->to(base_url('/'));
         //return redirect()->to('/project'); // Ajusta la ruta según tu proyecto
     }
 
@@ -97,4 +99,18 @@ error_log("llegue lejos");
 
         return view('projects/list');
     }
+
+
+
+    public function changeStatus($projectId, $newStatus)
+{
+    $projectModel = new ProjectsModel();
+
+    // Actualiza el estado del proyecto
+    $projectModel->update($projectId, ['status' => $newStatus]);
+
+    // Redirige a la página de proyectos
+    return redirect()->to(base_url('/'));
+}
+
 }

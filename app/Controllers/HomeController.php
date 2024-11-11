@@ -16,10 +16,12 @@ class HomeController extends BaseController
         
         // Obtener los proyectos del usuario
         $projects = $projectModel->getProjectsByUserId($userId);
+
+        $projectsInv = $projectModel->get_published_projects();
  
         // Pasar los proyectos a la vista
        // return view('projects/index', ['projects' => $projects]);
 
-        return view('home/index', ['projects' => $projects]);
+        return view('home/index', ['projects' => $projects, 'projectsInv' => $projectsInv]);
     }
 }
