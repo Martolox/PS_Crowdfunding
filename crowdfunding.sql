@@ -18,7 +18,7 @@ CREATE TABLE projects (
     category VARCHAR(30) NOT NULL,
     impact VARCHAR(300) NOT NULL,
     budget DECIMAL(10,2) NOT NULL,
-    status ENUM('ACTIVO', 'CANCELADO', 'FINALIZADO', 'PUBLICADO') NOT NULL DEFAULT 'ACTIVO', 
+    status ENUM('EN PROCESO', 'CANCELADO', 'FINALIZADO', 'PUBLICADO') NOT NULL DEFAULT 'EN PROCESO', 
     end_date DATE NOT NULL,
     reward_plan varchar(300) NOT NULL,
     img_name varchar(300) NOT NULL, /*nombre de imagen del proyecto */

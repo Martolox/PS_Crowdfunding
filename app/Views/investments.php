@@ -239,11 +239,11 @@ th {
                     <td><?= $inv_pro['investment_date'] ?></td>
                     <td><?= $inv_pro['project_name'] ?></td>
                     <td><?= $inv_pro['project_end_date'] ?></td>
-                    <td>
-                        <button class="btn-action">Eliminar</button>
+                    <td> 
+                        <button class="btn-action" onclick="window.location.href='<?= base_url('investments/eliminarInversion/' . $inv_pro['id_investments']) ?>'">Eliminar</button>
                         <button class="btn-action" onclick="openModal(<?= $inv_pro['id_investments'] ?>, <?= $inv_pro['amount'] ?>)">Modificar</button>
                         <button class="btn-action">Detalles</button>
-                      </td>
+                    </td>
                 </tr>
                 <?php } ?>
                 <!-- Agrega más filas aquí -->

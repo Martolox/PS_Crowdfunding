@@ -33,11 +33,8 @@ class InvestmentsController extends BaseController
         return redirect()->to(base_url('investments/list'));
     }
 
-    public function updateEstado()
+    public function updateEstado($id_inversion)
     {
-        $id_inversion = $this->request->getPost("id_inversion");
-        $nuevo_estado = $this->request->getPost("nuevo_estado");
-
         $investmentsModel = new InvestmentsModel();
         $investmentsModel->eliminarInversion($id_inversion);
         return redirect()->to(base_url('investments/list'));
@@ -45,8 +42,12 @@ class InvestmentsController extends BaseController
 
     public function list()
     {
+        // Obtener el ID del usuario logueado desde la sesión 
+       
+        //$userId = session()->get('user_id');
+       
         $investmentsModel = new InvestmentsModel();
-        $investments_proyects = $investmentsModel->misInversiones(1);
+        $investments_proyects = $investmentsModel->misInversiones(1); //userID en lugar de 1
 
         $data = [
             'investments_proyects' => $investments_proyects

@@ -17,7 +17,7 @@ $routes->post('/users/create', 'UsersController::create');
 $routes->get('/projects', 'ProjectsController::index');
 $routes->get('/projects/index', 'ProjectsController::index');
 
-$routes->get('/investments/deleteInvestment', 'InvestmentsController::updateEstado');
+$routes->get('/investments/eliminarInversion/(:num)', 'InvestmentsController::updateEstado/$1');
 $routes->get('/investments/update', 'InvestmentsController::update');
 $routes->post('/investments/update', 'InvestmentsController::update');
 $routes->get('/investments', 'InvestmentsController::index');
