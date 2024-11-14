@@ -42,7 +42,7 @@ class ProjectsModel extends Model
 	}
 
 	public function get_published_projects() {
-        return $this->where('status', 'ACTIVO')
+        return $this->where('status', 'PUBLICADO')
 					->where('id_users !=', 4)//$loggedUserId)
 					->findAll();
 	}

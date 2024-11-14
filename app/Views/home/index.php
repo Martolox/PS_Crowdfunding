@@ -154,12 +154,12 @@
                         </a>
                         
                         <!-- Botón de cambio de estado -->
-						<?php if ($project['status'] == 'CARGA'): ?>
+						<?php if ($project['status'] == 'EN PROCESO'): ?>
 							<!-- Botón para activar el proyecto -->
-							<a href="<?= base_url('ProjectsController/changeStatus/' . $project['id_projects'] . '/ACTIVO') ?>" class="btn btn-warning btn-sm">
+							<a href="<?= base_url('ProjectsController/changeStatus/' . $project['id_projects'] . '/PUBLICADO') ?>" class="btn btn-warning btn-sm">
 								<i class="fas fa-toggle-off"></i> Activar
 							</a>
-						<?php elseif ($project['status'] == 'ACTIVO'): ?>
+						<?php elseif ($project['status'] == 'PUBLICADO'): ?>
 							<!-- Botón para finalizar el proyecto -->
 							<a href="<?= base_url('ProjectsController/changeStatus/' . $project['id_projects'] . '/FINALIZADO') ?>" class="btn btn-warning btn-sm">
 								<i class="fas fa-toggle-off"></i> Finalizar
@@ -312,8 +312,8 @@
 									<td><label for="status">Estado</label></td>
 									<td>
 										<select class="form-control" id="status" name="status">
-											<option value="CARGA" <?= isset($projecto) && $projecto->status == 'CARGA' ? 'selected' : '' ?>>Carga</option>
-											<option value="ACTIVO" <?= isset($projecto) && $projecto->status == 'ACTIVO' ? 'selected' : '' ?>>Activo</option>
+											<option value="EN PROCESO" <?= isset($projecto) && $projecto->status == 'EN PROCESO' ? 'selected' : '' ?>>EN PROCESO</option>
+											<option value="PUBLICADO" <?= isset($projecto) && $projecto->status == 'PUBLICADO' ? 'selected' : '' ?>>PUBLICADO</option>
 											<option value="CANCELADO" <?= isset($projecto) && $projecto->status == 'CANCELADO' ? 'selected' : '' ?>>Cancelado</option>
 											<option value="FINALIZADO" <?= isset($projecto) && $projecto->status == 'FINALIZADO' ? 'selected' : '' ?>>Finalizado</option>
 										</select>
