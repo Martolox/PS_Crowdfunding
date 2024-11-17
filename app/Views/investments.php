@@ -1,224 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Investment Form</title>
+  <title>Iinversiones</title>
   <script src="/crowdfunding/public/js/modal_modificar.js"></script>
-  <!-- CREATE -->
-  <!--<style>
-   .form-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
+  <link rel="stylesheet" href="/crowdfunding/public/css/modalInvesmentsUpdate.css">
+  <link rel="stylesheet" href="/crowdfunding/public/css/listInvesments.css">
 
-.form-group {
-  margin-bottom: 15px;
-}
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-.form-group input {
-  width: 100%;
-  padding: 8px;
-  box-sizing: border-box;
-}
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/ico" href="img/favicon.ico"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" 
+  integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" 
+  crossorigin="anonymous">
 
-.button-group {
-  display: flex;
-  justify-content: space-between;
-}
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-.button-group button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.button-group button[type="submit"] {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.button-group button[type="button"] {
-  background-color: #f44336;
-  color: white;
-}
-
-  </style> -->
-  <style>
-	/* Estilos generales */
-	body {
-		font-family: Arial, sans-serif;
-		margin: 0;
-		padding: 0;
-	}
-
-	/* Estilos para la tabla */
-	.data-table-container {
-		max-width: 80%;
-		margin: 20px auto;
-	}
-
-	table {
-		width: 100%;
-		border-collapse: collapse;
-	}
-
-	th, td {
-		padding: 10px;
-		text-align: left;
-		border-bottom: 1px solid #ddd;
-	}
-
-	th {
-		background-color: #f2f2f2;
-	}
-
-	/* Estilos para los botones */
-	.btn-action {
-		background-color: #4CAF50;
-		color: white;
-		padding: 5px 10px;
-		border: none;
-		border-radius: 4px;
-		cursor: pointer;
-		margin-right: 5px;
-	}
-
-	.btn-action:hover {
-		background-color: #45a049;
-	}
-
-	/* Estilos para el modal */
-	.modal {
-		display: none;
-		position: fixed;
-		z-index: 1;
-		left: 0;
-		top: 0;
-		width: 100%;
-		height: 100%;
-		overflow: auto;
-		background-color: rgba(0, 0, 0, 0.4);
-	}
-
-	.modal-content {
-		background-color: #fefefe;
-		margin: 15% auto;
-		padding: 20px;
-		border: 1px solid #888;
-		width: 30%;
-	}
-
-	.close-button {
-		color: #aaa;
-		float: right;
-		font-size: 28px;
-		font-weight: bold;
-	}
-
-	.close-button:hover,
-	.close-button:focus {
-		color: black;
-		text-decoration: none;
-		cursor: pointer;
-	}
-
-	.form-group {
-		margin-bottom: 15px;
-	}
-
-	.form-group label {
-		display: block;
-		margin-bottom: 5px;
-	}
-
-	.form-group input {
-		width: 100%;
-		padding: 8px;
-		box-sizing: border-box;
-	}
-
-	.button-group {
-		display: flex;
-		justify-content: space-between;
-	}
-
-	.button-group button {
-		padding: 10px 20px;
-		border: none;
-		border-radius: 5px;
-		cursor: pointer;
-	}
-
-	.button-group button[type="submit"] {
-		background-color: #4CAF50;
-		color: white;
-	}
-
-	.button-group button[type="button"] {
-		background-color: #f44336;
-		color: white;
-	}
-	</style>
-
-	<style> 
-	/* Estilos generales */
-	body {
-		font-family: Arial, sans-serif;
-		margin: 0;
-		padding: 0;
-	}
-
-/* Estilos para la tabla */
-.data-table-container {
-    max-width: 80%; /* Ajusta este valor para reducir el ancho de la tabla */
-    margin: 20px auto; /* Centra la tabla horizontalmente y deja margen superior e inferior */
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-/* Estilos para los botones */
-.btn-action {
-    background-color: #4CAF50;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 5px;
-}
-
-.btn-action:hover {
-    background-color: #45a049;
-}</style> 
-
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+  crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-  <!-- Aquí va el menú superior -->
-
+<!-- NAVBAR -->
+<section id="navbar">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Botones izquierdos -->
+    <ul class="navbar-nav">
+        <li class="nav-item"><a href="#" class="nav-link">IMPULSA</a></li>
+        <li class="nav-item"><a class="nav-link" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+        <li class="nav-item"><a href="<?= base_url('/projects/list') ?>"class="nav-link">Proyectos</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Inversiones</a></li>
+        <li class="nav-item"><a href="<?= base_url('projects/myList') ?>"class="nav-link">Mis proyectos</a></li>
+    </ul>
+    <!-- Botones derechos -->
+    <ul class="navbar-nav ml-auto">
+        <form id="theme-switcher" class="form-inline">
+            <div class="form-check form-check-inline">
+                <input checked type="radio" id="dark" name="theme" value="dark" class="form-check-input">
+                <label for="dark" class="form-check-label">Dark</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" id="light" name="theme" value="light" class="form-check-input">
+                <label for="light" class="form-check-label">Light</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" id="dim" name="theme" value="dim" class="form-check-input">
+                <label for="dim" class="form-check-label">Dim</label>
+            </div>
+        </form>
+        <!-- Barra de búsqueda -->
+        <li class="nav-item"><a class="nav-link" href="#" role="button"><i class="fas fa-search"></i></a></li>
+    </ul>
+</nav>
+</section>
+ 
   <div class="data-table-container">
         <table>
             <thead>
@@ -276,31 +118,4 @@ th {
             </form>
         </div>
     </div>
-
-<!-- CREATE --><!--
-<div class="form-container">
-  <h2>Realizar inversión</h2>
-  <form action="http://localhost/crowdfunding/public/investments/create" method="post">
-    <div class="form-group">
-      <label for="id_username">Id usuario:</label>
-      <input type="text" id="id_username" name="id_username" required>
-    </div>
-    <div class="form-group">
-      <label for="id_project">Id proyecto:</label>
-      <input type="text" id="id_project" name="id_project" required>
-    </div>
-	<div class="form-group">
-      <label for="amount">Monto:</label>
-      <input type="number" id="amount" name="amount" placeholder="Ingresar monto" required>
-    </div>
-    <div class="form-group button-group">
-      <button type="submit" value="data">Aceptar</button>
-      <button type="button" onclick="window.close()">Cancelar</button>
-    </div>
-  </form>
-</div>
-
-  </div> -->
-
-	
 </body>

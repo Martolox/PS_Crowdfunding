@@ -24,29 +24,12 @@ class ProjectsController extends BaseController
             "reward_plan" => "0.15"
         ]);*/
        // error_log("Pasé por este otro punto del código.");
-
-       $projectModel = new ProjectsModel();
-        
-       // Obtener el ID del usuario logueado (supongamos que está almacenado en la sesión)
-       $userId = session()->get('user_id');
-       
-       // Obtener los proyectos del usuario
-       $projects = $projectModel->getProjectsByUserId($userId);
-
-       // Pasar los proyectos a la vista
-       return view('projects/index', ['projects' => $projects]);
-
-
-       // return view('projects/index');
+        return view('projects/proyects');
     }
 
-
-      // Guarda o actualiza un proyecto
+    // Guarda o actualiza un proyecto
     public function save_project() {
         $model= new ProjectsModel();
-
-       
-
         $endDate = $this->request->getPost('end_date');
         
         // Verifica que la fecha esté en el formato adecuado (por ejemplo, 'Y-m-d')
@@ -54,7 +37,7 @@ class ProjectsController extends BaseController
            
             error_log("Pasé por este punto del código.  ".$this->request->getPost('category')."-".$this->request->getPost('impact')."-".$this->request->getPost('budget')."-".$this->request->getPost('status')."-".$endDate."-".$this->request->getPost('reward_plan'));
             $projectData = [
-                'id_users'=>'4',
+                'id_users'=>'1', //session()->get('user_id');
                 'name' => $this->request->getPost('name'),
                 'category' => $this->request->getPost('category'),
                 'impact' => $this->request->getPost('impact'),
@@ -65,14 +48,11 @@ class ProjectsController extends BaseController
             ];
             error_log(json_encode($projectData));
            
-
         } else {
             // Manejar error: el formato de fecha no es válido
             echo "La fecha no tiene el formato correcto.";
         }
 
-
-       
 error_log("llegue lejos");
         $projectId = $this->request->getPost('project_id');
         error_log("id".$this->request->getPost('project_id'));
@@ -85,22 +65,45 @@ error_log("llegue lejos");
             // Inserta un nuevo proyecto
             $model->insert_project($projectData);
         }
-
-
-
-        return redirect()->to(base_url('/'));
-        //return redirect()->to('/project'); // Ajusta la ruta según tu proyecto
+        return redirect()->to('projects/myList');
     }
-
-
+    
     public function list(): string
     {   
-        $model= new ProjectsModel();
-
-        return view('projects/list');
+        $projectModel = new ProjectsModel();
+        
+        // Obtener los proyectos del usuario
+        $projects = $projectModel->getProjects();
+ 
+        // Pasar los proyectos a la vista
+        return view('projects/proyects', ['projects' => $projects]);
     }
 
+    public function detalles($id): string
+    {   
+        // Cargar los detalles del proyecto desde la base de datos
+        $projectModel = new ProjectsModel();
+        $project = $projectModel->getProjectWithInvestmentTotal($id);
 
+        if (!$project) {
+            return redirect()->to(base_url('/')); // Redirigir si no se encuentra el proyecto
+        }
+        return view('projects/detalleProjet', ['project' => $project]);
+    }
+
+    public function listIProyects(): string
+    {   
+        $projectModel = new ProjectsModel();
+        
+        // Obtener el ID del usuario logueado (supongamos que está almacenado en la sesión)
+        $userId = session()->get('user_id');
+        
+        // Obtener los proyectos del usuario
+        $projects = $projectModel->getProjectsByUserId($userId);
+ 
+        // Pasar los proyectos a la vista
+        return view('projects/misProyects', ['projects' => $projects]);
+    }
 
     public function changeStatus($projectId, $newStatus)
 {
@@ -109,8 +112,7 @@ error_log("llegue lejos");
     // Actualiza el estado del proyecto
     $projectModel->update($projectId, ['status' => $newStatus]);
 
-    // Redirige a la página de proyectos
-    return redirect()->to(base_url('/'));
+    return redirect()->to('projects/myList');
 }
 
 }

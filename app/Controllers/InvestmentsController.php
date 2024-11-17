@@ -6,20 +6,18 @@ use App\Models\InvestmentsModel;
 class InvestmentsController extends BaseController
 {
     public function index() {
-        return view('investments');
+        return redirect()->to(base_url('investments/list'));
     }
-
     public function create()
     {
-        $investmentData = ([
-            'id_projects'=>$this->request->getPost(["id_project"]),
-            'id_users'=>$this->request->getPost(["id_username"]),
-            'amount'=>$this->request->getPost(["amount"])
-        ]);
+        $investmentData = [
+            'id_projects' => $this->request->getPost('id_project'), 
+            'id_users' => $this->request->getPost('id_username'),   
+            'amount' => $this->request->getPost('amount')              
+        ];
         $investmentsModel = new InvestmentsModel();
         $investmentsModel->insert($investmentData);
-
-        return redirect()->to(base_url('test'));
+        return redirect()->to(base_url('investments/list'));
     }
 
    public function update()
@@ -42,16 +40,14 @@ class InvestmentsController extends BaseController
 
     public function list()
     {
-        // Obtener el ID del usuario logueado desde la sesión 
-       
         //$userId = session()->get('user_id');
-       
+        
         $investmentsModel = new InvestmentsModel();
         $investments_proyects = $investmentsModel->misInversiones(1); //userID en lugar de 1
-
         $data = [
             'investments_proyects' => $investments_proyects
         ];
+    
         return view('investments', $data);
     }
 }

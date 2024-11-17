@@ -7,6 +7,7 @@ CREATE TABLE users (
 	username VARCHAR(20) UNIQUE NOT NULL,
 	password VARCHAR(20) UNIQUE NOT NULL,
 	email VARCHAR(40) UNIQUE NOT NULL,
+    img_name varchar(100) NOT NULL, /*nombre de imagen del usuario */
 	PRIMARY KEY (id_users),
 	UNIQUE INDEX(username, password)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -21,7 +22,7 @@ CREATE TABLE projects (
     status ENUM('EN PROCESO', 'CANCELADO', 'FINALIZADO', 'PUBLICADO') NOT NULL DEFAULT 'EN PROCESO', 
     end_date DATE NOT NULL,
     reward_plan varchar(300) NOT NULL,
-    img_name varchar(300) NOT NULL, /*nombre de imagen del proyecto */
+    img_name varchar(100) NOT NULL, /*nombre de imagen del proyecto */
     PRIMARY KEY (id_projects),
     FOREIGN KEY (id_users) REFERENCES users(id_users)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

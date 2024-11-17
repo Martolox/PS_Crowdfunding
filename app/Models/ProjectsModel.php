@@ -32,14 +32,10 @@ class ProjectsModel extends Model
     }
 
   
-	public function getProjects($slug = false)
-	{
-		if ($slug === false) {
-			return $this->findAll();
-		}
+	public function getProjects(){
+    return $this->where('status', 'PUBLICADO')->findAll();
+}
 
-		return $this->where(['slug' => $slug])->first();
-	}
 
 	public function get_published_projects() {
         return $this->where('status', 'PUBLICADO')
@@ -49,6 +45,18 @@ class ProjectsModel extends Model
 
 	public function getProjectsByUserId($userId)
     {
-        return $this->where('id_users', $userId)->findAll();
+        return $this->where('id_users', 1)->findAll(); // debemos de ponerle $userId
     }
+
+	public function getProjectWithInvestmentTotal($project_id)
+{
+    $builder = $this->db->table('projects');
+    $builder->select('projects.*, COALESCE(SUM(investments.amount), 0) as total_investment');
+    $builder->join('investments', 'investments.id_projects = projects.id_projects', 'left');
+    $builder->where('projects.id_projects', $project_id);
+    $builder->groupBy('projects.id_projects');
+
+    $query = $builder->get();
+    return $query->getRowArray();
+}
 }

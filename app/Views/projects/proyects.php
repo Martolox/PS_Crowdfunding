@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Proyectos</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/crowdfunding/public/css/crearInversion.css">
+    <link rel="stylesheet" href="/crowdfunding/public/css/listProjets.css">
+    <script src="/crowdfunding/public/js/modalCrearInversion.js"></script>
+    <script src="/crowdfunding/public/js/modalDetallesProyecto.js"></script>
+
+<link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/ico" href="img/favicon.ico"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" 
+  integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" 
+  crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
+  crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+<section id="navbar">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <!-- Botones izquierdos -->
+    <ul class="navbar-nav">
+        <li class="nav-item"><a href="#" class="nav-link">IMPULSA</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Proyectos</a></li>
+            <li class="nav-item"><a href="<?= base_url('investments/list') ?>"class="nav-link">Inversiones</a></li>
+            <li class="nav-item"><a href="<?= base_url('projects/myList') ?>"class="nav-link">Mis proyectos</a></li>
+        </ul>
+    </ul>
+    <!-- Botones derechos -->
+    <ul class="navbar-nav ml-auto">
+        <form id="theme-switcher" class="form-inline">
+            <div class="form-check form-check-inline">
+                <input checked type="radio" id="dark" name="theme" value="dark" class="form-check-input">
+                <label for="dark" class="form-check-label">Dark</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" id="light" name="theme" value="light" class="form-check-input">
+                <label for="light" class="form-check-label">Light</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input type="radio" id="dim" name="theme" value="dim" class="form-check-input">
+                <label for="dim" class="form-check-label">Dim</label>
+            </div>
+        </form>
+        <!-- Barra de búsqueda -->
+        <li class="nav-item"><a class="nav-link" href="#" role="button"><i class="fas fa-search"></i></a></li>
+    </ul>
+</nav>
+
+</section>
+    <div class="container">
+        <h3>Proyectos para Invertir</h3>
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Categoria</th>
+                    <th>Impacto</th>
+                    <th>Estado</th>
+                    <th>Fondo</th>
+                    <th>Fecha Cierre</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($projects as $projectInv): ?>
+                    <tr>
+                        <td><?= $projectInv['id_projects'] ?></td>
+                        <td><?= $projectInv['name'] ?></td>
+                        <td><?= $projectInv['category'] ?></td>
+                        <td><?= $projectInv['impact'] ?></td>
+                        <td><?= $projectInv['status'] ?></td>
+                        <td><?= $projectInv['budget'] ?></td>
+                        <td><?= $projectInv['end_date'] ?></td>
+                        <td>
+                            <div class="button-group">
+                                <button class="btn-action btn btn-primary btn-sm" onclick="openInvestmentModal(<?= $projectInv['id_projects'] ?>)"> <i class="fas fa-edit"></i> Invertir</button>
+                                <button class="btn-action" onclick="window.location.href='<?= base_url('proyects/detalleProjet/' . $projectInv['id_projects']) ?>'">Detalles</button>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal CREAR INVERSION -->
+    <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal()">&times;</span>
+                <h2>Realizar inversión</h2>
+                <!-- Por ejemplo, usando ID 1 -->
+                <input type="hidden" id="current_user_id" value="1"> <!-- Cuando esta la session correcta cambiar por: value="?<php echo session()->get('user_id'); ?>"-->
+                <form action="<?= base_url()?>investments/create" method="post">
+                    <div class="form-group">
+                        <label for="id_username">Id usuario:</label>
+                        <input type="text" id="id_username" name="id_username" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_project">Id proyecto:</label>
+                        <input type="text" id="id_project" name="id_project" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Monto:</label>
+                        <input type="number" id="amount" name="amount" placeholder="Ingresar monto" required>
+                    </div>
+                    <div class="form-group button-group">
+                        <button type="submit" value="data">Aceptar</button>
+                        <button type="button" onclick="closeModal()">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+    </div>
+</body>
