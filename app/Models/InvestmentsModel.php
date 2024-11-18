@@ -12,18 +12,51 @@ class InvestmentsModel extends Model
     protected $allowedFields = ['id_projects', 'id_users', 'amount', 'status', 'investment_date'];
 
     public function updateMonto($id_inversion, $nueva_inversion, $vieja_inversion)
-    {       
-        if ($nueva_inversion > $vieja_inversion) { // Verificar que el nuevo monto sea mayor que el anterior
-            return $this->update($id_inversion, ['amount' => $nueva_inversion]);  // Actualizar la inversión
+    {
+        if ($nueva_inversion > $vieja_inversion) {
+            // Verificar que el nuevo monto sea mayor que el anterior
+            return $this->update($id_inversion, ['amount' => $nueva_inversion]); // Actualizar la inversión
         } else {
             return false; // Puedes manejar esto como una excepción o simplemente retornar false
         }
     }
+    
   
     public function eliminarInversion($id_inversion)
-    {       
-        return $this->update($id_inversion, ['status' => 'cancelled']);  
+    {
+        $investment = $this->find($id_inversion);
+        $projectModel = new ProjectsModel();
+        $project = $projectModel->find($investment['id_projects']);
+
+        if ($project['status'] !== 'FINALIZADO') {
+            return $this->update($id_inversion, ['status' => 'cancelled']);
+        } else {
+            return false;
+        }
     }
+
+       // Función para verificar el estado del proyecto
+       public function canInvest($id_project)
+       {
+           $db = \Config\Database::connect();
+           $builder = $db->table('projects');
+           $builder->select('status');
+           $builder->where('id_projects', $id_project);
+           $query = $builder->get();
+           $result = $query->getRow();
+   
+           return ($result->status !== 'CANCELADO' && $result->status !== 'FINALIZADO');
+       }
+   
+       // Insertar inversión con verificación de estado del proyecto
+       public function insertInvestment($data)
+       {
+           if ($this->canInvest($data['id_projects'])) {
+               return $this->insert($data);
+           } else {
+               return false;
+           }
+       }
   
     public function misInversiones($id_usuario)
     {

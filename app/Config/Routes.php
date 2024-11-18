@@ -21,8 +21,8 @@ $routes->get('projects/myList', 'ProjectsController::listIProyects');
 
 $routes->post('ProjectsController/save_project', 'ProjectsController::save_project');
 $routes->get('ProjectsController/changeStatus/(:num)/(:alpha)', 'ProjectsController::changeStatus/$1/$2');
-$routes->get('/projects/filter', 'ProjectController::filtrar');
-
+$routes->get('projects/filter/(:any)', 'ProjectsController::filtrar/$1');
+$routes->get('projects/filterMylist/(:any)', 'ProjectsController::filtrarMisProyectos/$1');
 
 $routes->get('/investments/eliminarInversion/(:num)', 'InvestmentsController::updateEstado/$1');
 $routes->get('/investments/update', 'InvestmentsController::update');

@@ -6,15 +6,23 @@
 
     <link rel="stylesheet" href="/crowdfunding/public/css/crearProyecto.css">
     <script src="/crowdfunding/public/js/modalCrearProyecto.js"></script>
+    <link rel="stylesheet" href="/crowdfunding/public/css/listProjets.css">
+    <script src="/crowdfunding/public/js/alertasYMensajesProjets.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
 </head>
 
 <body>
+    <?php if (session()->getFlashdata('message') || session()->getFlashdata('error')): ?>
+        <input type="hidden" id="alertMessage" value="<?= session()->getFlashdata('message') ?>">
+        <input type="hidden" id="alertError" value="<?= session()->getFlashdata('error') ?>">
+    <?php endif; ?>
+
     <!-- NAVBAR -->
     <section id="navbar">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -48,7 +56,19 @@
         </ul>
     </nav>
     <div class="container">
-        <h3>Mis Proyectos</h3>
+        <h3 id="tituloMisProyectos">Mis Proyectos</h3>
+        <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar proyectos...">
+                <button onclick="
+                if (document.getElementById('searchInput').value.trim() !== '') { window.location.href='<?= base_url('projects/filterMylist/') ?>' + document.getElementById('searchInput').value; }
+                else { alert('Por favor, ingrese un término de búsqueda.'); }">
+                    <i class="fas fa-search"></i>
+                </button>
+                 <button class="reset-button" onclick="window.location.href='<?= base_url('projects/myList') ?>'">
+                <i class="fas fa-redo-alt"></i>
+                 </button>
+        </div>
+
         <table class="table table-striped table-bordered">
             <thead>
                 <tr>

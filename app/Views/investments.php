@@ -5,7 +5,7 @@
   <script src="/crowdfunding/public/js/modal_modificar.js"></script>
   <link rel="stylesheet" href="/crowdfunding/public/css/modalInvesmentsUpdate.css">
   <link rel="stylesheet" href="/crowdfunding/public/css/listInvesments.css">
-
+  <script src="/crowdfunding/public/js/alertasYMensajesInversiones.js."></script>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -24,6 +24,7 @@
   crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    
 </head>
 
 <body>
@@ -73,22 +74,27 @@
                     <th>Operaciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <?php foreach ($investments_proyects as $inv_pro) { ?>
-                <tr>
-                    <td><?= $inv_pro['id_investments'] ?></td>
-                    <td><?= $inv_pro['amount'] ?></td>
-                    <td><?= $inv_pro['investment_date'] ?></td>
-                    <td><?= $inv_pro['project_name'] ?></td>
-                    <td><?= $inv_pro['project_end_date'] ?></td>
-                    <td> 
-                        <button class="btn-action" onclick="window.location.href='<?= base_url('investments/eliminarInversion/' . $inv_pro['id_investments']) ?>'">Eliminar</button>
-                        <button class="btn-action" onclick="openModal(<?= $inv_pro['id_investments'] ?>, <?= $inv_pro['amount'] ?>)">Modificar</button>
-                        <button class="btn-action">Detalles</button>
-                    </td>
-                </tr>
-                <?php } ?>
-                <!-- Agrega más filas aquí -->
+                <?php if (session()->getFlashdata('message') || session()->getFlashdata('error')): ?>
+                <input type="hidden" id="alertMessage" value="<?= session()->getFlashdata('message') ?>">
+                <input type="hidden" id="alertError" value="<?= session()->getFlashdata('error') ?>">
+                <?php endif; ?>
+
+                <?php foreach ($investments_proyects as $inv_pro): ?>
+                    <tr>
+                        <td><?= $inv_pro['id_investments'] ?></td>
+                        <td><?= $inv_pro['amount'] ?></td>
+                        <td><?= $inv_pro['investment_date'] ?></td>
+                        <td><?= $inv_pro['project_name'] ?></td>
+                        <td><?= $inv_pro['project_end_date'] ?></td>
+                        <td> 
+                            <a href="<?= base_url('investments/eliminarInversion/' . $inv_pro['id_investments']) ?>">
+                                <button class="btn-action">Cancelar</button>
+                            </a>
+                            <button class="btn-action" onclick="openModal(<?= $inv_pro['id_investments'] ?>, <?= $inv_pro['amount'] ?>)">Modificar</button>
+                            <button class="btn-action">Detalles</button>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
     </div>

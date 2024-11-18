@@ -33,14 +33,7 @@ class ProjectsModel extends Model
 
   
 	public function getProjects(){
-    return $this->where('status', 'PUBLICADO')->findAll();
-}
-
-
-	public function get_published_projects() {
-        return $this->where('status', 'PUBLICADO')
-					->where('id_users !=', 4)//$loggedUserId)
-					->findAll();
+    return $this->whereIn('status', ['PUBLICADO', 'FINALIZADO', 'CANCELADO'])->findAll();
 	}
 
 	public function getProjectsByUserId($userId)
@@ -59,4 +52,48 @@ class ProjectsModel extends Model
     $query = $builder->get();
     return $query->getRowArray();
 }
+
+public function filtrarProjets($texto)
+{
+    $builder = $this->db->table($this->table);
+    $builder->like('name', $texto, 'both', true);
+    $builder->orLike('impact', $texto, 'both', true);
+    $builder->orLike('category', $texto, 'both', true);
+    $builder->orLike('status', $texto, true);
+    $builder->whereIn('status', ['PUBLICADO', 'FINALIZADO', 'CANCELADO']);
+
+    $query = $builder->get();
+    return $query->getResultArray();
+}
+
+public function updateProjet($projectId, $newStatus)
+{
+	$builder = $this->db->table($this->table);
+	$builder->set('status', $newStatus);
+	$builder->where('id_projects', $projectId);
+	$builder->update();
+
+	// Mensaje de éxito dependiendo del nuevo estado
+	if($newStatus == 'PUBLICADO') {
+		return '¡Proyecto publicado exitosamente!';
+	} elseif ($newStatus == 'CANCELADO') {
+		return '¡Proyecto cancelado exitosamente!';
+	} else {
+		return false; // O maneja esto como una excepción si lo prefieres
+	}
+}
+
+public function filtrarIProjets($texto)
+{
+    $builder = $this->db->table($this->table);
+    $builder->like('name', $texto, 'both', true);
+    $builder->orLike('impact', $texto, 'both', true);
+    $builder->orLike('category', $texto, 'both', true);
+    $builder->orLike('status', $texto, true);
+    $builder->whereIn('status', ['PUBLICADO', 'FINALIZADO', 'CANCELADO','EN PROCESO']);
+
+    $query = $builder->get();
+    return $query->getResultArray();
+}
+
 }

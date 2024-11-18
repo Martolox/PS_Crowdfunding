@@ -8,6 +8,7 @@ class InvestmentsController extends BaseController
     public function index() {
         return redirect()->to(base_url('investments/list'));
     }
+   
     public function create()
     {
         $investmentData = [
@@ -16,27 +17,44 @@ class InvestmentsController extends BaseController
             'amount' => $this->request->getPost('amount')              
         ];
         $investmentsModel = new InvestmentsModel();
-        $investmentsModel->insert($investmentData);
-        return redirect()->to(base_url('investments/list'));
+        $result = $investmentsModel->insertInvestment($investmentData);
+    
+        if ($result) {
+            return redirect()->to(base_url('projects/list'))->with('message', 'Inversión realizada exitosamente.');
+        } else {
+            return redirect()->to(base_url('projects/list'))->with('error', 'No se puede invertir en este proyecto porque está cancelado o finalizado.');
+        }
     }
-
-   public function update()
+    
+    public function update()
     {
-        $id_inversion = $this->request->getPost("id_inversion");
-        $monto_nuevo = $this->request->getPost("monto_nuevo");
-        $monto_viejo = $this->request->getPost("monto_viejo");
-
+        $id_inversion = $this->request->getPost('id_inversion');
+        $monto_nuevo = $this->request->getPost('monto_nuevo');
+        $monto_viejo = $this->request->getPost('monto_viejo');
+    
         $investmentsModel = new InvestmentsModel();
-        $investmentsModel->updateMonto($id_inversion,$monto_nuevo,$monto_viejo);
-        return redirect()->to(base_url('investments/list'));
+        $result = $investmentsModel->updateMonto($id_inversion, $monto_nuevo, $monto_viejo);
+    
+        if ($result) {
+            return redirect()->to(base_url('investments/list'))->with('message', 'Inversión actualizada exitosamente.');
+        } else {
+            return redirect()->to(base_url('investments/list'))->with('error', 'Error al actualizar la inversión. El nuevo monto debe ser mayor que el anterior.');
+        }
     }
+    
 
     public function updateEstado($id_inversion)
     {
         $investmentsModel = new InvestmentsModel();
-        $investmentsModel->eliminarInversion($id_inversion);
-        return redirect()->to(base_url('investments/list'));
+        $result = $investmentsModel->eliminarInversion($id_inversion);
+
+        if ($result) {
+            return redirect()->to(base_url('investments/list'))->with('message', 'Inversión cancelada exitosamente.');
+        } else {
+            return redirect()->to(base_url('investments/list'))->with('error', 'No se puede cancelar la inversión porque el proyecto ha sido finalizado.');
+        }
     }
+   
 
     public function list()
     {

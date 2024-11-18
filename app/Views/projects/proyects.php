@@ -8,9 +8,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/crowdfunding/public/css/crearInversion.css">
-    <link rel="stylesheet" href="/crowdfunding/public/css/listProjets.css">
+    <link rel="stylesheet" href="/crowdfunding/public/css/listProjets.css"> 
     <script src="/crowdfunding/public/js/modalCrearInversion.js"></script>
     <script src="/crowdfunding/public/js/modalDetallesProyecto.js"></script>
+    <script src="/crowdfunding/public/js/alertasYMensajesProjets.js"></script>
 
 <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" type="image/ico" href="img/favicon.ico"/>
@@ -30,6 +31,11 @@
 </head>
 
 <body>
+    <?php if (session()->getFlashdata('message') || session()->getFlashdata('error')): ?>
+        <input type="hidden" id="alertMessage" value="<?= session()->getFlashdata('message') ?>">
+        <input type="hidden" id="alertError" value="<?= session()->getFlashdata('error') ?>">
+    <?php endif; ?>
+
     <!-- NAVBAR -->
 <section id="navbar">
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -64,9 +70,22 @@
 </nav>
 
 </section>
-    <div class="container">
-        <h3>Proyectos para Invertir</h3>
-        <table class="table table-striped table-bordered">
+        <div class="container">
+                <h3 id="titulo">Proyectos para Invertir</h3>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar proyectos...">
+                <button onclick="
+                if (document.getElementById('searchInput').value.trim() !== '') { window.location.href='<?= base_url('projects/filter/') ?>' + document.getElementById('searchInput').value; } 
+                else { alert('Por favor, ingrese un término de búsqueda.'); }">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="reset-button" onclick="window.location.href='<?= base_url('projects/list') ?>'">
+                    <i class="fas fa-redo-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <table id= "tablaProyectos" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>ID</th>

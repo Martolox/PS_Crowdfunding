@@ -27,17 +27,16 @@ class ProjectsController extends BaseController
         return view('projects/proyects');
     }
 
-    // Guarda o actualiza un proyecto
-    public function save_project() {
-        $model= new ProjectsModel();
+    public function save_project()
+    {
+        $model = new ProjectsModel();
         $endDate = $this->request->getPost('end_date');
-        
+
         // Verifica que la fecha esté en el formato adecuado (por ejemplo, 'Y-m-d')
         if (DateTime::createFromFormat('Y-m-d', $endDate) !== false) {
-           
-            error_log("Pasé por este punto del código.  ".$this->request->getPost('category')."-".$this->request->getPost('impact')."-".$this->request->getPost('budget')."-".$this->request->getPost('status')."-".$endDate."-".$this->request->getPost('reward_plan'));
+
             $projectData = [
-                'id_users'=>'1', //session()->get('user_id');
+                'id_users' => '1', //session()->get('user_id');
                 'name' => $this->request->getPost('name'),
                 'category' => $this->request->getPost('category'),
                 'impact' => $this->request->getPost('impact'),
@@ -46,28 +45,31 @@ class ProjectsController extends BaseController
                 'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
                 'reward_plan' => $this->request->getPost('reward_plan'),
             ];
-            error_log(json_encode($projectData));
-           
+
+            $projectId = $this->request->getPost('project_id');
+            if ($projectId) {
+                // Actualiza el proyecto existente
+                $result = $model->update_project($projectId, $projectData);
+                if ($result) {
+                    return redirect()->to('projects/myList')->with('message', 'Proyecto actualizado exitosamente.');
+                } else {
+                    return redirect()->to('projects/myList')->with('error', 'Error al actualizar el proyecto.');
+                }
+            } else {
+                // Inserta un nuevo proyecto
+                $result = $model->insert_project($projectData);
+                if ($result) {
+                    return redirect()->to('projects/myList')->with('message', 'Proyecto creado exitosamente.');
+                } else {
+                    return redirect()->to('projects/myList')->with('error', 'Error al crear el proyecto.');
+                }
+            }
         } else {
             // Manejar error: el formato de fecha no es válido
-            echo "La fecha no tiene el formato correcto.";
+            return redirect()->to('projects/myList')->with('error', 'La fecha no tiene el formato correcto.');
         }
-
-error_log("llegue lejos");
-        $projectId = $this->request->getPost('project_id');
-        error_log("id".$this->request->getPost('project_id'));
-        if ($projectId) {
-            // Actualiza el proyecto existente
-            error_log("por update");
-            $model->update_project($projectId, $projectData);
-        } else {
-            error_log("por insert");
-            // Inserta un nuevo proyecto
-            $model->insert_project($projectData);
-        }
-        return redirect()->to('projects/myList');
     }
-    
+
     public function list(): string
     {   
         $projectModel = new ProjectsModel();
@@ -105,14 +107,34 @@ error_log("llegue lejos");
         return view('projects/misProyects', ['projects' => $projects]);
     }
 
+
     public function changeStatus($projectId, $newStatus)
+    {
+        $projectModel = new ProjectsModel();
+    
+        // Actualiza el estado del proyecto
+        $message = $projectModel->updateProjet($projectId, $newStatus);
+    
+        if ($message) {
+            return redirect()->to('projects/myList')->with('message', $message);
+        } else {
+            return redirect()->to('projects/myList')->with('error', 'Error al actualizar el estado del proyecto.');
+        }
+    }
+    
+
+public function filtrar($text): string
 {
     $projectModel = new ProjectsModel();
+    $projects = $projectModel->filtrarProjets($text);
+    return view('projects/proyects', ['projects' => $projects]);
+}
 
-    // Actualiza el estado del proyecto
-    $projectModel->update($projectId, ['status' => $newStatus]);
-
-    return redirect()->to('projects/myList');
+public function filtrarMisProyectos($text): string
+{
+    $projectModel = new ProjectsModel();
+    $projects = $projectModel->filtrarIProjets($text);
+    return view('projects/misProyects', ['projects' => $projects]);
 }
 
 }
