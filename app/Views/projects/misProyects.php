@@ -15,6 +15,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     
+    
 </head>
 
 <body>
@@ -107,19 +108,26 @@
                             </a>
                         <?php elseif ($project['status'] == 'PUBLICADO'): ?>
                             <!-- Botón para cancelar el proyecto -->
-                            <a href="<?= base_url('ProjectsController/changeStatus/' . $project['id_projects'] . '/CANCELADO') ?>" class="btn btn-danger btn-sm">
+                            <button  onclick="showCancelModal(<?= $project['id_projects']; ?>, '<?= addslashes($project['name']); ?>', '<?= base_url('projectsController/cancel_project/' . $project['id_projects']); ?>')" 
+                                class="btn btn-danger btn-sm">
                                 <i class="fas fa-times-circle"></i> Cancelar
-                            </a>
-                            <!-- Botón de edición -->
+                            </button>
+                           
                             <a href="<?= base_url('projects/edit/' . $project['id_projects']) ?>" class="btn btn-primary btn-sm">
                                 <i class="fas fa-edit"></i> Editar
                             </a>
+                             <!-- Botón para finalizar si end_date <= hoy -->
+                            <?php if (strtotime($project['end_date']) <= strtotime(date('Y-m-d'))): ?>
+                                <a href="<?= base_url('projectsController/final_project/' . $project['id_projects'] ) ?>" class="btn btn-success btn-sm">
+                                    <i class="fas fa-check-circle"></i> Finalizar
+                                </a>
+                            <?php endif; ?>
                         <?php elseif ($project['status'] == 'CANCELADO'): ?>
                             <!-- Proyecto cancelado - sin acciones adicionales -->
-                            <span class="badge badge-danger">Cancelado</span>
+                            <span class="badge badge-danger"> <i class="fas fa-ban"></i> Proyecto Cancelado</span>
                         <?php elseif ($project['status'] == 'FINALIZADO'): ?>
                             <!-- Proyecto finalizado - sin acciones adicionales -->
-                            <span class="badge badge-success">Finalizado</span>
+                            <span class="badge badge-success"> <i class="fas fa-check-circle"></i> Proyecto Finalizado</span>
                         <?php endif; ?>
 
                         </td>
@@ -199,4 +207,51 @@
             </form>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div id="cancelModal" class="modal">
+        <div class="modal-content">
+            <h2>Confirmar Cancelación</h2>
+            <p id="modal-text">¿Estás seguro de que deseas cancelar este proyecto?</p>
+            <div class="modal-buttons">
+                <button id='confirmButton' onclick="confirmCancel()">Confirmar</button>
+                <button onclick="closeModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <form id="cancelForm"  method="POST" style="display:none;">
+        <input type="hidden" name="id_project" id="cancelProjectId">
+    </form>
+                                         
+
+
+
 </body>
+
+<script>
+function showCancelModal(id, name, url) {
+    // Mostrar el modal
+    document.getElementById('cancelModal').style.display = 'block';
+    // Cambiar el texto del modal
+    document.getElementById('modal-text').textContent = `¿Estás seguro de que deseas cancelar el proyecto "${name}"?`;
+  
+   // Asignar la acción del formulario con la URL correcta
+   document.getElementById('cancelForm').action = url;
+    // Guardar el ID del proyecto en un campo oculto
+    
+    document.getElementById('cancelProjectId').value = id;
+}
+
+function closeModal() {
+    // Ocultar el modal
+    document.getElementById('cancelModal').style.display = 'none';
+}
+
+function confirmCancel() {
+    // Enviar el formulario para cancelar el proyecto
+    document.getElementById('cancelForm').submit();
+}
+</script>
+
+

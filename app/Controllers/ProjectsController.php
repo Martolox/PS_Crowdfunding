@@ -122,6 +122,41 @@ class ProjectsController extends BaseController
         }
     }
     
+ public function cancel_project($projectId) 
+ {
+      
+     $projectModel = new ProjectsModel();
+     $success = $projectModel->cancelProject($projectId); 
+     
+        if ($success) {
+            return redirect()->to('projects/myList')->with('success', 'El proyecto y sus inversiones fueron cancelados.');
+        } else {
+            return redirect()->to('projects/myList')->with('error', 'Hubo un error al cancelar el proyecto.');
+        }
+        
+ }
+
+ public function final_project($id_project) 
+ {
+     $projectModel = new ProjectsModel();
+        error_log('estoy enfinal - '.$id_project);
+     $project = $projectModel->getProject($id_project);
+     if ($project === null) {
+        return redirect()->to('projects/myList')->with('error', 'El proyecto no existe.');
+    }
+   
+    
+    $endDate = $project['end_date'];
+     
+        if (strtotime($endDate) > strtotime(date('Y-m-d'))) {
+            // Si la fecha no es válida, redirigir con error
+            return redirect()->to('projects/myList')->with('error', 'No se puede finalizar un proyecto antes de su fecha de finalización.');
+        }
+
+    $projectModel->finalProject($id_project);
+    return redirect()->to('projects/myList')->with('success', 'Estado del proyecto actualizado correctamente.');
+}
+
 
 public function filtrar($text): string
 {

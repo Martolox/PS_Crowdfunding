@@ -69,4 +69,18 @@ class InvestmentsModel extends Model
         $query = $builder->get();
         return $query->getResultArray();
     }
+
+
+    /**
+     * Actualizar el estado de las inversiones asociadas a un proyecto
+     *
+     * @param int $id_project
+     * @param array $data
+     * @return bool
+     */
+    public function updateByProject(int $id_project, array $data): bool
+    {
+        return $this->where('id_projects', $id_project)->set($data)->update();
+    }
+
 }

@@ -20,8 +20,7 @@ class ProjectsModel extends Model
 
 
 	public function insert_project($data) {
-		error_log("llege al model".json_encode($data));
-       
+		
 		return $this->insert($data);
 		// return $this->save('projects', $data);
     }
@@ -36,6 +35,10 @@ class ProjectsModel extends Model
     return $this->whereIn('status', ['PUBLICADO', 'FINALIZADO', 'CANCELADO'])->findAll();
 	}
 
+    public function getProject($projectId)
+    {
+        return $this->where('id_projects', $projectId)->first(); // debemos de ponerle $userId
+    }
 	public function getProjectsByUserId($userId)
     {
         return $this->where('id_users', 1)->findAll(); // debemos de ponerle $userId
@@ -95,5 +98,44 @@ public function filtrarIProjets($texto)
     $query = $builder->get();
     return $query->getResultArray();
 }
+
+
+ /**
+     * Cancelar un proyecto y sus inversiones asociadas
+     *
+     * @param int $id_project
+     * @return bool
+     */
+    public function cancelProject(int $id_project): bool
+    {     
+        $db = \Config\Database::connect(); // Conexión manual si se requiere transacción
+        $db->transStart(); // Iniciar transacción
+        
+        // Cambiar el estado del proyecto a 'cancelled'
+        $this->update($id_project, ['status' => 'CANCELADO']);
+        
+        // Actualizar inversiones asociadas
+        $investmentModel = new InvestmentsModel(); // Asegúrate de tener este modelo creado
+        $investmentModel->updateByProject($id_project, ['status' => 'cancelled']);
+        $db->transComplete(); // Finalizar transacción
+
+        return $db->transStatus(); // Devuelve true si todo fue exitoso
+    }
+
+    public function finalProject(int $id_project): bool
+    {     
+        $db = \Config\Database::connect(); // Conexión manual si se requiere transacción
+        $db->transStart(); // Iniciar transacción
+        
+        // Cambiar el estado del proyecto a 'cancelled'
+        $this->update($id_project, ['status' => 'FINALIZADO']);
+        
+        // Actualizar inversiones asociadas
+        $investmentModel = new InvestmentsModel(); // Asegúrate de tener este modelo creado
+        $investmentModel->updateByProject($id_project, ['status' => 'cancelled']);
+        $db->transComplete(); // Finalizar transacción
+
+        return $db->transStatus(); // Devuelve true si todo fue exitoso
+    }
 
 }

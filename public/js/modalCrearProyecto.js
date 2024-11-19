@@ -30,6 +30,31 @@ function closeProjectModal() {
 
 
 
+//funciones para modal de confirmacion de cancelacion
+function showCancelModal(id, name, url) {
+    // Mostrar el modal
+    document.getElementById('cancelModal').style.display = 'block';
+    // Cambiar el texto del modal
+    document.getElementById('modal-text').textContent = `¿Estás seguro de que deseas cancelar el proyecto "${name}"?`;
+   
+    // Asignar la URL al botón de confirmación
+    //document.getElementById('confirmButton').href = url;
+    // Guardar el ID del proyecto en un campo oculto
+    document.getElementById('cancelProjectId').value = id;
+}
+
+function closeModal() {
+    // Ocultar el modal
+    document.getElementById('cancelModal').style.display = 'none';
+}
+
+function confirmCancel() {
+    // Enviar el formulario para cancelar el proyecto
+    document.getElementById('cancelForm').submit();
+}
+
+
+
 // Add event listeners when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     // Add click event to close button
@@ -67,3 +92,4 @@ function populateForm(data) {
     document.getElementById('end_date').value = data.end_date;
     document.getElementById('reward_plan').value = data.reward_plan;
 }
+
