@@ -41,8 +41,8 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <!-- Botones izquierdos -->
     <ul class="navbar-nav">
-        <li class="nav-item"><a href="#" class="nav-link">IMPULSA</a></li>
-            <li class="nav-item"><a class="nav-link" href="#" role="button"><i class="fas fa-bars"></i></a></li>
+        <li class="nav-item"><a href="<?= base_url() ?>" class="nav-link">IMPULSA</a></li>
+            <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>" role="button"><i class="fas fa-bars"></i></a></li>
             <li class="nav-item"><a href="#" class="nav-link">Proyectos</a></li>
             <li class="nav-item"><a href="<?= base_url('investments/list') ?>"class="nav-link">Inversiones</a></li>
             <li class="nav-item"><a href="<?= base_url('projects/myList') ?>"class="nav-link">Mis proyectos</a></li>
@@ -99,7 +99,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($projects as $projectInv): ?>
+                <?php if(isset($projects)) foreach ($projects as $projectInv): ?>
                     <tr>
                         <td><?= $projectInv['id_projects'] ?></td>
                         <td><?= $projectInv['name'] ?></td>
@@ -111,7 +111,7 @@
                         <td>
                             <div class="button-group">
                                 <button class="btn-action btn btn-primary btn-sm" onclick="openInvestmentModal(<?= $projectInv['id_projects'] ?>)"> <i class="fas fa-edit"></i> Invertir</button>
-                                <button class="btn-action" onclick="window.location.href='<?= base_url('proyects/detalleProjet/' . $projectInv['id_projects']) ?>'">Detalles</button>
+                                <button class="btn-action" onclick="location.href='<?= base_url('proyects/detail/' . $projectInv['id_projects']) ?>'">Detalles</button>
                             </div>
                         </td>
                     </tr>

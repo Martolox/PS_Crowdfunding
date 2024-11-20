@@ -8,7 +8,7 @@ class UsersModel extends Model
 {
 	protected $table 	  = 'users';
     protected $primaryKey = 'id_users';
-    protected $returnType = UsersModel::class;
+    protected $returnType = 'array';;
     protected $allowedFields = ['id_users', 'username', 'password', 'email'];
 
 	public function getUsers()

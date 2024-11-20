@@ -17,8 +17,8 @@ class HomeController extends BaseController
         // Obtener los proyectos del usuario
         $projects = $projectModel->getProjectsByUserId($userId);
 
-        $projectsInv = $projectModel->get_published_projects();
- 
+        //$projectsInv = $projectModel->get_published_projects();
+        $projectsInv = [];
         // Pasar los proyectos a la vista
        // return view('projects/index', ['projects' => $projects]);
 

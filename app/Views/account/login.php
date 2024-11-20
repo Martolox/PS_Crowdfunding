@@ -4,8 +4,8 @@
     <title>Ingresar</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="icon" type="image/ico" href="img/favicon.ico"/>
+    <link rel="stylesheet" href="<?= base_url('css/login.css') ?>">
+    <link rel="icon" type="image/ico" href="<?= base_url('img/favicon.ico') ?>"/>
 </head>
 <body>
 
@@ -14,41 +14,30 @@
 <section id="login">
 	<div class="column">
 		<h2>
-			<img src="img/target2.png">
+			<img src="<?= base_url('img/png/target.png') ?>">
 			<div class="text">Accede a tu cuenta</div>	
 		</h2>
-		<form autocomplete="off">
+		<form autocomplete="off" action="<?= base_url('authenticate') ?>" method="post">
 			<div class="segment">
 				<div class="field">
 					<div class="text-input">
-                        <img src="img/icons/user-solid.svg"></i>
-						<input type="text" name="email" placeholder="Dirección de correo">
+                        <img src="<?= base_url('img/icons/user-solid.svg') ?>">
+						<input type="text" name="username" placeholder="Nombre de usuario">
 					</div>
 				</div>
 				<div class="field">
 					<div class="text-input">
-                        <img src="img/icons/lock-solid.svg"></i>
+                        <img src="<?= base_url('img/icons/lock-solid.svg') ?>">
 						<input type="password" name="password" placeholder="Contraseña">
 					</div>
 				</div>
-				<button>Ingresar</button>
-
-				<!-- TODO 1
-				<div class="error-message">
-					
-				</div> -->
-
+				<div class="buttons">
+					<button type="submit" value="login">Ingresar</button>
+					<a href="<?= base_url('register') ?>" class="button">Registrarme</a>
+				</div>
 			</div>
-
-			<!-- TODO 2
-			<div class="ui-message">
-				
-			</div> -->
-
 		</form>
-		
 	</div>
-
 </section>
 </body>
 </html>
