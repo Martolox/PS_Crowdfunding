@@ -62,7 +62,7 @@ class ProjectsController extends BaseController
                 $file->move($uploadPath, $newName);
 
                 // Guardar la ruta del archivo en la base de datos o donde corresponda
-                $filePath = '/public/uploads/' . $newName;
+                $filePath = '/uploads/' . $newName;
 
 
                 $projectData = [
@@ -173,7 +173,7 @@ class ProjectsController extends BaseController
  public function final_project($id_project) 
  {
      $projectModel = new ProjectsModel();
-        error_log('estoy enfinal - '.$id_project);
+        
      $project = $projectModel->getProject($id_project);
      if ($project === null) {
         return redirect()->to('projects/myList')->with('error', 'El proyecto no existe.');
@@ -204,6 +204,19 @@ public function filtrarMisProyectos($text): string
     $projectModel = new ProjectsModel();
     $projects = $projectModel->filtrarIProjets($text);
     return view('projects/misProyects', ['projects' => $projects]);
+}
+
+
+public function getProject($id)
+{ error_log("entre al get");
+    $projectModel = new ProjectsModel();
+    $project = $projectModel->find($id);
+    error_log("traje el project - " .json_encode($project));
+    if ($project) {
+        return $this->response->setJSON($project);
+    }
+
+    return $this->response->setJSON(['error' => 'Proyecto no encontrado.'], 404);
 }
 
 }

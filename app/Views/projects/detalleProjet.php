@@ -9,7 +9,9 @@
 <body class="bg-gray-100 min-h-screen flex items-center justify-center">
     <div id="projectDetails" class="bg-white rounded-lg shadow-xl p-8 m-4 max-w-xl w-full">
         <h1 id="projectName" class="text-3xl font-bold mb-4 text-center text-gray-800"><?= esc($project['name']) ?></h1>
-        <img id="projectImage" src="<?= base_url('uploads/projects/' . esc($project['img_name'])) ?>" alt="Imagen de <?= esc($project['name']) ?>" class="w-full h-64 object-cover rounded-lg mb-6">
+        
+        <img id="projectImage" src="<?= base_url(esc($project['img_name']))?>" alt="Imagen de <?= esc($project['name']) ?>" class="w-64 h-64 object-cover rounded-lg mb-6">
+        
         <div class="grid grid-cols-2 gap-4 mb-6">
             <div>
                 <p class="text-sm font-semibold text-gray-600">Categoría:</p>

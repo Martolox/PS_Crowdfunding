@@ -103,9 +103,9 @@
                             </a>
                        
                             <!-- Botón de edición -->
-                            <a href="<?= base_url('projects/edit/' . $project['id_projects']) ?>" class="btn btn-primary btn-sm">
+                            <button onclick="editProject(<?= $project['id_projects'] ?>)" class="btn btn-primary btn-sm">
                                 <i class="fas fa-edit"></i> Editar
-                            </a>
+                            </button>
                         <?php elseif ($project['status'] == 'PUBLICADO'): ?>
                             <!-- Botón para cancelar el proyecto -->
                             <button  onclick="showCancelModal(<?= $project['id_projects']; ?>, '<?= addslashes($project['name']); ?>', '<?= base_url('projectsController/cancel_project/' . $project['id_projects']); ?>')" 
@@ -113,9 +113,10 @@
                                 <i class="fas fa-times-circle"></i> Cancelar
                             </button>
                            
-                            <a href="<?= base_url('projects/edit/' . $project['id_projects']) ?>" class="btn btn-primary btn-sm">
+                            <button onclick="editProject(<?= $project['id_projects'] ?>)" class="btn btn-primary btn-sm">
                                 <i class="fas fa-edit"></i> Editar
-                            </a>
+                            </button>
+                            
                              <!-- Botón para finalizar si end_date <= hoy -->
                             <?php if (strtotime($project['end_date']) <= strtotime(date('Y-m-d'))): ?>
                                 <a href="<?= base_url('projectsController/final_project/' . $project['id_projects'] ) ?>" class="btn btn-success btn-sm">
@@ -197,6 +198,14 @@
 
                 <div class="form-group">
                     <label for="project_image">Imagen del Proyecto</label>
+                    <!-- Imagen previa del proyecto -->
+                    <img 
+                        id="projectImage" 
+                        src="" 
+                        alt="Imagen del proyecto" 
+                        class="w-64 h-64 object-cover rounded-lg mb-6" 
+                        hidden=true> <!-- Ocultar por defecto -->
+                    <!-- Input para subir nueva imagen -->
                     <input type="file" id="project_image" name="project_image" accept="image/*">
                 </div>
 
@@ -251,6 +260,37 @@ function closeModal() {
 function confirmCancel() {
     // Enviar el formulario para cancelar el proyecto
     document.getElementById('cancelForm').submit();
+}
+
+
+function editProject(projectId) {
+    // Realizar una petición AJAX para obtener los datos del proyecto
+    fetch(`<?= base_url('projectsController/getProject/') ?>${projectId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Cargar los datos al formulario del modal
+           // Mostrar el modal
+           openProjectModal();
+            document.getElementById('modalTitle').innerText = 'Editar Proyecto';
+            document.getElementById('project_id').value = data.id_projects;
+            document.getElementById('name').value = data.name;
+            document.getElementById('category').value = data.category;
+            document.getElementById('impact').value = data.impact;
+            document.getElementById('budget').value = data.budget;
+            document.getElementById('status').value = data.status;
+            document.getElementById('end_date').value = data.end_date;
+            document.getElementById('reward_plan').value = data.reward_plan;
+            // Configurar la imagen del proyecto
+            const projectImageElement = document.getElementById('projectImage');
+            if (data.img_name && data.img_name.trim() !== '') {
+                projectImageElement.src = `<?= base_url('/') ?>${data.img_name}`;
+                projectImageElement.hidden = false; // Mostrar la imagen
+            } else {
+                projectImageElement.hidden = true; // Ocultar si no hay imagen
+            }
+            
+        })
+        .catch(error => console.error('Error al cargar los datos del proyecto:', error));
 }
 </script>
 
