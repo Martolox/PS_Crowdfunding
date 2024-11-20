@@ -1,74 +1,84 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <title>Impulsa : Sitio de Crowdfunding</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#222">
-    <!-- Bootstrap CSS -->
+    <link rel="icon" type="image/ico" href="<?= base_url('img/favicon.ico') ?>"/>
+    <!-- CSS -->
+    <link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>">
 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- JS -->
+    <script type="module" src="<?= base_url('js/utils.js') ?>"></script>
 
-    
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/ico" href="img/favicon.ico"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" 
-          integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" 
-          crossorigin="anonymous">
-
-
-		  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-			<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-			<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-			<style>
-			.modal-dialog {
-				max-width: 600px;
-				width: 100%;
-			}
-
-			.modal-content {
-				padding: 15px;
-			}
-
-			.form-control {
-				width: 100%;
-			}
-			</style>
-
-    <script type="module" src="js/util.js"></script>
 </head>
 <body>
 
 <!-- NAVBAR -->
+
 <section id="navbar">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav>
     <!-- Botones izquierdos -->
     <ul class="navbar-nav">
-        <li class="nav-item"><a href="<?= base_url() ?>" class="nav-link">IMPULSA</a></li>
-        <li class="nav-item"><a class="nav-link" href="#" role="button"><i class="fas fa-bars"></i></a></li>
-        <li class="nav-item"><a href="projects/list" class="nav-link">Proyectos</a></li>
-        <li><a href="investments/list" class="nav-link">Inversiones</a></li>
-        <li class="nav-item"><a href="projects/myList" class="nav-link">Mis Proyectos</a></li>
+        <li><a href="<?= base_url('') ?>" class="nav-link">IMPULSA</a></li>
+        <li><a href="<?= base_url('') ?>" class="nav-link"role="button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="var(--text1)">
+                <path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+            </svg>
+        </a></li>
+        <li><a href="<?= base_url('projects/list') ?>" class="nav-link">Proyectos</a></li>
+        <li><a href="<?= base_url('investments/list') ?>" class="nav-link">Inversiones</a></li>
+        <li><a href="<?= base_url('projects/myList') ?>" class="nav-link">Mis Proyectos</a></li>
+        <li><a href="<?= base_url('projects/new') ?>" class="nav-link">Nuevo Proyecto</a></li>
     </ul>
     <!-- Botones derechos -->
-    <ul class="navbar-nav ml-auto">
-        <form id="theme-switcher" class="form-inline">
-            <div class="form-check form-check-inline">
-                <input checked type="radio" id="dark" name="theme" value="dark" class="form-check-input">
-                <label for="dark" class="form-check-label">Dark</label>
+    <ul class="navbar-nav ms-auto">
+        <form id="theme-switcher">
+            
+            <div class="radio-container">
+                <input checked type="radio" id="dark" name="theme" value="dark" class="custom-radio">
+                <label for="dark">
+                    <!-- SVG para estado no seleccionado -->
+                    <svg class="unchecked"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="18" height="18" fill="var(--text2)">
+                        <path d="M144.7 98.7c-21 34.1-33.1 74.3-33.1 117.3c0 98 62.8 181.4 150.4 211.7c-12.4 2.8-25.3 4.3-38.6 4.3C126.6 432 48 353.3 48 256c0-68.9 39.4-128.4 96.8-157.3zm62.1-66C91.1 41.2 0 137.9 0 256C0 379.7 100 480 223.5 480c47.8 0 92-15 128.4-40.6c1.9-1.3 3.7-2.7 5.5-4c4.8-3.6 9.4-7.4 13.9-11.4c2.7-2.4 5.3-4.8 7.9-7.3c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-3.7 .6-7.4 1.2-11.1 1.6c-5 .5-10.1 .9-15.3 1c-1.2 0-2.5 0-3.7 0l-.3 0c-96.8-.2-175.2-78.9-175.2-176c0-54.8 24.9-103.7 64.1-136c1-.9 2.1-1.7 3.2-2.6c4-3.2 8.2-6.2 12.5-9c3.1-2 6.3-4 9.6-5.8c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-3.6-.3-7.1-.5-10.7-.6c-2.7-.1-5.5-.1-8.2-.1c-3.3 0-6.5 .1-9.8 .2c-2.3 .1-4.6 .2-6.9 .4z"/>
+                    </svg>
+                    <!-- SVG para estado seleccionado -->
+                    <svg class="checked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="18" height="18" fill="var(--text1)">
+                        <path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/>
+                    </svg>
+                </label>
             </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" id="light" name="theme" value="light" class="form-check-input">
-                <label for="light" class="form-check-label">Light</label>
+            
+            <div class="radio-container">
+                <input type="radio" id="light" name="theme" value="light" class="custom-radio">
+                <label for="light">
+                    <!-- SVG para estado no seleccionado -->
+                    <svg class="unchecked"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18" fill="var(--text2)">
+                        <path d="M375.7 19.7c-1.5-8-6.9-14.7-14.4-17.8s-16.1-2.2-22.8 2.4L256 61.1 173.5 4.2c-6.7-4.6-15.3-5.5-22.8-2.4s-12.9 9.8-14.4 17.8l-18.1 98.5L19.7 136.3c-8 1.5-14.7 6.9-17.8 14.4s-2.2 16.1 2.4 22.8L61.1 256 4.2 338.5c-4.6 6.7-5.5 15.3-2.4 22.8s9.8 13 17.8 14.4l98.5 18.1 18.1 98.5c1.5 8 6.9 14.7 14.4 17.8s16.1 2.2 22.8-2.4L256 450.9l82.5 56.9c6.7 4.6 15.3 5.5 22.8 2.4s12.9-9.8 14.4-17.8l18.1-98.5 98.5-18.1c8-1.5 14.7-6.9 17.8-14.4s2.2-16.1-2.4-22.8L450.9 256l56.9-82.5c4.6-6.7 5.5-15.3 2.4-22.8s-9.8-12.9-17.8-14.4l-98.5-18.1L375.7 19.7zM269.6 110l65.6-45.2 14.4 78.3c1.8 9.8 9.5 17.5 19.3 19.3l78.3 14.4L402 242.4c-5.7 8.2-5.7 19 0 27.2l45.2 65.6-78.3 14.4c-9.8 1.8-17.5 9.5-19.3 19.3l-14.4 78.3L269.6 402c-8.2-5.7-19-5.7-27.2 0l-65.6 45.2-14.4-78.3c-1.8-9.8-9.5-17.5-19.3-19.3L64.8 335.2 110 269.6c5.7-8.2 5.7-19 0-27.2L64.8 176.8l78.3-14.4c9.8-1.8 17.5-9.5 19.3-19.3l14.4-78.3L242.4 110c8.2 5.7 19 5.7 27.2 0zM256 368a112 112 0 1 0 0-224 112 112 0 1 0 0 224zM192 256a64 64 0 1 1 128 0 64 64 0 1 1 -128 0z"/>
+                    </svg>
+                    <!-- SVG para estado seleccionado -->
+                    <svg class="checked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18" fill="var(--text1)">
+                        <path d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"/>
+                    </svg>
+                </label>
             </div>
-            <div class="form-check form-check-inline">
-                <input type="radio" id="dim" name="theme" value="dim" class="form-check-input">
-                <label for="dim" class="form-check-label">Dim</label>
+            
+            <div class="radio-container">
+                <input type="radio" id="dim" name="theme" value="dim" class="custom-radio">
+                <label for="dim">
+                    <!-- SVG para estado no seleccionado -->
+                    <svg class="unchecked"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18" fill="var(--text2)">
+                        <path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/>
+                    </svg>
+                    <!-- SVG para estado seleccionado -->
+                    <svg class="checked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18" fill="var(--text1)">
+                        <path d="M448 256c0-106-86-192-192-192l0 384c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/>
+                    </svg>
+                </label>
             </div>
         </form>
-        <!-- Barra de búsqueda -->
         <!-- Usuario -->
         <li><h3><?= session('userSessionName') ?></h3></li>
         <li><a href="<?= base_url('logout') ?>">
@@ -79,29 +89,31 @@
 </section>
 
 <!-- BANNER -->
+
 <section id="banner">
     <div class="inner">
         <h2>Bienvenidos a Impulsa!</h2>
-        <p>Conectamos emprendedores visionarios con una comunidad global de inversores que buscan apoyar ideas</p>        
+        <p >Conectamos emprendedores visionarios con una comunidad global de inversores que buscan apoyer ideas</p>     
     </div>
 </section>
 
 <!-- HERO -->
-<section id="hero" class="surface2">
+
+<section id="hero"  class="surface2">
     <h2>
         <i>"Con <strong>IMPULSA</strong> despegan proyectos con el potencial de transformar industrias"</i>
     </h2>
     <p>Ingresa para comenzar</p>
-    <ul>
+    <ul >
         <li>
-            <a href="register">
-                <button class="btn rad-shadow">Registrarme</button>
+            <a href="<?= base_url() ?>register">
+                <button class="rad-shadow">Registrarme</button>
             </a>
         </li>
         <li>
-            <a href="login">
-                <button class="btn rad-shadow">Tengo cuenta</button>
-            </a>  
+            <a href="<?= base_url() ?>login">
+                <button class="rad-shadow">Tengo cuenta</button>
+            </a>    
         </li>
     </ul>
 </section>
@@ -109,12 +121,12 @@
 <!-- GALLERY -->
 
 <main id="gallery">
-    <section>
+    <section class="gallery-container">
         <div class="container">
-            <img class="rad-shadow" src="https://picsum.photos/350/200?random=1" alt="Imagen 1">
-            <img class="rad-shadow" src="https://picsum.photos/350/200?random=2" alt="Imagen 2">
-            <img class="rad-shadow" src="https://picsum.photos/350/200?random=3" alt="Imagen 3">
-            <img class="rad-shadow" src="https://picsum.photos/350/200?random=4" alt="Imagen 4">
+            <img class="rad-shadow" src="https://picsum.photos/350/200?random=1">
+            <img class="rad-shadow" src="https://picsum.photos/350/200?random=2">
+            <img class="rad-shadow" src="https://picsum.photos/350/200?random=3">
+            <img class="rad-shadow" src="https://picsum.photos/350/200?random=4">
         </div>
     </section>
 
@@ -140,20 +152,14 @@
 </main>
 
 <!-- FOOTER -->
-<section id="footer" class="surface1">
-    <p>Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License, and code samples are licensed under the Apache 2.0 License. For details, see the SCV Developers Site Policies. Impulsa es una marca registrada de UNRN y/o sus afiliados.<br><br>
+
+<section  id="footer"  class="surface1">
+    <p>Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License, and code samples are licensed under the Apache 2.0 License. For details, see the SCV Developers Site Policies. Impulsa is a registered trademark of UNRN and/or its affiliates.<br><br>
     Last updated 2024-11-01 UTC.</p>
+    
 </section>
 
-
-<!-- Scripts de Bootstrap y dependencias -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
-        crossorigin="anonymous"></script>
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-
-
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<!-- END -->
 
 </body>
 </html>
