@@ -132,6 +132,7 @@ public function filtrarIProjets($texto)
         
         // Actualizar inversiones asociadas
         $investmentModel = new InvestmentsModel(); // Asegúrate de tener este modelo creado
+        $investmentModel->updateByProject($id_project, ['status' => 'finalized']);
         $db->transComplete(); // Finalizar transacción
 
         return $db->transStatus(); // Devuelve true si todo fue exitoso
