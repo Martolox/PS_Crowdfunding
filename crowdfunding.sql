@@ -42,7 +42,6 @@ CREATE TABLE investments (
     id_projects SMALLINT UNSIGNED NOT NULL,
     id_users SMALLINT UNSIGNED NOT NULL,
     amount DECIMAL(10,2) NOT NULL,
-    status ENUM('active', 'cancelled') NOT NULL DEFAULT 'active',
     investment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id_investments),
     FOREIGN KEY (id_projects) REFERENCES projects(id_projects),
