@@ -17,12 +17,10 @@ $routes->get('/register', 				[LogController::class, 'register']);;
 $routes->post('/users/new', 			[UsersController::class, 'new']);
 $routes->post('/authenticate', 			[UsersController::class, 'authenticate']);
 
-$routes->get('/authenticate', 'LogController::authenticate');
-$routes->get('/users', 'UsersController::list');
-
+/* Projects */
+$routes->get('/projects/list', 			[ProjectsController::class, 'list']);
 $routes->get('/projects', 'ProjectsController::index');
 $routes->get('/projects/detail/(:num)', 'ProjectsController::detalles/$1');
-$routes->get('/projects/list', 'ProjectsController::list');
 $routes->get('/projects/myList', 'ProjectsController::listIProyects');
 
 $routes->get('/ProjectsController/changeStatus/(:num)/(:alpha)', 'ProjectsController::changeStatus/$1/$2');
@@ -33,6 +31,7 @@ $routes->get('/projectsController/getProject/(:num)', 'ProjectsController::getPr
 $routes->post('/ProjectsController/save_project', 'ProjectsController::save_project');
 $routes->post('/projectsController/cancel_project/(:num)', 'ProjectsController::cancel_project/$1');
 
+/* Investments */
 $routes->get('/investments/eliminarInversion/(:num)', 'InvestmentsController::updateEstado/$1');
 $routes->get('/investments/update', 'InvestmentsController::update');
 $routes->post('/investments/update', 'InvestmentsController::update');

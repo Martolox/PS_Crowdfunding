@@ -31,7 +31,6 @@
         <li><a href="<?= base_url('projects/list') ?>" class="nav-link">Proyectos</a></li>
         <li><a href="<?= base_url('investments/list') ?>" class="nav-link">Inversiones</a></li>
         <li><a href="<?= base_url('projects/myList') ?>" class="nav-link">Mis Proyectos</a></li>
-        <li><a href="<?= base_url('projects/new') ?>" class="nav-link">Nuevo Proyecto</a></li>
     </ul>
     <!-- Botones derechos -->
     <ul class="navbar-nav ms-auto">

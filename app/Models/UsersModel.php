@@ -8,11 +8,10 @@ class UsersModel extends Model
 {
 	protected $table 	  = 'users';
     protected $primaryKey = 'id_users';
-    protected $returnType = 'array';;
+    protected $returnType = 'array';
     protected $allowedFields = ['id_users', 'username', 'password', 'email'];
 
-	public function getUsers()
-	{
+	public function getUsers() {
 		return $this->findAll();
 	}
 }

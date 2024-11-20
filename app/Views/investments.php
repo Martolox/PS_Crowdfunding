@@ -56,8 +56,6 @@
                 <label for="dim" class="form-check-label">Dim</label>
             </div>
         </form>
-        <!-- Barra de búsqueda -->
-        <li class="nav-item"><a class="nav-link" href="#" role="button"><i class="fas fa-search"></i></a></li>
     </ul>
 </nav>
 </section>
