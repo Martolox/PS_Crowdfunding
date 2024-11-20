@@ -35,34 +35,68 @@ class ProjectsController extends BaseController
         // Verifica que la fecha esté en el formato adecuado (por ejemplo, 'Y-m-d')
         if (DateTime::createFromFormat('Y-m-d', $endDate) !== false) {
 
-            $projectData = [
-                'id_users' => '1', //session()->get('user_id');
-                'name' => $this->request->getPost('name'),
-                'category' => $this->request->getPost('category'),
-                'impact' => $this->request->getPost('impact'),
-                'budget' => $this->request->getPost('budget'),
-                'status' => $this->request->getPost('status'),
-                'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
-                'reward_plan' => $this->request->getPost('reward_plan'),
-            ];
+           
 
-            $projectId = $this->request->getPost('project_id');
-            if ($projectId) {
-                // Actualiza el proyecto existente
-                $result = $model->update_project($projectId, $projectData);
-                if ($result) {
-                    return redirect()->to('projects/myList')->with('message', 'Proyecto actualizado exitosamente.');
+
+            // Cargar el servicio para manejar archivos
+            $file = $this->request->getFile('project_image');
+
+            if ($file && 
+                $file->isValid() && 
+                !$file->hasMoved() && 
+                in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/gif']) && 
+                $file->getSize() <= 2048 * 1024 // 2 MB
+            ) {
+                // Ruta relativa dentro de tu proyecto donde guardarás el archivo
+                $uploadPath =  ROOTPATH . '/public/uploads/';
+                error_log("estoy creando el path - ".$uploadPath);
+                // Crear la carpeta si no existe
+                if (!is_dir($uploadPath)) {
+                    mkdir($uploadPath, 0755, true);
+                }
+
+                // Generar un nombre único para evitar colisiones
+                $newName = $file->getRandomName();
+
+                // Mover el archivo a la carpeta
+                $file->move($uploadPath, $newName);
+
+                // Guardar la ruta del archivo en la base de datos o donde corresponda
+                $filePath = '/public/uploads/' . $newName;
+
+
+                $projectData = [
+                    'id_users' => '1', //session()->get('user_id');
+                    'name' => $this->request->getPost('name'),
+                    'category' => $this->request->getPost('category'),
+                    'impact' => $this->request->getPost('impact'),
+                    'budget' => $this->request->getPost('budget'),
+                    'status' => $this->request->getPost('status'),
+                    'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
+                    'reward_plan' => $this->request->getPost('reward_plan'),
+                    'img_name' => $filePath,
+                ];
+
+                $projectId = $this->request->getPost('project_id');
+                if ($projectId) {
+                    // Actualiza el proyecto existente
+                    $result = $model->update_project($projectId, $projectData);
+                    if ($result) {
+                        return redirect()->to('projects/myList')->with('message', 'Proyecto actualizado exitosamente.');
+                    } else {
+                        return redirect()->to('projects/myList')->with('error', 'Error al actualizar el proyecto.');
+                    }
                 } else {
-                    return redirect()->to('projects/myList')->with('error', 'Error al actualizar el proyecto.');
+                    // Inserta un nuevo proyecto
+                    $result = $model->insert_project($projectData);
+                    if ($result) {
+                        return redirect()->to('projects/myList')->with('message', 'Proyecto creado exitosamente.');
+                    } else {
+                        return redirect()->to('projects/myList')->with('error', 'Error al crear el proyecto.');
+                    }
                 }
             } else {
-                // Inserta un nuevo proyecto
-                $result = $model->insert_project($projectData);
-                if ($result) {
-                    return redirect()->to('projects/myList')->with('message', 'Proyecto creado exitosamente.');
-                } else {
-                    return redirect()->to('projects/myList')->with('error', 'Error al crear el proyecto.');
-                }
+                return redirect()->to('projects/myList')->with('error', 'No se pudo subir el archivo.');
             }
         } else {
             // Manejar error: el formato de fecha no es válido

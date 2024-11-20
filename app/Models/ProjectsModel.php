@@ -10,7 +10,7 @@ class ProjectsModel extends Model
 	protected $primaryKey = 'id_projects';
 	protected $returnType  = 'array';//ProjectsModel::class;
 	protected $dateFormat = 'date'; // o 'date', 'timestamp'
-	protected $allowedFields = ["id_users","name","category","impact","budget", "status","end_date", "reward_plan"];
+	protected $allowedFields = ["id_users","name","category","impact","budget", "status","end_date", "reward_plan", "img_name"];
 
 	/**
 	* @param false|string $slug
