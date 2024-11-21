@@ -20,7 +20,7 @@ class InvestmentsController extends BaseController
         $result = $investmentsModel->insertInvestment($investmentData);
     
         if ($result) {
-            return redirect()->to(base_url('projects/list'))->with('message', 'Inversión realizada exitosamente.');
+            return redirect()->to(base_url('projects/list'))->with('success', 'Inversión realizada exitosamente.');
         } else {
             return redirect()->to(base_url('projects/list'))->with('error', 'No se puede invertir en este proyecto porque está cancelado o finalizado.');
         }
@@ -36,7 +36,7 @@ class InvestmentsController extends BaseController
         $result = $investmentsModel->updateMonto($id_inversion, $monto_nuevo, $monto_viejo);
     
         if ($result) {
-            return redirect()->to(base_url('investments/list'))->with('message', 'Inversión actualizada exitosamente.');
+            return redirect()->to(base_url('investments/list'))->with('success', 'Inversión actualizada exitosamente.');
         } else {
             return redirect()->to(base_url('investments/list'))->with('error', 'Error al actualizar la inversión. El nuevo monto debe ser mayor que el anterior.');
         }
@@ -49,7 +49,7 @@ class InvestmentsController extends BaseController
         $result = $investmentsModel->eliminarInversion($id_inversion);
 
         if ($result) {
-            return redirect()->to(base_url('investments/list'))->with('message', 'Inversión cancelada exitosamente.');
+            return redirect()->to(base_url('investments/list'))->with('success', 'Inversión cancelada exitosamente.');
         } else {
             return redirect()->to(base_url('investments/list'))->with('error', 'No se puede cancelar la inversión porque el proyecto ha sido finalizado.');
         }

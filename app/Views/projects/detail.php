@@ -45,6 +45,24 @@
 <section class="bg-gray-100 min-h-screen flex items-center justify-center">
     <div id="projectDetails" class="bg-white rounded-lg shadow-xl p-8 m-4 max-w-xl w-full">
         <h1 id="projectName" class="text-3xl font-bold mb-4 text-center text-gray-800"><?= esc($project['title']) ?></h1>
+          <!-- Aquí se mostrarán los mensajes -->
+          <?php if (session()->has('success')): ?>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?= session('success') ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php endif; ?>
+
+        <?php if (session()->has('error')): ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <?= session('error') ?>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php endif; ?>   
         <img id="projectImage" src="<?= base_url('uploads/' . esc($project['img_name'])) ?>" alt="Imagen de <?= esc($project['title']) ?>" class="w-full h-64 object-cover rounded-lg mb-6">
         <div class="grid grid-cols-2 gap-4 mb-6">
             <div>
