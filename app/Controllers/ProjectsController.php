@@ -64,7 +64,7 @@ class ProjectsController extends BaseController
                     // Actualiza el proyecto existente
                     $result = $model->update_project($projectId, $projectData);
                     if ($result) {
-                        return redirect()->to('projects/myList')->with('message', 'Proyecto actualizado exitosamente.');
+                        return redirect()->to('projects/myList')->with('success', 'Proyecto actualizado exitosamente.');
                     } else {
                         return redirect()->to('projects/myList')->with('error', 'Error al actualizar el proyecto.');
                     }
@@ -72,7 +72,7 @@ class ProjectsController extends BaseController
                     // Inserta un nuevo proyecto
                     $result = $model->insert_project($projectData);
                     if ($result) {
-                        return redirect()->to('projects/myList')->with('message', 'Proyecto creado exitosamente.');
+                        return redirect()->to('projects/myList')->with('success', 'Proyecto creado exitosamente.');
                     } else {
                         return redirect()->to('projects/myList')->with('error', 'Error al crear el proyecto.');
                     }
@@ -132,7 +132,7 @@ class ProjectsController extends BaseController
         $message = $projectModel->updateProjet($projectId, $newStatus);
     
         if ($message) {
-            return redirect()->to('projects/myList')->with('message', $message);
+            return redirect()->to('projects/myList')->with('success', $message);
         } else {
             return redirect()->to('projects/myList')->with('error', 'Error al actualizar el estado del proyecto.');
         }
