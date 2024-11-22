@@ -106,20 +106,19 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if(isset($projects)) foreach ($projects as $projectInv): ?>
+                <?php if(isset($projects)) foreach ($projects as $p): ?>
                     <tr>
-                        <td><?= $projectInv['id_projects'] ?></td>
-                        <td><?= $projectInv['name'] ?></td>
-                        <td><?= $projectInv['category'] ?></td>
-                        <td><?= $projectInv['impact'] ?></td>
-                        <td><?= $projectInv['status'] ?></td>
-                        <td><?= $projectInv['budget'] ?></td>
-                        <td><?= $projectInv['end_date'] ?></td>
+                        <td><?= $p['id_projects'] ?></td>
+                        <td><?= $p['name'] ?></td>
+                        <td><?= $p['category'] ?></td>
+                        <td><?= $p['impact'] ?></td>
+                        <td><?= $p['status'] ?></td>
+                        <td><?= $p['budget'] ?></td>
+                        <td><?= $p['end_date'] ?></td>
                         <td>
                             <div class="button-group">
-                                <button class="btn-action btn btn-primary btn-sm" 
-                                onclick="openInvestmentModal(<?= session('userSessionID'), $projectInv['id_projects'] ?>)"> <i class="fas fa-edit"></i> Invertir</button>
-                                <button class="btn-action" onclick="location.href='<?= base_url('projects/detail/' . $projectInv['id_projects']) ?>'">Detalles</button>
+                                <button class="btn-action btn btn-primary btn-sm" onclick="openInvestmentModal(<?= session('userSessionID')?>, <?=$p['id_projects'] ?>)"> <i class="fas fa-edit"></i> Invertir</button>
+                                <button class="btn-action" onclick="location.href='<?= base_url('projects/detail/' . $p['id_projects']) ?>'">Detalles</button>
                             </div>
                         </td>
                     </tr>
@@ -133,7 +132,7 @@
             <div class="modal-content">
                 <span class="close-button" onclick="closeModal()">&times;</span>
                 <h2>Realizar inversión</h2>
-                <input type="hidden" id="current_user_id" value="<?= session('userSessionName') ?>">
+                <input type="hidden" id="current_user_id" value="<?= session('userSessionID') ?>">
                 <form action="<?= base_url()?>investments/create" method="post">
                     <div class="form-group">
                         <label for="id_username">Id usuario:</label>

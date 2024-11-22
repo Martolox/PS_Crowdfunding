@@ -19,7 +19,6 @@ class InvestmentsModel extends Model
             return false; // Puedes manejar esto como una excepción o simplemente retornar false
         }
     }
-    
   
     public function eliminarInversion($id_inversion) {
         $investment = $this->find($id_inversion);
@@ -41,7 +40,6 @@ class InvestmentsModel extends Model
         $builder->where('id_projects', $id_project);
         $query = $builder->get();
         $result = $query->getRow();
-   
         return ($result->status !== 'CANCELADO' && $result->status !== 'FINALIZADO');
     }
    
