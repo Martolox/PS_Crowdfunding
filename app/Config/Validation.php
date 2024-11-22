@@ -41,4 +41,32 @@ class Validation extends BaseConfig
     // --------------------------------------------------------------------
     // Rules
     // --------------------------------------------------------------------
+
+    public array $signup = [
+        'username' => [
+            'rules'  => 'required|max_length[20]|min_length[4]',
+            'errors' => [
+                'required'  =>'Debes elegir un nombre de usuario',
+                'min_length'=>'Nombre: se requieren al menos 4 caracteres',
+                'max_length'=>'Nombre: se requieren como máximo 20 caracteres',
+            ],
+        ],
+        'password' => [
+            'rules'  => 'required|max_length[20]|min_length[4]',
+            'errors' => [
+                'required'  =>'Debes elegir una contraseña',
+                'min_length'=>'Contraseña: se requieren al menos 4 caracteres',
+                'max_length'=>'Contraseña: se requieren como máximo 20 caracteres',
+            ],
+        ],
+        'email' => [
+            'rules'  => 'required|max_length[40]|valid_email',
+            'errors' => [
+                'required'  =>'Debes elegir un correo',
+                'min_length'=>'Correo: se requieren al menos 4 caracteres',
+                'max_length'=>'Correo: se requieren como máximo 40 caracteres',
+                'valid_email' => 'Por favor revisa que el correo sea una dirección válida.',
+            ],
+        ],
+    ];
 }

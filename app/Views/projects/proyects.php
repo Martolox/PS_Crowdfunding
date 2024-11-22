@@ -118,7 +118,7 @@
                         <td>
                             <div class="button-group">
                                 <button class="btn-action btn btn-primary btn-sm" onclick="openInvestmentModal(<?= $projectInv['id_projects'] ?>)"> <i class="fas fa-edit"></i> Invertir</button>
-                                <button class="btn-action" onclick="location.href='<?= base_url('proyects/detail/' . $projectInv['id_projects']) ?>'">Detalles</button>
+                                <button class="btn-action" onclick="location.href='<?= base_url('projects/detail/' . $projectInv['id_projects']) ?>'">Detalles</button>
                             </div>
                         </td>
                     </tr>

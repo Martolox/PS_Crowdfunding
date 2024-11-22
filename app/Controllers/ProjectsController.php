@@ -103,6 +103,7 @@ class ProjectsController extends BaseController
         $projectModel = new ProjectsModel();
         $project = $projectModel->getProjectWithInvestmentTotal($id);
 
+
         if (!$project) {
             return redirect()->to(base_url('/')); // Redirigir si no se encuentra el proyecto
         }
