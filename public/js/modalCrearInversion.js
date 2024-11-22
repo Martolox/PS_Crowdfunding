@@ -1,11 +1,7 @@
 // Bandera de control para el estado del modal
 let modalOpen = false;
 
-function openInvestmentModal(projectId) {
-    // Obtiene el ID del usuario desde el input hidden
-    const userId = document.getElementById('current_user_id').value;
-
-    // Establece los valores en el modal
+function openInvestmentModal(userId, projectId) {
     document.getElementById('id_username').value = userId;
     document.getElementById('id_project').value = projectId;
 

@@ -117,7 +117,8 @@
                         <td><?= $projectInv['end_date'] ?></td>
                         <td>
                             <div class="button-group">
-                                <button class="btn-action btn btn-primary btn-sm" onclick="openInvestmentModal(<?= $projectInv['id_projects'] ?>)"> <i class="fas fa-edit"></i> Invertir</button>
+                                <button class="btn-action btn btn-primary btn-sm" 
+                                onclick="openInvestmentModal(<?= session('userSessionID'), $projectInv['id_projects'] ?>)"> <i class="fas fa-edit"></i> Invertir</button>
                                 <button class="btn-action" onclick="location.href='<?= base_url('projects/detail/' . $projectInv['id_projects']) ?>'">Detalles</button>
                             </div>
                         </td>
@@ -132,8 +133,7 @@
             <div class="modal-content">
                 <span class="close-button" onclick="closeModal()">&times;</span>
                 <h2>Realizar inversión</h2>
-                <!-- Por ejemplo, usando ID 1 -->
-                <input type="hidden" id="current_user_id" value="1"> <!-- Cuando esta la session correcta cambiar por: value="?<php echo session()->get('user_id'); ?>"-->
+                <input type="hidden" id="current_user_id" value="<?= session('userSessionName') ?>">
                 <form action="<?= base_url()?>investments/create" method="post">
                     <div class="form-group">
                         <label for="id_username">Id usuario:</label>

@@ -302,5 +302,3 @@ function editProject(projectId) {
         .catch(error => console.error('Error al cargar los datos del proyecto:', error));
 }
 </script>
-
-

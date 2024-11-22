@@ -11,8 +11,7 @@ class InvestmentsModel extends Model
     protected $returnType = 'array';
     protected $allowedFields = ['id_projects', 'id_users', 'amount', 'status', 'investment_date'];
 
-    public function updateMonto($id_inversion, $nueva_inversion, $vieja_inversion)
-    {
+    public function updateMonto($id_inversion, $nueva_inversion, $vieja_inversion) {
         if ($nueva_inversion > $vieja_inversion) {
             // Verificar que el nuevo monto sea mayor que el anterior
             return $this->update($id_inversion, ['amount' => $nueva_inversion]); // Actualizar la inversión
@@ -22,8 +21,7 @@ class InvestmentsModel extends Model
     }
     
   
-    public function eliminarInversion($id_inversion)
-    {
+    public function eliminarInversion($id_inversion) {
         $investment = $this->find($id_inversion);
         $projectModel = new ProjectsModel();
         $project = $projectModel->find($investment['id_projects']);
@@ -35,31 +33,28 @@ class InvestmentsModel extends Model
         }
     }
 
-       // Función para verificar el estado del proyecto
-       public function canInvest($id_project)
-       {
-           $db = \Config\Database::connect();
-           $builder = $db->table('projects');
-           $builder->select('status');
-           $builder->where('id_projects', $id_project);
-           $query = $builder->get();
-           $result = $query->getRow();
+    // Función para verificar el estado del proyecto
+    public function canInvest($id_project) {
+        $db = \Config\Database::connect();
+        $builder = $db->table('projects');
+        $builder->select('status');
+        $builder->where('id_projects', $id_project);
+        $query = $builder->get();
+        $result = $query->getRow();
    
-           return ($result->status !== 'CANCELADO' && $result->status !== 'FINALIZADO');
-       }
+        return ($result->status !== 'CANCELADO' && $result->status !== 'FINALIZADO');
+    }
    
-       // Insertar inversión con verificación de estado del proyecto
-       public function insertInvestment($data)
-       {
-           if ($this->canInvest($data['id_projects'])) {
-               return $this->insert($data);
-           } else {
-               return false;
-           }
-       }
+    // Insertar inversión con verificación de estado del proyecto
+    public function insertInvestment($data) {
+        if ($this->canInvest($data['id_projects'])) {
+            return $this->insert($data);
+        } else {
+            return false;
+        }
+    }
   
-    public function misInversiones($id_usuario)
-    {
+    public function misInversiones($id_usuario) {
         $builder = $this->db->table($this->table);
         $builder->select('investments.*, projects.name as project_name, projects.end_date as project_end_date');
         $builder->join('projects', 'projects.id_projects = investments.id_projects');
@@ -70,17 +65,7 @@ class InvestmentsModel extends Model
         return $query->getResultArray();
     }
 
-
-    /**
-     * Actualizar el estado de las inversiones asociadas a un proyecto
-     *
-     * @param int $id_project
-     * @param array $data
-     * @return bool
-     */
-    public function updateByProject(int $id_project, array $data): bool
-    {
+    public function updateByProject(int $id_project, array $data): bool {
         return $this->where('id_projects', $id_project)->set($data)->update();
     }
-
 }

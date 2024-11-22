@@ -19,11 +19,11 @@ $routes->post('/authenticate', 			[UsersController::class, 'authenticate']);
 
 /* Projects */
 $routes->get('/projects/list', 			[ProjectsController::class, 'list']);
-$routes->get('/projects', 'ProjectsController::index');
-$routes->get('/projects/detail/(:num)', 'ProjectsController::detalles/$1');
-$routes->get('/projects/myList', 'ProjectsController::listIProyects');
+$routes->get('/projects/detail/(:num)', [ProjectsController::class, 'detail/$1']);
+$routes->get('/projects/myList', 		[ProjectsController::class, 'listMyProjects']);
 
 $routes->get('/ProjectsController/changeStatus/(:num)/(:alpha)', 'ProjectsController::changeStatus/$1/$2');
+
 $routes->get('/projects/filter/(:any)', 'ProjectsController::filtrar/$1');
 $routes->get('/projects/filterMylist/(:any)', 'ProjectsController::filtrarMisProyectos/$1');
 $routes->get('/projectsController/final_project/(:num)', 'ProjectsController::final_project/$1');
