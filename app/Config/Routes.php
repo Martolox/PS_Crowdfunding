@@ -11,7 +11,7 @@ $routes->get('/', 'HomeController::index');
 /* Login */
 $routes->get('/login', 					[LogController::class, 'login']);
 $routes->get('/logout', 				[LogController::class, 'logout']);
-$routes->get('/register', 				[LogController::class, 'register']);;
+$routes->get('/register', 				[LogController::class, 'register']);
 
 /* Users */
 $routes->post('/users/new', 			[UsersController::class, 'new']);

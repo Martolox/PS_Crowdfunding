@@ -1,126 +1,9 @@
-* {
-	/* brand foundation */
-	--brand-hue: 200;
-	--brand-saturation: 100%;
-	--brand-lightness: 50%;
-
-	/* light */
-	--brand-light: hsl(var(--brand-hue) var(--brand-saturation) var(--brand-lightness));
-	--text1-light: hsl(var(--brand-hue) var(--brand-saturation) 10%);
-	--text2-light: hsl(var(--brand-hue) 30% 30%);
-	--surface1-light: hsl(var(--brand-hue) 25% 90%);
-	--surface2-light: hsl(var(--brand-hue) 20% 99%);
-	--surface3-light: hsl(var(--brand-hue) 20% 92%);
-	--surface4-light: hsl(var(--brand-hue) 20% 85%);
-	--surface-shadow-light: var(--brand-hue) 10% 20%;
-	--shadow-strength-light: .02;
-
-	/* dark */
-	--brand-dark: hsl(
-		var(--brand-hue) 
-		calc(var(--brand-saturation) / 2)
-		calc(var(--brand-lightness) / 1.5)
-	);
-	--text1-dark: hsl(var(--brand-hue) 15% 85%);
-	--text2-dark: hsl(var(--brand-hue) 5% 65%);
-	--surface1-dark: hsl(var(--brand-hue) 10% 10%);
-	--surface2-dark: hsl(var(--brand-hue) 10% 15%);
-	--surface3-dark: hsl(var(--brand-hue) 5%  20%);
-	--surface4-dark: hsl(var(--brand-hue) 5% 25%);
-	--surface-shadow-dark: var(--brand-hue) 50% 3%;
-	--shadow-strength-dark: .8;
-
-	/* dim */
-	--brand-dim: hsl(
-		var(--brand-hue) 
-		calc(var(--brand-saturation) / 1.25)
-		calc(var(--brand-lightness) / 1.25)
-	);
-	--text1-dim: hsl(var(--brand-hue) 15% 75%);
-	--text2-dim: hsl(var(--brand-hue) 10% 61%);
-	--surface1-dim: hsl(var(--brand-hue) 10% 20%);
-	--surface2-dim: hsl(var(--brand-hue) 10% 25%);
-	--surface3-dim: hsl(var(--brand-hue) 5%  30%);
-	--surface4-dim: hsl(var(--brand-hue) 5% 35%);
-	--surface-shadow-dim: var(--brand-hue) 30% 13%;
-	--shadow-strength-dim: .2;
-}
-
-:root {
-	color-scheme: light;
-
-	--brand: var(--brand-light);
-	--text1: var(--text1-light);
-	--text2: var(--text2-light);
-	--surface1: var(--surface1-light);
-	--surface2: var(--surface2-light);
-	--surface3: var(--surface3-light);
-	--surface4: var(--surface4-light);
-	--surface-shadow: var(--surface-shadow-light);
-	--shadow-strength: var(--shadow-strength-light);
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		color-scheme: dark;
-
-		--brand: var(--brand-dark);
-		--text1: var(--text1-dark);
-		--text2: var(--text2-dark);
-		--surface1: var(--surface1-dark);
-		--surface2: var(--surface2-dark);
-		--surface3: var(--surface3-dark);
-		--surface4: var(--surface4-dark);
-		--surface-shadow: var(--surface-shadow-dark);
-		--shadow-strength: var(--shadow-strength-dark);
-	}
-}
-
-[color-scheme="light"] {
-	color-scheme: light;
-
-	--brand: var(--brand-light);
-	--text1: var(--text1-light);
-	--text2: var(--text2-light);
-	--surface1: var(--surface1-light);
-	--surface2: var(--surface2-light);
-	--surface3: var(--surface3-light);
-	--surface4: var(--surface4-light);
-	--surface-shadow: var(--surface-shadow-light);
-	--shadow-strength: var(--shadow-strength-light);
-}
-
-[color-scheme="dark"] {
-	color-scheme: dark;
-	
-	--brand: var(--brand-dark);
-	--text1: var(--text1-dark);
-	--text2: var(--text2-dark);
-	--surface1: var(--surface1-dark);
-	--surface2: var(--surface2-dark);
-	--surface3: var(--surface3-dark);
-	--surface4: var(--surface4-dark);
-	--surface-shadow: var(--surface-shadow-dark);
-	--shadow-strength: var(--shadow-strength-dark);
-}
-
-[color-scheme="dim"] {
-	color-scheme: dark;
-
-	--brand: var(--brand-dim);
-	--text1: var(--text1-dim);
-	--text2: var(--text2-dim);
-	--surface1: var(--surface1-dim);
-	--surface2: var(--surface2-dim);
-	--surface3: var(--surface3-dim);
-	--surface4: var(--surface4-dim);
-	--surface-shadow: var(--surface-shadow-dim);
-	--shadow-strength: var(--shadow-strength-dim);
-}
-
 /* GENERAL */
 
 * {
+	--brand: hsl(200 50% calc(50% / 1.5));
+	--text1: hsl(200 15% 85%);
+	--text2: hsl(200 5% 65%);
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -257,4 +140,50 @@ html {
     border: 1px solid rgba(34, 36, 38, 0.15);
     border-radius: 0.3rem;
     cursor: pointer;
+}
+
+/* LOGIN ERROR MESSAGE */
+
+#login .error-message:not(:empty) {
+    display: block;
+    text-align: left;
+}
+
+#login .error-message {
+	box-shadow: 0px 0px 0px 1px #E0B4B4 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+	background-color: #FFF6F6;
+    color: #9F3A38;
+    font-size: 1em;
+
+    position: relative;
+    min-height: 1em;
+    margin: 1em 0em;
+    background: #F8F8F9;
+    padding: 1em 1.5em;
+    line-height: 1.4285em;
+    transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, box-shadow 0.1s ease;
+    border-radius: 0.28571429rem;
+}
+
+#login ::selection {
+    background-color: #CCE2FF;
+    color: rgba(0, 0, 0, 0.87);
+}
+
+#login .error-message ul {
+	display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+#login .error-message > :last-child {
+    margin-bottom: 0em;
+}
+
+#login .error-message > :first-child {
+    margin-top: 0em;
 }

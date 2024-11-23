@@ -36,6 +36,18 @@
 					<a href="<?= base_url('register') ?>" class="button">Registrarme</a>
 				</div>
 			</div>
+
+			<!-- ERRORS -->
+			<div class="error-message">
+				<ul class="list">
+					<?php
+					if(isset($errors))
+					foreach ($errors as $e) 
+						echo '<li>'.$e.'</li>';
+					?>
+				</ul>
+			</div>
+
 		</form>
 	</div>
 </section>
