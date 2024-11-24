@@ -39,7 +39,7 @@
 				</div>
 				<div class="buttons">
 					<a href="<?= base_url('login') ?>" class="button">Ya tengo cuenta</a>
-					<button type="submit" value="register">Ingresar</button>
+					<button type="submit" value="register">Aceptar</button>
 				</div>
 			</div>
 

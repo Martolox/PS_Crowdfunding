@@ -7,6 +7,7 @@ use App\Controllers\ProjectsController;
 use App\Controllers\UsersController;
 
 $routes->get('/', 'HomeController::index');
+$routes->get('/test', 'HomeController::test');
 
 /* Login */
 $routes->get('/login', 					[LogController::class, 'login']);

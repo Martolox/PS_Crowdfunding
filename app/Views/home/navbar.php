@@ -79,7 +79,9 @@
 			</div>
 		</form>
 		<!-- Usuario -->
-		<li><h3><?= session('userSessionName') ?></h3></li>
+		<li><a href="#sidebar" class="user-profile">
+			<h3 class="btn"><?= session('userSessionName') ?></h3>
+		</a></li>
 		<li><a href="<?= base_url('logout') ?>">
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24" fill="var(--text1)" ><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/></svg>
 		</a></li>
@@ -87,76 +89,67 @@
 </nav>
 </section>
 
-<!-- BANNER -->
+<!-- SIDEBAR -->
 
-<section id="banner">
-	<div class="inner">
-		<h2>Bienvenidos a Impulsa!</h2>
-		<p >Conectamos emprendedores visionarios con una comunidad global de inversores que buscan apoyer ideas</p>     
-	</div>
-</section>
-
-<!-- HERO -->
-
-<section id="hero"  class="surface2">
-	<h2>
-		<i>"Con <strong>IMPULSA</strong> despegan proyectos con el potencial de transformar industrias"</i>
-	</h2>
-	<p>Ingresa para comenzar</p>
-	<ul >
-		<li>
-			<a href="<?= base_url() ?>register">
-				<button class="rad-shadow">Registrarme</button>
-			</a>
-		</li>
-		<li>
-			<a href="<?= base_url() ?>login">
-				<button class="rad-shadow">Tengo cuenta</button>
-			</a>    
-		</li>
+<nav id="sidebar">
+	<ul class="links">
+		<li><a href="index.html">Home</a></li>
+		<li><a href="generic.html">Mis Proyectos</a></li>
+		<li><a href="elements.html">Mis Inversiones</a></li>
 	</ul>
-</section>
 
-<!-- GALLERY -->
-
-<main id="gallery">
-	<section class="gallery-container">
-		<div class="container">
-			<img class="rad-shadow" src="https://picsum.photos/350/200?random=1">
-			<img class="rad-shadow" src="https://picsum.photos/350/200?random=2">
-			<img class="rad-shadow" src="https://picsum.photos/350/200?random=3">
-			<img class="rad-shadow" src="https://picsum.photos/350/200?random=4">
+	<form action="" enctype="multipart/form-data" autocomplete="off" method="post">
+		<br>
+		<h2>Perfil</h2>
+		<label for="img_name">Foto de perfil</label>
+		<div class="profile-img">
+			<img src="uploads/profile.png" width="250">
 		</div>
-	</section>
+		<input type="file" id="img_name" name="img_name" accept="image/*" class="hidden">
+		<label for="username">Tu nombre</label>
+		<input type="text" id="username" name="username" placeholder="John" value="">
+		<label for="email">Tu Email</label>
+		<input type="email" id="email" name="email" placeholder="John@email.com" value="">
+		<br>
+		<input type="submit" name="submit" value="Guardar cambios">
+		<br>
+		<br>
+	</form>
+</nav>
 
-	<section>
-		<div class="text">
-			<h1 class="text1">
-				<span class="swatch brand rad-shadow"></span>
-				Interacción y Colaboración
-			</h1>
-			<br>
-			<h1 class="text1">
-				<span class="swatch text1 rad-shadow"></span>
-				Análisis y Reportes
-			</h1>
-			<p class="text1">Paneles de control para que los emprendedores puedan monitorear el progreso de sus campañas y los inversores puedan seguir sus inversiones.</p>
-			<h1 class="text2">
-				<span class="swatch text2 rad-shadow"></span>
-				Seguridad y Cumplimiento
-			</h1>
-			<p class="text2">Implementación de medidas de seguridad avanzadas para proteger los datos y las transacciones de los usuarios, cumpliendo con las normativas legales vigentes.</p>
-		</div>
-	</section>
-</main>
+<!-- SCRIPTS -->
 
-<!-- FOOTER -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(document).ready(function() {
+		if ($('#sidebar .close').length === 0) {
+			$('#sidebar').prepend('<a href="#" class="close"></a>');
+		}
 
-<section  id="footer"  class="surface1">
-	<p>Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License, and code samples are licensed under the Apache 2.0 License. For details, see the SCV Developers Site Policies. Impulsa is a registered trademark of UNRN and/or its affiliates.<br><br>
-	Last updated 2024-11-01 UTC.</p>
-	
-</section>
+		$('a[href="#sidebar"], .user-profile').click(function(e) {
+			e.preventDefault();
+			$('#sidebar').addClass('visible');
+		});
+
+		$('#sidebar .close').click(function(e) {
+			e.preventDefault();
+			$('#sidebar').removeClass('visible');
+		});
+
+		// Cerrar al hacer clic fuera del sidebar
+		$(document).click(function(e) {
+			if (!$(e.target).closest('#sidebar').length && 
+				!$(e.target).closest('.user-profile').length) {
+				$('#sidebar').removeClass('visible');
+			}
+		});
+
+		// Prevenir que clicks dentro del sidebar lo cierren
+		$('#sidebar').click(function(e) {
+			e.stopPropagation();
+		});
+	});
+</script>
 
 <!-- END -->
 
