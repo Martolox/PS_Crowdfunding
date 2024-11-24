@@ -93,3 +93,57 @@ function populateForm(data) {
     document.getElementById('reward_plan').value = data.reward_plan;
 }
 
+
+function showCancelModal(id, name, url) {
+    // Mostrar el modal
+    document.getElementById('cancelModal').style.display = 'block';
+    // Cambiar el texto del modal
+    document.getElementById('modal-text').textContent = `¿Estás seguro de que deseas cancelar el proyecto "${name}"?`;
+  
+   // Asignar la acción del formulario con la URL correcta
+   document.getElementById('cancelForm').action = url;
+    // Guardar el ID del proyecto en un campo oculto
+    
+    document.getElementById('cancelProjectId').value = id;
+}
+
+function closeModal() {
+    // Ocultar el modal
+    document.getElementById('cancelModal').style.display = 'none';
+}
+
+function confirmCancel() {
+    // Enviar el formulario para cancelar el proyecto
+    document.getElementById('cancelForm').submit();
+}
+
+
+function editProject(projectId) {
+    // Realizar una petición AJAX para obtener los datos del proyecto
+    fetch(`<?= base_url('projectsController/getProject/') ?>${projectId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Cargar los datos al formulario del modal
+           // Mostrar el modal
+           openProjectModal();
+            document.getElementById('modalTitle').innerText = 'Editar Proyecto';
+            document.getElementById('project_id').value = data.id_projects;
+            document.getElementById('name').value = data.name;
+            document.getElementById('category').value = data.category;
+            document.getElementById('impact').value = data.impact;
+            document.getElementById('budget').value = data.budget;
+            document.getElementById('status').value = data.status;
+            document.getElementById('end_date').value = data.end_date;
+            document.getElementById('reward_plan').value = data.reward_plan;
+            // Configurar la imagen del proyecto
+            const projectImageElement = document.getElementById('projectImage');
+            if (data.img_name && data.img_name.trim() !== '') {
+                projectImageElement.src = `<?= base_url('/') ?>${data.img_name}`;
+                projectImageElement.hidden = false; // Mostrar la imagen
+            } else {
+                projectImageElement.hidden = true; // Ocultar si no hay imagen
+            }
+            
+        })
+        .catch(error => console.error('Error al cargar los datos del proyecto:', error));
+}

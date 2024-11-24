@@ -89,9 +89,9 @@ class ProjectsController extends BaseController
 	}
 
 	public function listMyProjects(): string {   
-		if (session('userSessionName') == null) return  view('account/login');
+		if (session('userSessionID') == null) return  view('account/login');
 		$projectModel = new ProjectsModel();
-		$projects = $projectModel->getProjectsByUserId(session('userSessionName'));
+		$projects = $projectModel->getProjectsByUserId(session('userSessionID'));
 		return view('projects/myProjects', ['projects' => $projects]);
 	}
 

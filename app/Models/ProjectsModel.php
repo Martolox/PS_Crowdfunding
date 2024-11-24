@@ -41,7 +41,7 @@ class ProjectsModel extends Model
     }
 	public function getProjectsByUserId($userId)
     {
-        return $this->where('id_users', 1)->findAll(); // debemos de ponerle $userId
+        return $this->where('id_users', $userId)->findAll(); // debemos de ponerle $userId
     }
 
 	public function getProjectWithInvestmentTotal($project_id)

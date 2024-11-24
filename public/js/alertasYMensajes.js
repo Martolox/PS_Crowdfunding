@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         alert(message);
     }
 
-    if (error) {
+    if (error2) {
         alert(error);
     }
 });
