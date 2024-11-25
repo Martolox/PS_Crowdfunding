@@ -1,12 +1,14 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
+use App\Controllers\HomeController;
 use App\Controllers\LogController;
 use App\Controllers\InvestmentsController;
 use App\Controllers\ProjectsController;
 use App\Controllers\UsersController;
 
-$routes->get('/', 'HomeController::index');
+$routes->get('/', 						[HomeController::class, 'index']);
+$routes->get('/test', 'HomeController::test');
 
 /* Login */
 $routes->get('/login', 					[LogController::class, 'login']);
@@ -15,6 +17,7 @@ $routes->get('/register', 				[LogController::class, 'register']);
 
 /* Users */
 $routes->post('/users/new', 			[UsersController::class, 'new']);
+$routes->post('/users/update', 			[UsersController::class, 'update']);
 $routes->post('/authenticate', 			[UsersController::class, 'authenticate']);
 
 /* Projects */

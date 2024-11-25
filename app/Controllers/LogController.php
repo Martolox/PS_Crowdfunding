@@ -4,19 +4,16 @@ namespace App\Controllers;
 
 class LogController extends BaseController
 {
-	public function logout()
-	{
-		session()->close();
+	public function logout() {
+		session()->stop();
 		return redirect()->to(base_url('login'));
 	}
 
-	public function login(): string
-	{
+	public function login(): string	{
 		return view('/account/login');
 	}
 
-	public function register(): string
-	{
+	public function register(): string {
 		return view('/account/register');
 	}
 }

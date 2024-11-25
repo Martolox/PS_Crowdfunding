@@ -36,6 +36,8 @@ class UsersController extends BaseController
 		if(isset($query) && ($query['password'] == $_POST['password'])) {
 			session()->set(['userSessionID' => $query['id_users']]);
 			session()->set(['userSessionName' => $query['username']]);
+			session()->set(['userSessionEmail' => $query['email']]);
+			session()->set(['userSessionProfile' => $query['img_name']]);
 			return view('home/index');
 		}
 		$errors = ['errors' => ['Error, usuario o contraseña incorrecta']];
@@ -92,6 +94,72 @@ class UsersController extends BaseController
 		$query = $model->where('username', $_POST['username'])->first();
 		session()->set(['userSessionID' => $query['id_users']]);
 		session()->set(['userSessionName' => $query['username']]);
+		session()->set(['userSessionEmail' => $query['email']]);
+
+		// La imagen placeholder se llama profile. Debe estar en public/uploads.
+		session()->set(['userSessionProfile' => 'profile']); 
 		return view('home/index');
+	}
+
+	public function update()
+	{
+		// Verificar validaciones de username
+		if (($_POST['username'] !== '') && ($_POST['username'] !== session('userSessionName'))) {
+			if (! $this->validateData($_POST, [
+				'username' => [
+					'rules'  => 'max_length[20]|min_length[4]',
+					'errors' => [
+						'min_length'=>'Nombre: se requieren al menos 4 caracteres',
+						'max_length'=>'Nombre: se requieren como máximo 20 caracteres',
+					],
+				],
+			])){
+				$errors = array('errors' => $this->validator->getErrors());
+				dd($errors);
+				return redirect()->to('/test')->with('error', 'Nombre de usuario inválido');
+			}
+		}
+		// Verificar validaciones de email
+		if(($_POST['email'] !== '') && ($_POST['email'] !== session('userSessionEmail'))) {
+			if (! $this->validateData($_POST, [
+				'email' => [
+					'rules'  => 'max_length[40]|min_length[4]',
+					'errors' => [
+						'min_length'=>'Correo: se requieren al menos 4 caracteres',
+						'max_length'=>'Correo: se requieren como máximo 40 caracteres',
+					],
+				],
+			])){
+				$errors = array('errors' => $this->validator->getErrors());
+				dd($errors);
+				return redirect()->to('/test')->with('error', 'Correo inválido');
+			}
+		}
+
+		$model = model(UsersModel::class);
+		// Validar usuario repetido
+		$query = $model->where('username', $_POST['username'])->first();
+		$errors = ['errors' => ['Error, usuario duplicado']];
+		if(isset($query)) return redirect()->to('/test')->with('error', 'Usuario duplicado');
+		
+		// Preparar datos
+		$data = ['id_users' => session('userSessionID')];
+		if($_POST['username'] !== '')
+			$data['username'] = $_POST['username'];
+		else
+			$data['username'] = session('userSessionName');
+        if($_POST['email'] !== '')
+			$data['email'] = $_POST['email'];
+		else
+			$data['email'] = session('userSessionEmail');
+        // Actualizar en BD
+		$model->update(session('userSessionID'),$data); 
+
+		// Actualizar variables de sesión
+		session()->set(['userSessionName' => $data['username']]);
+		session()->set(['userSessionEmail' => $data['email']]);
+
+		// La imagen placeholder se llama 'profile'. Debe estar en public/uploads.
+		return redirect()->to('/test')->with('success', 'Usuario actualizado exitosamente.');
 	}
 }
