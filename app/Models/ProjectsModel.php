@@ -26,8 +26,9 @@ class ProjectsModel extends Model
     }
 
     public function update_project($id, $data) {
+        error_log('esta en update');
         $this->where('id_projects', $id);
-        return $this->save( $data);
+        return $this->update( $id, $data);
     }
 
   

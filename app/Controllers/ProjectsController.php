@@ -18,44 +18,61 @@ class ProjectsController extends BaseController
 
 			// Cargar el servicio para manejar archivos
 			$file = $this->request->getFile('project_image');
-           
-			if ($file && 
-				$file->isValid() && 
-				!$file->hasMoved() && 
-				in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/gif']) && 
-				$file->getSize() <= 2048 * 1024 // 2 MB
-			) {
-				// Ruta relativa dentro de tu proyecto donde guardarás el archivo
-				$uploadPath =  ROOTPATH . 'public/uploads/';
+            $isFile = ($file && 
+                        $file->isValid() && 
+                        !$file->hasMoved() && 
+                        in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/gif']) && 
+                        $file->getSize() <= 2048 * 1024 // 2 MB
+                        );
+            $projectId = $this->request->getPost('project_id');
+            //si viene $projectId estoy editando, no es obligatorio el archivo
+			if ($projectId  || $isFile  ) {
 				
-				// Crear la carpeta si no existe
-				if (!is_dir($uploadPath)) {
-					mkdir($uploadPath, 0755, true);
-				}
+                if ($isFile ){
+                        // Ruta relativa dentro de tu proyecto donde guardarás el archivo
+                        $uploadPath =  ROOTPATH . 'public/uploads/';
+                        
+                        // Crear la carpeta si no existe
+                        if (!is_dir($uploadPath)) {
+                            mkdir($uploadPath, 0755, true);
+                        }
 
-				// Generar un nombre único para evitar colisiones
-				$newName = $file->getRandomName();
+                        // Generar un nombre único para evitar colisiones
+                        $newName = $file->getRandomName();
+                        
+                        // Mover el archivo a la carpeta
+                        $file->move($uploadPath, $newName);
+                        
+                        // Guardar la ruta del archivo en la base de datos o donde corresponda
+                        $filePath = '/uploads/' . $newName;
                 
-				// Mover el archivo a la carpeta
-				$file->move($uploadPath, $newName);
                 
-				// Guardar la ruta del archivo en la base de datos o donde corresponda
-				$filePath = '/uploads/' . $newName;
+                        $projectData = [
+                            'id_users' => session('userSessionID'),
+                            'name' => $this->request->getPost('name'),
+                            'category' => $this->request->getPost('category'),
+                            'impact' => $this->request->getPost('impact'),
+                            'budget' => $this->request->getPost('budget'),
+                            'status' => $this->request->getPost('status'),
+                            'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
+                            'reward_plan' => $this->request->getPost('reward_plan'),
+                            'img_name' => $filePath,
+                        ];
+                 }else{
+                    $projectData = [
+                        'id_users' => session('userSessionID'),
+                        'name' => $this->request->getPost('name'),
+                        'category' => $this->request->getPost('category'),
+                        'impact' => $this->request->getPost('impact'),
+                        'budget' => $this->request->getPost('budget'),
+                        'status' => $this->request->getPost('status'),
+                        'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
+                        'reward_plan' => $this->request->getPost('reward_plan')
+                    ];
 
-				$projectData = [
-					'id_users' => session('userSessionID'),
-					'name' => $this->request->getPost('name'),
-					'category' => $this->request->getPost('category'),
-					'impact' => $this->request->getPost('impact'),
-					'budget' => $this->request->getPost('budget'),
-					'status' => $this->request->getPost('status'),
-					'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
-					'reward_plan' => $this->request->getPost('reward_plan'),
-					'img_name' => $filePath,
-				];
-                
-				$projectId = $this->request->getPost('project_id');
-                
+                 }
+				
+                error_log('id - '.$projectId);
 				if ($projectId) {
                    // error_log('esto quiero guardar'.$projectData);
 					// Actualiza el proyecto existente
