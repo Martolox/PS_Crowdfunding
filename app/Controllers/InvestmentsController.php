@@ -11,6 +11,7 @@ class InvestmentsController extends BaseController
    
     public function create()
     {
+        if (session('userSessionName') == null) return  view('account/login');
         $investmentData = [
             'id_projects' => $this->request->getPost('id_project'), 
             'id_users' => $this->request->getPost('id_username'),   
@@ -28,6 +29,7 @@ class InvestmentsController extends BaseController
     
     public function update()
     {
+        if (session('userSessionName') == null) return  view('account/login');
         $id_inversion = $this->request->getPost('id_inversion');
         $monto_nuevo = $this->request->getPost('monto_nuevo');
         $monto_viejo = $this->request->getPost('monto_viejo');
@@ -45,6 +47,7 @@ class InvestmentsController extends BaseController
 
     public function updateEstado($id_inversion)
     {
+        if (session('userSessionName') == null) return  view('account/login');
         $investmentsModel = new InvestmentsModel();
         $result = $investmentsModel->eliminarInversion($id_inversion);
 
@@ -58,6 +61,7 @@ class InvestmentsController extends BaseController
 
     public function list()
     {
+        if (session('userSessionName') == null) return  view('account/login');
         $userId = session('userSessionID');
         $investmentsModel = new InvestmentsModel();
         $investments_proyects = $investmentsModel->misInversiones($userId); 

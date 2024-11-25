@@ -43,7 +43,7 @@ class ProjectsController extends BaseController
 				$filePath = '/uploads/' . $newName;
 
 				$projectData = [
-					'id_users' => session('userSessionName'),
+					'id_users' => session('userSessionID'),
 					'name' => $this->request->getPost('name'),
 					'category' => $this->request->getPost('category'),
 					'impact' => $this->request->getPost('impact'),
