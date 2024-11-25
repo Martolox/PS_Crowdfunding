@@ -1,12 +1,13 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
+use App\Controllers\HomeController;
 use App\Controllers\LogController;
 use App\Controllers\InvestmentsController;
 use App\Controllers\ProjectsController;
 use App\Controllers\UsersController;
 
-$routes->get('/', 'HomeController::index');
+$routes->get('/', 						[HomeController::class, 'index']);
 $routes->get('/test', 'HomeController::test');
 
 /* Login */

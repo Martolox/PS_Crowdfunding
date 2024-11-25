@@ -119,11 +119,11 @@
 
 <!-- SCRIPTS -->
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 	$(document).ready(function() {
 		if ($('#sidebar .close').length === 0) {
-			$('#sidebar').prepend('<a href="#" class="close"></a>');
+			$('#sidebar').prepend('<a href="#" class="close"><img src="<?= base_url('img/icons/xmark-solid.svg') ?>"></a>');
 		}
 
 		$('a[href="#sidebar"], .user-profile').click(function(e) {

@@ -9,7 +9,6 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>">
-
 	<!-- JS -->
 	<script type="module" src="<?= base_url('js/util.js') ?>"></script>
 
