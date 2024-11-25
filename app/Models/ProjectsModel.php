@@ -127,7 +127,7 @@ public function filtrarIProjets($texto)
         $db = \Config\Database::connect(); // Conexión manual si se requiere transacción
         $db->transStart(); // Iniciar transacción
         
-        // Cambiar el estado del proyecto a 'cancelled'
+        // Cambiar el estado del proyecto a 'finalizado'
         $this->update($id_project, ['status' => 'FINALIZADO']);
         
         // Actualizar inversiones asociadas

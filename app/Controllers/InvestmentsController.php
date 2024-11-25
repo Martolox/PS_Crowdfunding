@@ -58,10 +58,10 @@ class InvestmentsController extends BaseController
 
     public function list()
     {
-        //$userId = session()->get('user_id');
+        $userId = session('userSessionID');
         
         $investmentsModel = new InvestmentsModel();
-        $investments_proyects = $investmentsModel->misInversiones(1); //userID en lugar de 1
+        $investments_proyects = $investmentsModel->misInversiones($userId); 
         $data = [
             'investments_proyects' => $investments_proyects
         ];
