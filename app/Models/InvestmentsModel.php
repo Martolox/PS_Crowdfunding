@@ -57,8 +57,7 @@ class InvestmentsModel extends Model
 		$builder->select('investments.*, projects.name as project_name, projects.end_date as project_end_date');
 		$builder->join('projects', 'projects.id_projects = investments.id_projects');
 		$builder->where('investments.id_users', $id_usuario);
-		$builder->where('investments.status', 'active');
-		$builder->where('investments.status','finalized ');
+		$builder->whereIn('investments.status', ['active', 'finalized']);
 
 		$query = $builder->get();
 		return $query->getResultArray();
