@@ -105,9 +105,11 @@
                         <td><?= $inv_pro['project_end_date'] ?></td>
                         <td><?= $inv_pro['status'] ?></td>
                         <td> 
-                            <a href="<?= base_url('investments/eliminarInversion/' . $inv_pro['id_investments']) ?>">
-                                <button class="btn-action">Cancelar</button>
-                            </a>
+                            <?php if ($inv_pro['status'] != 'finalized'): ?>
+                                <a href="<?= base_url('investments/eliminarInversion/' . $inv_pro['id_investments']) ?>">
+                                    <button class="btn-action">Cancelar</button>
+                                </a>
+                            <?php endif;?>
                             <button class="btn-action" onclick="openModal(<?= $inv_pro['id_investments'] ?>, <?= $inv_pro['amount'] ?>)">Modificar</button>
                             <button class="btn-action">Detalles</button>
                         </td>
