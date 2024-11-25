@@ -22,12 +22,12 @@ class ProjectsModel extends Model
 	public function insert_project($data) {
 		
 		return $this->insert($data);
-		// return $this->save('projects', $data);
+		
     }
 
     public function update_project($id, $data) {
-        $this->where('id', $id);
-        return $this->save('projects', $data);
+        $this->where('id_projects', $id);
+        return $this->save( $data);
     }
 
   

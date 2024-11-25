@@ -18,7 +18,7 @@ class ProjectsController extends BaseController
 
 			// Cargar el servicio para manejar archivos
 			$file = $this->request->getFile('project_image');
-
+           
 			if ($file && 
 				$file->isValid() && 
 				!$file->hasMoved() && 
@@ -28,6 +28,8 @@ class ProjectsController extends BaseController
 				// Ruta relativa dentro de tu proyecto donde guardarás el archivo
 				$uploadPath =  ROOTPATH . '/public/uploads/';
 				error_log("estoy creando el path - ".$uploadPath);
+				$uploadPath =  ROOTPATH . 'public/uploads/';
+				
 				// Crear la carpeta si no existe
 				if (!is_dir($uploadPath)) {
 					mkdir($uploadPath, 0755, true);
@@ -35,15 +37,15 @@ class ProjectsController extends BaseController
 
 				// Generar un nombre único para evitar colisiones
 				$newName = $file->getRandomName();
-
+                
 				// Mover el archivo a la carpeta
 				$file->move($uploadPath, $newName);
-
+                
 				// Guardar la ruta del archivo en la base de datos o donde corresponda
 				$filePath = '/uploads/' . $newName;
 
 				$projectData = [
-					'id_users' => session('userSessionName'),
+					'id_users' => session('userSessionID'),
 					'name' => $this->request->getPost('name'),
 					'category' => $this->request->getPost('category'),
 					'impact' => $this->request->getPost('impact'),
@@ -53,9 +55,11 @@ class ProjectsController extends BaseController
 					'reward_plan' => $this->request->getPost('reward_plan'),
 					'img_name' => $filePath,
 				];
-
+                
 				$projectId = $this->request->getPost('project_id');
+                
 				if ($projectId) {
+                   // error_log('esto quiero guardar'.$projectData);
 					// Actualiza el proyecto existente
 					$result = $model->update_project($projectId, $projectData);
 					if ($result) {

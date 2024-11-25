@@ -5,11 +5,11 @@
   <script src="/crowdfunding/public/js/modal_modificar.js"></script>
   <link rel="stylesheet" href="/crowdfunding/public/css/modalInvesmentsUpdate.css">
   <link rel="stylesheet" href="/crowdfunding/public/css/listInvesments.css">
-  <script src="/crowdfunding/public/js/alertasYMensajesInversiones.js."></script>
+
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="css/styles.css">
+
   <link rel="icon" type="image/ico" href="img/favicon.ico"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" 
   integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" 
