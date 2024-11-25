@@ -87,6 +87,7 @@
                     <th>Fecha inversión</th>
                     <th>Proyecto</th>
                     <th>Fecha finalización</th>
+                    <th>Estado</th>
                     <th>Operaciones</th>
                 </tr>
             </thead>
@@ -102,6 +103,7 @@
                         <td><?= $inv_pro['investment_date'] ?></td>
                         <td><?= $inv_pro['project_name'] ?></td>
                         <td><?= $inv_pro['project_end_date'] ?></td>
+                        <td><?= $inv_pro['status'] ?></td>
                         <td> 
                             <a href="<?= base_url('investments/eliminarInversion/' . $inv_pro['id_investments']) ?>">
                                 <button class="btn-action">Cancelar</button>
