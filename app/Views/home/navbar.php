@@ -13,6 +13,8 @@
 	<!-- JS -->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script type="module" src="<?= base_url('js/util.js') ?>"></script>
+	<script type="module" src="<?= base_url('js/alertasYMensajesProjets.js') ?>"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -129,9 +131,9 @@
 		<h2>Perfil</h2>
 		<label for="img_name">Foto de perfil</label>
 		<div class="profile-img">
-			<img src="'.base_url('/uploads/'.session('userSessionProfile')).'.png" width="250">
+			<img src="'.base_url('/uploads/'.session('userSessionProfile')).'" width="250" style="border-radius:50%">
 		</div>
-		<input type="file" id="img_name" name="img_name" accept="image/png" class="hidden">
+		<input type="file" id="img_name" name="img_name" accept="image/*" class="hidden">
 		
 		<label for="username">Tu nombre</label>
 		<input type="text" id="username" name="username" placeholder="'.session('userSessionName').'" value="">

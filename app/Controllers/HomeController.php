@@ -8,8 +8,4 @@ class HomeController extends BaseController
     public function index(): string {
         return view('home/index');
     }
-
-    public function test(): string {
-        return view('home/navbar');
-    }
 }

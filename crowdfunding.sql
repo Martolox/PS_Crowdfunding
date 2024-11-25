@@ -7,7 +7,7 @@ CREATE TABLE users (
 	username VARCHAR(20) UNIQUE NOT NULL,
 	password VARCHAR(20) UNIQUE NOT NULL,
 	email VARCHAR(40) UNIQUE NOT NULL,
-	img_name varchar(100) NOT NULL,
+	img_name varchar(100) NOT NULL DEFAULT 'profile.png',
 	PRIMARY KEY (id_users),
 	UNIQUE INDEX(username, password)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -83,17 +83,17 @@ CREATE TABLE notifications (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO users (id_users, username, password, email, img_name) VALUES
-(1, 'admin'  ,'admin'    ,'admin@mail.com' ,'profile'),
-(2, 'user'   ,'1234'     ,'user@mail.com'  ,'profile'),
-(3, 'juan'   ,'juan'     ,'juan@mail.com'  ,'profile'),
-(4, 'Daiana' ,'Daiana'   ,'daiana@mail.com','profile'),
-(5, 'Ruben'  ,'Ruben123' ,'ruben@mail.com' ,'profile'),
-(6, 'mateo'  ,'mateo'    ,'mateo@mail.com' ,'profile'),
-(7, 'juana'  ,'juana'    ,'juana@mail.com' ,'profile'),
-(10,'Diego'  ,'Diego2'   ,'diegoo@mail.com','profile'),
-(11,'Omar'   ,'Omar'     ,'ohms@mail.com'  ,'profile'),
-(12,'guille' ,'gullermo' ,'guille@mail.com','profile'),
-(13,'david'  ,'david'    ,'david@mail.com' ,'profile');
+(1, 'admin'  ,'admin'    ,'admin@mail.com' ,'profile.png'),
+(2, 'user'   ,'1234'     ,'user@mail.com'  ,'profile.png'),
+(3, 'juan'   ,'juan'     ,'juan@mail.com'  ,'user-3.jpg' ),
+(4, 'Daiana' ,'Daiana'   ,'daiana@mail.com','user-4.jpg' ),
+(5, 'Ruben'  ,'Ruben123' ,'ruben@mail.com' ,'profile.png'),
+(6, 'mateo'  ,'mateo'    ,'mateo@mail.com' ,'profile.png'),
+(7, 'juana'  ,'juana'    ,'juana@mail.com' ,'user-7.jpg' ),
+(10,'Diego'  ,'Diego2'   ,'diegoo@mail.com','user-10.jpg'),
+(11,'Omar'   ,'Omar'     ,'ohms@mail.com'  ,'profile.png'),
+(12,'guille' ,'gullermo' ,'guille@mail.com','profile.png'),
+(13,'david'  ,'david'    ,'david@mail.com' ,'profile.png');
 
 
 INSERT INTO projects (id_projects, id_users, name, category, impact, budget, status, end_date, reward_plan, img_name) VALUES
@@ -191,4 +191,7 @@ $1000: Visita al proyecto y participación en la inauguración de la nueva fuent
 
 
 INSERT INTO investments (id_investments, id_projects, id_users, amount, status, investment_date) VALUES
-(1, 10, 10, 800000, 'active', '2024-11-04');
+(1, 10, 10, 400000, 'active', '2024-11-04');
+
+INSERT INTO investments (id_investments, id_projects, id_users, amount, status, investment_date) VALUES
+(2, 10, 10, 400000, 'active', '2024-11-05');
