@@ -16,8 +16,8 @@ $routes->get('/logout', 				[LogController::class, 'logout']);
 $routes->get('/register', 				[LogController::class, 'register']);
 
 /* Users */
-$routes->post('/users/list', 			[UsersController::class, 'list']);
 $routes->post('/users/new', 			[UsersController::class, 'new']);
+$routes->post('/users/update', 			[UsersController::class, 'update']);
 $routes->post('/authenticate', 			[UsersController::class, 'authenticate']);
 
 /* Projects */

@@ -9,8 +9,9 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>">
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<!-- JS -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script type="module" src="<?= base_url('js/util.js') ?>"></script>
 
 </head>
@@ -128,9 +129,9 @@
 		<h2>Perfil</h2>
 		<label for="img_name">Foto de perfil</label>
 		<div class="profile-img">
-			<img src="/uploads/'.session('userSessionProfile').'.png" width="250">
+			<img src="'.base_url('/uploads/'.session('userSessionProfile')).'.png" width="250">
 		</div>
-		<input type="file" id="img_name" name="img_name" accept="image/*" class="hidden">
+		<input type="file" id="img_name" name="img_name" accept="image/png" class="hidden">
 		
 		<label for="username">Tu nombre</label>
 		<input type="text" id="username" name="username" placeholder="'.session('userSessionName').'" value="">
@@ -149,33 +150,7 @@
 
 <!-- SCRIPTS -->
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script>
-	$(document).ready(function() {
-		$('a[href="#sidebar"], .user-profile').click(function(e) {
-			e.preventDefault();
-			$('#sidebar').addClass('visible');
-		});
-
-		$('#sidebar .close').click(function(e) {
-			e.preventDefault();
-			$('#sidebar').removeClass('visible');
-		});
-
-		// Cerrar al hacer clic fuera del sidebar
-		$(document).click(function(e) {
-			if (!$(e.target).closest('#sidebar').length && 
-				!$(e.target).closest('.user-profile').length) {
-				$('#sidebar').removeClass('visible');
-			}
-		});
-
-		// Prevenir que clicks dentro del sidebar lo cierren
-		$('#sidebar').click(function(e) {
-			e.stopPropagation();
-		});
-	});
-</script>
+<script src="<?= base_url('js/sidebar.js') ?>"></script>
 
 <!-- END -->
 

@@ -1,15 +1,24 @@
 $(document).ready(function() {
-	if ($('#menu .close').length === 0) { // Agrega el botón de cierre
-		$('#menu').prepend('<a href="#" class="close"></a>');
-	}
+		$('a[href="#sidebar"], .user-profile').click(function(e) {
+			e.preventDefault();
+			$('#sidebar').addClass('visible');
+		});
 
-	$('li h3').click(function(e) {
-		e.preventDefault();
-		$('#menu').addClass('visible');
-	});
+		$('#sidebar .close').click(function(e) {
+			e.preventDefault();
+			$('#sidebar').removeClass('visible');
+		});
 
-	$('#menu .close').click(function(e) {
-		e.preventDefault();
-		$('#menu').removeClass('visible');
+		// Cerrar al hacer clic fuera del sidebar
+		$(document).click(function(e) {
+			if (!$(e.target).closest('#sidebar').length && 
+				!$(e.target).closest('.user-profile').length) {
+				$('#sidebar').removeClass('visible');
+			}
+		});
+
+		// Prevenir que clicks dentro del sidebar lo cierren
+		$('#sidebar').click(function(e) {
+			e.stopPropagation();
+		});
 	});
-});
