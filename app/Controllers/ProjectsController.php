@@ -26,8 +26,6 @@ class ProjectsController extends BaseController
 				$file->getSize() <= 2048 * 1024 // 2 MB
 			) {
 				// Ruta relativa dentro de tu proyecto donde guardarás el archivo
-				$uploadPath =  ROOTPATH . '/public/uploads/';
-				error_log("estoy creando el path - ".$uploadPath);
 				$uploadPath =  ROOTPATH . 'public/uploads/';
 				
 				// Crear la carpeta si no existe
