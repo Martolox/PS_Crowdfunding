@@ -36,6 +36,8 @@ class UsersController extends BaseController
 		if(isset($query) && ($query['password'] == $_POST['password'])) {
 			session()->set(['userSessionID' => $query['id_users']]);
 			session()->set(['userSessionName' => $query['username']]);
+			session()->set(['userSessionEmail' => $query['email']]);
+			session()->set(['userSessionProfile' => $query['img_name']]);
 			return view('home/index');
 		}
 		$errors = ['errors' => ['Error, usuario o contraseña incorrecta']];
@@ -92,6 +94,10 @@ class UsersController extends BaseController
 		$query = $model->where('username', $_POST['username'])->first();
 		session()->set(['userSessionID' => $query['id_users']]);
 		session()->set(['userSessionName' => $query['username']]);
+		session()->set(['userSessionEmail' => $query['email']]);
+
+		// La imagen placeholder se llama profile. Debe estar en public/uploads.
+		session()->set(['userSessionProfile' => 'profile']); 
 		return view('home/index');
 	}
 }

@@ -10,9 +10,6 @@ class HomeController extends BaseController
     }
 
     public function test(): string {
-        if(session('userSessionName') !== null) {
-            //dd('Inicio de sesión', session('userSessionName'));
-        }
         return view('home/navbar');
     }
 }

@@ -89,32 +89,62 @@
 </nav>
 </section>
 
+<!-- MENSAJES -->
+
+<?php if (session()->has('success')): ?>
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		<?= session('success') ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+<?php endif; ?>
+
+<?php if (session()->has('error')): ?>
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<?= session('error') ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+<?php endif; ?>  
+
 <!-- SIDEBAR -->
 
 <nav id="sidebar">
+	<a href="#" class="close"><img src="<?= base_url('img/icons/xmark-solid.svg') ?>"></a>
 	<ul class="links">
-		<li><a href="index.html">Home</a></li>
-		<li><a href="generic.html">Mis Proyectos</a></li>
-		<li><a href="elements.html">Mis Inversiones</a></li>
+		<li><a href="<?= base_url('/') ?>">Home</a></li>
+		<li><a href="<?= base_url('projects/myList') ?>">Mis Proyectos</a></li>
+		<li><a href="<?= base_url('investments/list') ?>">Mis Inversiones</a></li>
 	</ul>
 
-	<form action="" enctype="multipart/form-data" autocomplete="off" method="post">
+	<?php 
+	if ((session('userSessionName') !== null) && 
+        (session('userSessionEmail') !== null) && 
+        (session('userSessionProfile') !== null)) {
+		echo '<form action="users/update" enctype="multipart/form-data" autocomplete="off" method="post">
 		<br>
 		<h2>Perfil</h2>
 		<label for="img_name">Foto de perfil</label>
 		<div class="profile-img">
-			<img src="uploads/profile.png" width="250">
+			<img src="/uploads/'.session('userSessionProfile').'.png" width="250">
 		</div>
 		<input type="file" id="img_name" name="img_name" accept="image/*" class="hidden">
+		
 		<label for="username">Tu nombre</label>
-		<input type="text" id="username" name="username" placeholder="John" value="">
+		<input type="text" id="username" name="username" placeholder="'.session('userSessionName').'" value="">
+		
 		<label for="email">Tu Email</label>
-		<input type="email" id="email" name="email" placeholder="John@email.com" value="">
+		<input type="email" id="email" name="email" placeholder="'.session('userSessionEmail').'" value="">
+		
 		<br>
 		<input type="submit" name="submit" value="Guardar cambios">
 		<br>
 		<br>
-	</form>
+	</form>';
+	}
+	?>
 </nav>
 
 <!-- SCRIPTS -->
@@ -122,10 +152,6 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
 	$(document).ready(function() {
-		if ($('#sidebar .close').length === 0) {
-			$('#sidebar').prepend('<a href="#" class="close"><img src="<?= base_url('img/icons/xmark-solid.svg') ?>"></a>');
-		}
-
 		$('a[href="#sidebar"], .user-profile').click(function(e) {
 			e.preventDefault();
 			$('#sidebar').addClass('visible');
