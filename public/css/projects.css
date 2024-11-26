@@ -58,7 +58,12 @@ body {
 	background-color: #0056b3;
 }
 
-/* PROJECTS TABLE */
+/* PROJECTS/INVESTMENT TABLE */
+
+#tbl-container {
+	min-height: 70vh;
+	padding-bottom: 80px;
+}
 
 #proj-table {
 	width: 90%;

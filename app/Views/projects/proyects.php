@@ -7,7 +7,6 @@
 	<meta name="theme-color" content="#222">
 	<link rel="icon" type="image/ico" href="<?= base_url('img/favicon.ico') ?>"/>
 	<!-- CSS -->
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
 	<link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('css/projects.css') ?>">
@@ -42,9 +41,11 @@
 				<path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
 			</svg>
 		</a></li>
-		<li><a href="<?= base_url('projects/list') ?>" class="nav-link">Proyectos</a></li>
-		<li><a href="<?= base_url('investments/list') ?>" class="nav-link">Inversiones</a></li>
-		<li><a href="<?= base_url('projects/myList') ?>" class="nav-link">Mis Proyectos</a></li>
+		<?php if (session()->has('userSessionName')): ?>
+			<li><a href="<?= base_url('projects/list') ?>" class="nav-link">Proyectos</a></li>
+			<li><a href="<?= base_url('investments/list') ?>" class="nav-link">Inversiones</a></li>
+			<li><a href="<?= base_url('projects/myList') ?>" class="nav-link">Mis Proyectos</a></li>
+		<?php endif; ?>
 	</ul>
 	<!-- Right buttons -->
 	<ul class="navbar-nav ms-auto">
@@ -180,7 +181,8 @@
 
 <!-- PROJECTS TABLE -->
 
-<table id= "proj-table" class="table table-striped table-bordered">
+<section id="tbl-container">
+<table id="proj-table">
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -216,7 +218,7 @@
 	<?php endforeach; ?>
 	</tbody>
 </table>
-</div>
+</section>
 
 <!-- MODAL CREAR INVERSION -->
 
@@ -244,6 +246,14 @@
 			</div>
 		</form>
 	</div>
+</section>
+
+<!-- FOOTER -->
+
+<section  id="footer"  class="surface1">
+	<p>Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License, and code samples are licensed under the Apache 2.0 License. For details, see the SCV Developers Site Policies. Impulsa is a registered trademark of UNRN and/or its affiliates.<br><br>
+	Last updated 2024-11-01 UTC.</p>
+	
 </section>
 
 <!-- SCRIPTS -->
