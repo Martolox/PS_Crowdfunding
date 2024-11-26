@@ -30,9 +30,11 @@
 				<path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
 			</svg>
 		</a></li>
-		<li><a href="<?= base_url('projects/list') ?>" class="nav-link">Proyectos</a></li>
-		<li><a href="<?= base_url('investments/list') ?>" class="nav-link">Inversiones</a></li>
-		<li><a href="<?= base_url('projects/myList') ?>" class="nav-link">Mis Proyectos</a></li>
+		<?php if (session()->has('userSessionName')): ?>
+			<li><a href="<?= base_url('projects/list') ?>" class="nav-link">Proyectos</a></li>
+			<li><a href="<?= base_url('investments/list') ?>" class="nav-link">Inversiones</a></li>
+			<li><a href="<?= base_url('projects/myList') ?>" class="nav-link">Mis Proyectos</a></li>
+		<?php endif; ?>
 	</ul>
 	<!-- Botones derechos -->
 	<ul class="navbar-nav ms-auto">
