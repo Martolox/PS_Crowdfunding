@@ -10,8 +10,8 @@
 	<link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>">
 	<!-- JS -->
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script type="module" src="<?= base_url('js/util.js') ?>"></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </head>
@@ -124,8 +124,8 @@
 
 	<?php 
 	if ((session('userSessionName') !== null) && 
-        (session('userSessionEmail') !== null) && 
-        (session('userSessionProfile') !== null)) {
+		(session('userSessionEmail') !== null) && 
+		(session('userSessionProfile') !== null)) {
 		echo '<form action="users/update" enctype="multipart/form-data" autocomplete="off" method="post">
 		<br>
 		<h2>Perfil</h2>

@@ -1,156 +1,259 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Proyectos</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="/crowdfunding/public/css/crearInversion.css">
-    <link rel="stylesheet" href="/crowdfunding/public/css/listProjets.css"> 
-    <script src="/crowdfunding/public/js/modalCrearInversion.js"></script>
-    <script src="/crowdfunding/public/js/modalDetallesProyecto.js"></script>
-    <script src="/crowdfunding/public/js/alertasYMensajesProjets.js"></script>
-
-<link rel="stylesheet" href="css/styles.css">
-  <link rel="icon" type="image/ico" href="img/favicon.ico"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" 
-  integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" 
-  crossorigin="anonymous">
-
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" 
-  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" 
-  crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	<title>Proyectos</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#222">
+	<link rel="icon" type="image/ico" href="<?= base_url('img/favicon.ico') ?>"/>
+	<!-- CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<!--<link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>"> -->
+	<link rel="stylesheet" href="<?= base_url('css/crearInversion.css') ?>">
+	<link rel="stylesheet" href="<?= base_url('css/listProjets.css') ?>">
+	<link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
+	<!-- JS -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script type="module" src="<?= base_url('js/util.js') ?>"></script>
+	<script src="<?= base_url('js/modalCrearInversion.js') ?>"></script>
+	<script src="<?= base_url('js/modalDetallesProyecto.js') ?>"></script>
+	<script src="<?= base_url('js/alertasYMensajesProjets.js') ?>"></script>
 </head>
-
 <body>
-    <?php if (session()->getFlashdata('message') || session()->getFlashdata('error')): ?>
-        <input type="hidden" id="alertMessage" value="<?= session()->getFlashdata('message') ?>">
-        <input type="hidden" id="alertError" value="<?= session()->getFlashdata('error') ?>">
-    <?php endif; ?>
 
-    <!-- NAVBAR -->
+<!-- ALERTAS -->
+
+<?php if (session()->getFlashdata('message') || session()->getFlashdata('error')): ?>
+	<input type="hidden" id="alertMessage" value="<?= session()->getFlashdata('message') ?>">
+	<input type="hidden" id="alertError" value="<?= session()->getFlashdata('error') ?>">
+<?php endif; ?>
+
+
+<!-- NAVBAR -->
+
 <section id="navbar">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- Botones izquierdos -->
-    <ul class="navbar-nav">
-        <li class="nav-item"><a href="<?= base_url() ?>" class="nav-link">IMPULSA</a></li>
-            <li class="nav-item"><a class="nav-link" href="<?= base_url() ?>" role="button"><i class="fas fa-bars"></i></a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Proyectos</a></li>
-            <li class="nav-item"><a href="<?= base_url('investments/list') ?>"class="nav-link">Inversiones</a></li>
-            <li class="nav-item"><a href="<?= base_url('projects/myList') ?>"class="nav-link">Mis proyectos</a></li>
-        </ul>
-    </ul>
-    <!-- Botones derechos -->
-    <ul class="navbar-nav ml-auto">
-        <!-- Usuario -->
-        <li><h3 style="line-height: .6;"><?= session('userSessionName') ?></h3></li>
-            <li><a style="padding-left: 5px" href="<?= base_url('logout') ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="var(--text1)" ><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/></svg>
-        </a></li>
-    </ul>
+<nav>
+	<!-- Botones izquierdos -->
+	<ul class="navbar-nav">
+		<li><a href="<?= base_url('') ?>" class="nav-link">IMPULSA</a></li>
+		<li><a href="<?= base_url('') ?>" class="nav-link"role="button">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="20" height="20" fill="var(--text1)">
+				<path d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"/>
+			</svg>
+		</a></li>
+		<li><a href="<?= base_url('projects/list') ?>" class="nav-link">Proyectos</a></li>
+		<li><a href="<?= base_url('investments/list') ?>" class="nav-link">Inversiones</a></li>
+		<li><a href="<?= base_url('projects/myList') ?>" class="nav-link">Mis Proyectos</a></li>
+	</ul>
+	<!-- Botones derechos -->
+	<ul class="navbar-nav ms-auto">
+		<form id="theme-switcher">
+			
+			<div class="radio-container">
+				<input checked type="radio" id="dark" name="theme" value="dark" class="custom-radio">
+				<label for="dark">
+					<!-- SVG para estado no seleccionado -->
+					<svg class="unchecked"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="18" height="18" fill="var(--text2)">
+						<path d="M144.7 98.7c-21 34.1-33.1 74.3-33.1 117.3c0 98 62.8 181.4 150.4 211.7c-12.4 2.8-25.3 4.3-38.6 4.3C126.6 432 48 353.3 48 256c0-68.9 39.4-128.4 96.8-157.3zm62.1-66C91.1 41.2 0 137.9 0 256C0 379.7 100 480 223.5 480c47.8 0 92-15 128.4-40.6c1.9-1.3 3.7-2.7 5.5-4c4.8-3.6 9.4-7.4 13.9-11.4c2.7-2.4 5.3-4.8 7.9-7.3c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-3.7 .6-7.4 1.2-11.1 1.6c-5 .5-10.1 .9-15.3 1c-1.2 0-2.5 0-3.7 0l-.3 0c-96.8-.2-175.2-78.9-175.2-176c0-54.8 24.9-103.7 64.1-136c1-.9 2.1-1.7 3.2-2.6c4-3.2 8.2-6.2 12.5-9c3.1-2 6.3-4 9.6-5.8c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-3.6-.3-7.1-.5-10.7-.6c-2.7-.1-5.5-.1-8.2-.1c-3.3 0-6.5 .1-9.8 .2c-2.3 .1-4.6 .2-6.9 .4z"/>
+					</svg>
+					<!-- SVG para estado seleccionado -->
+					<svg class="checked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" width="18" height="18" fill="var(--text1)">
+						<path d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"/>
+					</svg>
+				</label>
+			</div>
+			
+			<div class="radio-container">
+				<input type="radio" id="light" name="theme" value="light" class="custom-radio">
+				<label for="light">
+					<!-- SVG para estado no seleccionado -->
+					<svg class="unchecked"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18" fill="var(--text2)">
+						<path d="M375.7 19.7c-1.5-8-6.9-14.7-14.4-17.8s-16.1-2.2-22.8 2.4L256 61.1 173.5 4.2c-6.7-4.6-15.3-5.5-22.8-2.4s-12.9 9.8-14.4 17.8l-18.1 98.5L19.7 136.3c-8 1.5-14.7 6.9-17.8 14.4s-2.2 16.1 2.4 22.8L61.1 256 4.2 338.5c-4.6 6.7-5.5 15.3-2.4 22.8s9.8 13 17.8 14.4l98.5 18.1 18.1 98.5c1.5 8 6.9 14.7 14.4 17.8s16.1 2.2 22.8-2.4L256 450.9l82.5 56.9c6.7 4.6 15.3 5.5 22.8 2.4s12.9-9.8 14.4-17.8l18.1-98.5 98.5-18.1c8-1.5 14.7-6.9 17.8-14.4s2.2-16.1-2.4-22.8L450.9 256l56.9-82.5c4.6-6.7 5.5-15.3 2.4-22.8s-9.8-12.9-17.8-14.4l-98.5-18.1L375.7 19.7zM269.6 110l65.6-45.2 14.4 78.3c1.8 9.8 9.5 17.5 19.3 19.3l78.3 14.4L402 242.4c-5.7 8.2-5.7 19 0 27.2l45.2 65.6-78.3 14.4c-9.8 1.8-17.5 9.5-19.3 19.3l-14.4 78.3L269.6 402c-8.2-5.7-19-5.7-27.2 0l-65.6 45.2-14.4-78.3c-1.8-9.8-9.5-17.5-19.3-19.3L64.8 335.2 110 269.6c5.7-8.2 5.7-19 0-27.2L64.8 176.8l78.3-14.4c9.8-1.8 17.5-9.5 19.3-19.3l14.4-78.3L242.4 110c8.2 5.7 19 5.7 27.2 0zM256 368a112 112 0 1 0 0-224 112 112 0 1 0 0 224zM192 256a64 64 0 1 1 128 0 64 64 0 1 1 -128 0z"/>
+					</svg>
+					<!-- SVG para estado seleccionado -->
+					<svg class="checked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18" fill="var(--text1)">
+						<path d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"/>
+					</svg>
+				</label>
+			</div>
+			
+			<div class="radio-container">
+				<input type="radio" id="dim" name="theme" value="dim" class="custom-radio">
+				<label for="dim">
+					<!-- SVG para estado no seleccionado -->
+					<svg class="unchecked"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18" fill="var(--text2)">
+						<path d="M464 256A208 208 0 1 0 48 256a208 208 0 1 0 416 0zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/>
+					</svg>
+					<!-- SVG para estado seleccionado -->
+					<svg class="checked" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18" fill="var(--text1)">
+						<path d="M448 256c0-106-86-192-192-192l0 384c106 0 192-86 192-192zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/>
+					</svg>
+				</label>
+			</div>
+		</form>
+		<!-- Usuario -->
+		<li><a href="#sidebar" class="user-profile">
+			<h3 class="btn"><?= session('userSessionName') ?></h3>
+		</a></li>
+		<li><a href="<?= base_url('logout') ?>">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="24" height="24" fill="var(--text1)"><path d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z"/></svg>
+		</a></li>
+	</ul>
+</nav>
+</section>
+
+<!-- MENSAJES -->
+
+<?php if (session()->has('success')): ?>
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		<?= session('success') ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+<?php endif; ?>
+
+<?php if (session()->has('error')): ?>
+	<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		<?= session('error') ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+<?php endif; ?>  
+
+<!-- SIDEBAR -->
+
+<nav id="sidebar">
+	<a href="#" class="close"><img src="<?= base_url('img/icons/xmark-solid.svg') ?>"></a>
+	<ul class="links">
+		<li><a href="<?= base_url('/') ?>">Home</a></li>
+		<li><a href="<?= base_url('projects/myList') ?>">Mis Proyectos</a></li>
+		<li><a href="<?= base_url('investments/list') ?>">Mis Inversiones</a></li>
+	</ul>
+
+	<?php 
+	if ((session('userSessionName') !== null) && 
+		(session('userSessionEmail') !== null) && 
+		(session('userSessionProfile') !== null)) {
+		echo '<form action="users/update" enctype="multipart/form-data" autocomplete="off" method="post">
+		<br>
+		<h2>Perfil</h2>
+		<label for="img_name">Foto de perfil</label>
+		<div class="profile-img">
+			<img src="'.base_url(session('userSessionProfile')).'" width="250" style="border-radius:50%">
+		</div>
+		<input type="file" id="img_name" name="img_name" accept="image/*" class="hidden">
+		
+		<label for="username">Tu nombre</label>
+		<input type="text" id="username" name="username" placeholder="'.session('userSessionName').'" value="">
+		
+		<label for="email">Tu Email</label>
+		<input type="email" id="email" name="email" placeholder="'.session('userSessionEmail').'" value="">
+		
+		<br>
+		<input type="submit" name="submit" value="Guardar cambios">
+		<br>
+		<br>
+	</form>';
+	}
+	?>
 </nav>
 
+<!-- PROJECTS SEARCH -->
+
 </section>
-        <div class="container">
-                <h3 id="titulo">Proyectos para Invertir</h3>
-                  <!-- Aquí se mostrarán los mensajes -->
-                    <?php if (session()->has('success')): ?>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <?= session('success') ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php endif; ?>
+<div class="container">
+	<h3 id="titulo">Proyectos para Invertir</h3>   
+	<div class="search-container">
+		<input type="text" id="searchInput" placeholder="Buscar proyectos...">
+		<button onclick="
+			if (document.getElementById('searchInput').value.trim() !== '') { window.location.href='<?= base_url('projects/filter/') ?>' + document.getElementById('searchInput').value; } 
+			else { alert('Por favor, ingrese un término de búsqueda.'); }">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="var(--text1)"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+		</button>
+		<button class="reset-button" onclick="window.location.href='<?= base_url('projects/list') ?>'">
+			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="var(--text1)"><path d="M463.5 224l8.5 0c13.3 0 24-10.7 24-24l0-128c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8l119.5 0z"/></svg>
+		</button>
+	</div>
+</div>
 
-                    <?php if (session()->has('error')): ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <?= session('error') ?>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    <?php endif; ?>   
-            <div class="search-container">
-                <input type="text" id="searchInput" placeholder="Buscar proyectos...">
-                <button onclick="
-                if (document.getElementById('searchInput').value.trim() !== '') { window.location.href='<?= base_url('projects/filter/') ?>' + document.getElementById('searchInput').value; } 
-                else { alert('Por favor, ingrese un término de búsqueda.'); }">
-                    <i class="fas fa-search"></i>
-                </button>
-                <button class="reset-button" onclick="window.location.href='<?= base_url('projects/list') ?>'">
-                    <i class="fas fa-redo-alt"></i>
-                </button>
-            </div>
-        </div>
+<!-- PROJECTS TABLE -->
 
-        <table id= "tablaProyectos" class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Categoria</th>
-                    <th>Impacto</th>
-                    <th>Estado</th>
-                    <th>Fondo</th>
-                    <th>Fecha Cierre</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if(isset($projects)) foreach ($projects as $p): ?>
-                    <tr>
-                        <td><?= $p['id_projects'] ?></td>
-                        <td><?= $p['name'] ?></td>
-                        <td><?= $p['category'] ?></td>
-                        <td><?= $p['impact'] ?></td>
-                        <td><?= $p['status'] ?></td>
-                        <td><?= $p['budget'] ?></td>
-                        <td><?= $p['end_date'] ?></td>
-                        <td>
-                            <div class="button-group">
-                                <button class="btn-action btn btn-primary btn-sm" onclick="openInvestmentModal(<?= session('userSessionID')?>, <?=$p['id_projects'] ?>)"> <i class="fas fa-edit"></i> Invertir</button>
-                                <button class="btn-action" onclick="location.href='<?= base_url('projects/detail/' . $p['id_projects']) ?>'">Detalles</button>
-                            </div>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
+<table id= "tablaProyectos" class="table table-striped table-bordered">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nombre</th>
+			<th>Categoria</th>
+			<th>Impacto</th>
+			<th>Estado</th>
+			<th>Fondo</th>
+			<th>Fecha Cierre</th>
+			<th>Acciones</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php if(isset($projects)) foreach ($projects as $p): ?>
+		<tr>
+			<td><?= $p['id_projects'] ?></td>
+			<td><?= $p['name'] ?></td>
+			<td><?= $p['category'] ?></td>
+			<td><?= $p['impact'] ?></td>
+			<td><?= $p['status'] ?></td>
+			<td><?= $p['budget'] ?></td>
+			<td><?= $p['end_date'] ?></td>
+			<td>
+			<div class="button-group">
+				<button class="btn-action btn btn-primary btn-sm" onclick="openInvestmentModal(<?= session('userSessionID')?>, <?=$p['id_projects'] ?>)">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="var(--text1)"><path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.7 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160L0 416c0 53 43 96 96 96l256 0c53 0 96-43 96-96l0-96c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 96c0 17.7-14.3 32-32 32L96 448c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 64z"/></svg>
+				Invertir
+				</button>
+				<button class="btn-action" onclick="location.href='<?= base_url('projects/detail/' . $p['id_projects']) ?>'">Detalles</button>
+			</div>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+	</tbody>
+</table>
+</div>
 
-    <!-- Modal CREAR INVERSION -->
-    <div id="modal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal()">&times;</span>
-                <h2>Realizar inversión</h2>
-                <input type="hidden" id="current_user_id" value="<?= session('userSessionID') ?>">
-                <form action="<?= base_url()?>investments/create" method="post">
-                    <div class="form-group">
-                        <label for="id_username">Id usuario:</label>
-                        <input type="text" id="id_username" name="id_username" required readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_project">Id proyecto:</label>
-                        <input type="text" id="id_project" name="id_project" required readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="amount">Monto:</label>
-                        <input type="number" id="amount" name="amount" placeholder="Ingresar monto" required>
-                    </div>
-                    <div class="form-group button-group">
-                        <button type="submit" value="data">Aceptar</button>
-                        <button type="button" onclick="closeModal()">Cancelar</button>
-                    </div>
-                </form>
-            </div>
-    </div>
+<!-- MODAL CREAR INVERSION -->
+
+<div id="modal" class="modal">
+	<div class="modal-content">
+		<span class="close-button" onclick="closeModal()">&times;</span>
+		<h2>Realizar inversión</h2>
+		<input type="hidden" id="current_user_id" value="<?= session('userSessionID') ?>">
+		<form action="<?= base_url()?>investments/create" method="post">
+			<div class="form-group">
+				<label for="id_username">Id usuario:</label>
+				<input type="text" id="id_username" name="id_username" required readonly>
+			</div>
+			<div class="form-group">
+				<label for="id_project">Id proyecto:</label>
+				<input type="text" id="id_project" name="id_project" required readonly>
+			</div>
+			<div class="form-group">
+				<label for="amount">Monto:</label>
+				<input type="number" id="amount" name="amount" placeholder="Ingresar monto" required>
+			</div>
+			<div class="form-group button-group">
+				<button type="submit" value="data">Aceptar</button>
+				<button type="button" onclick="closeModal()">Cancelar</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- SCRIPTS -->
+
+<script src="<?= base_url('js/sidebar.js') ?>"></script>
+
+<!-- END -->
+
 </body>
+</html>
