@@ -9,7 +9,6 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<!-- JS -->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script type="module" src="<?= base_url('js/util.js') ?>"></script>
