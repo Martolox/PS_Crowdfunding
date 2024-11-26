@@ -72,7 +72,7 @@ class ProjectsController extends BaseController
 
                  }
 				
-                error_log('id - '.$projectId);
+               
 				if ($projectId) {
                    // error_log('esto quiero guardar'.$projectData);
 					// Actualiza el proyecto existente

@@ -155,7 +155,7 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2 id="modalTitle">Proyecto</h2>
-            <form action="<?= base_url('ProjectsController/save_project') ?>" method="post" enctype="multipart/form-data">
+            <form action="<?= base_url('ProjectsController/save_project') ?>" method="post" enctype="multipart/form-data" id="formModalProject">
                 <input type="hidden" name="project_id" id="project_id">
                 
                 <div class="form-group">
@@ -264,6 +264,7 @@ function showCancelModal(id, name, url) {
 function closeModal() {
     // Ocultar el modal
     document.getElementById('cancelModal').style.display = 'none';
+  
 }
 
 function confirmCancel() {

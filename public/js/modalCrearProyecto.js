@@ -1,6 +1,6 @@
 function openProjectModal(projectId = null) {
     var modal = document.getElementById('projectModal');
-    var form = modal.querySelector('form');
+    var form = document.getElementById('formModalProject'); // modal.querySelector('form');
     var titleElement = document.getElementById('modalTitle');
 
     // Reset the form
@@ -17,6 +17,9 @@ function openProjectModal(projectId = null) {
         // If no projectId, we're creating a new project
         titleElement.textContent = 'Crear Proyecto';
         document.getElementById('project_id').value = '';
+        const projectImage = document.getElementById('projectImage');
+        projectImage.src = '';
+        projectImage.hidden = true;
     }
 
     // Show the modal
@@ -24,8 +27,13 @@ function openProjectModal(projectId = null) {
 }
 
 function closeProjectModal() {
+    document.getElementById('formModalProject').reset;
+    const projectImage = document.getElementById('projectImage');
+        projectImage.src = '';
+        projectImage.hidden = true;
     var modal = document.getElementById('projectModal');
     modal.style.display = 'none';
+    
 }
 
 
