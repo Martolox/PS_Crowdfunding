@@ -21,7 +21,7 @@
 
 <section id="navbar">
 <nav>
-	<!-- Botones izquierdos -->
+	<!-- Left buttons -->
 	<ul class="navbar-nav">
 		<li><a href="<?= base_url('') ?>" class="nav-link">IMPULSA</a></li>
 		<li><a href="<?= base_url('') ?>" class="nav-link"role="button">
@@ -35,7 +35,7 @@
 			<li><a href="<?= base_url('projects/myList') ?>" class="nav-link">Mis Proyectos</a></li>
 		<?php endif; ?>
 	</ul>
-	<!-- Botones derechos -->
+	<!-- Right buttons -->
 	<ul class="navbar-nav ms-auto">
 		<form id="theme-switcher">
 			

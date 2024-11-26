@@ -7,11 +7,10 @@
 	<meta name="theme-color" content="#222">
 	<link rel="icon" type="image/ico" href="<?= base_url('img/favicon.ico') ?>"/>
 	<!-- CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<!--<link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>"> -->
-	<link rel="stylesheet" href="<?= base_url('css/crearInversion.css') ?>">
-	<link rel="stylesheet" href="<?= base_url('css/listProjets.css') ?>">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
+	<link rel="stylesheet" href="<?= base_url('css/projects.css') ?>">
 	<!-- JS -->
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
@@ -31,12 +30,11 @@
 	<input type="hidden" id="alertError" value="<?= session()->getFlashdata('error') ?>">
 <?php endif; ?>
 
-
 <!-- NAVBAR -->
 
 <section id="navbar">
 <nav>
-	<!-- Botones izquierdos -->
+	<!-- Left buttons -->
 	<ul class="navbar-nav">
 		<li><a href="<?= base_url('') ?>" class="nav-link">IMPULSA</a></li>
 		<li><a href="<?= base_url('') ?>" class="nav-link"role="button">
@@ -48,7 +46,7 @@
 		<li><a href="<?= base_url('investments/list') ?>" class="nav-link">Inversiones</a></li>
 		<li><a href="<?= base_url('projects/myList') ?>" class="nav-link">Mis Proyectos</a></li>
 	</ul>
-	<!-- Botones derechos -->
+	<!-- Right buttons -->
 	<ul class="navbar-nav ms-auto">
 		<form id="theme-switcher">
 			
@@ -165,9 +163,8 @@
 
 <!-- PROJECTS SEARCH -->
 
-</section>
-<div class="container">
-	<h3 id="titulo">Proyectos para Invertir</h3>   
+<section id="proj-search">
+	<h3>Proyectos para Invertir</h3>
 	<div class="search-container">
 		<input type="text" id="searchInput" placeholder="Buscar proyectos...">
 		<button onclick="
@@ -179,11 +176,11 @@
 			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="var(--text1)"><path d="M463.5 224l8.5 0c13.3 0 24-10.7 24-24l0-128c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1c-87.5 87.5-87.5 229.3 0 316.8s229.3 87.5 316.8 0c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0c-62.5 62.5-163.8 62.5-226.3 0s-62.5-163.8 0-226.3c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8l119.5 0z"/></svg>
 		</button>
 	</div>
-</div>
+</section>
 
 <!-- PROJECTS TABLE -->
 
-<table id= "tablaProyectos" class="table table-striped table-bordered">
+<table id= "proj-table" class="table table-striped table-bordered">
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -223,7 +220,7 @@
 
 <!-- MODAL CREAR INVERSION -->
 
-<div id="modal" class="modal">
+<section id="modal" class="modal">
 	<div class="modal-content">
 		<span class="close-button" onclick="closeModal()">&times;</span>
 		<h2>Realizar inversión</h2>
@@ -247,7 +244,7 @@
 			</div>
 		</form>
 	</div>
-</div>
+</section>
 
 <!-- SCRIPTS -->
 

@@ -6,6 +6,8 @@
 	--brand-hue: 200;
 	--brand-saturation: 100%;
 	--brand-lightness: 50%;
+	--btn-blue-hue:200;
+	--btn-red-hue:4;
 
 	/* light */
 	--brand-light: hsl(var(--brand-hue) var(--brand-saturation) var(--brand-lightness));
@@ -17,6 +19,7 @@
 	--surface4-light: hsl(var(--brand-hue) 20% 85%);
 	--surface-shadow-light: var(--brand-hue) 10% 20%;
 	--shadow-strength-light: .02;
+	--btn-red-light: hsl(var(--btn-red-hue) var(--brand-saturation) var(--brand-lightness));
 
 	/* dark */
 	--brand-dark: hsl(
@@ -32,6 +35,11 @@
 	--surface4-dark: hsl(var(--brand-hue) 5% 25%);
 	--surface-shadow-dark: var(--brand-hue) 50% 3%;
 	--shadow-strength-dark: .8;
+	--btn-red-dark: hsl(
+		var(--btn-red-hue) 
+		calc(var(--brand-saturation) / 2)
+		calc(var(--brand-lightness) / 1.5)
+	);
 
 	/* dim */
 	--brand-dim: hsl(
@@ -47,6 +55,11 @@
 	--surface4-dim: hsl(var(--brand-hue) 5% 35%);
 	--surface-shadow-dim: var(--brand-hue) 30% 13%;
 	--shadow-strength-dim: .2;
+	--btn-red-dim: hsl(
+		var(--btn-red-hue) 
+		calc(var(--brand-saturation) / 1.25)
+		calc(var(--brand-lightness) / 1.25)
+	);
 }
 
 :root {
@@ -61,6 +74,8 @@
 	--surface4: var(--surface4-light);
 	--surface-shadow: var(--surface-shadow-light);
 	--shadow-strength: var(--shadow-strength-light);
+	--btn-red: var(--btn-red-light);
+
 }
 
 @media (prefers-color-scheme: dark) {
@@ -76,6 +91,7 @@
 		--surface4: var(--surface4-dark);
 		--surface-shadow: var(--surface-shadow-dark);
 		--shadow-strength: var(--shadow-strength-dark);
+		--btn-red: var(--btn-red-dark);
 	}
 }
 
@@ -91,6 +107,7 @@
 	--surface4: var(--surface4-light);
 	--surface-shadow: var(--surface-shadow-light);
 	--shadow-strength: var(--shadow-strength-light);
+	--btn-red: var(--btn-red-light);
 }
 
 [color-scheme="dark"] {
@@ -105,6 +122,7 @@
 	--surface4: var(--surface4-dark);
 	--surface-shadow: var(--surface-shadow-dark);
 	--shadow-strength: var(--shadow-strength-dark);
+	--btn-red: var(--btn-red-dark);
 }
 
 [color-scheme="dim"] {
@@ -119,6 +137,7 @@
 	--surface4: var(--surface4-dim);
 	--surface-shadow: var(--surface-shadow-dim);
 	--shadow-strength: var(--shadow-strength-dim);
+	--btn-red: var(--btn-red-dim);
 }
 
 /* GENERAL */

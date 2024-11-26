@@ -1,0 +1,248 @@
+
+/* GENERAL */
+
+body {
+	color: var(--text1);
+	text-align: left;
+	background-color: var(--surface3);
+}
+
+/* PROJECTS LIST SEARCH */
+
+#proj-search {
+	width: 90%;
+	margin: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content:space-between;
+	align-content: baseline;
+}
+
+#proj-search h3 {
+	padding: 15px 30px;
+	color: var(--text1);
+	font-size: 1.75rem;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+#proj-search .search-container {
+	padding: 15px 40px;
+}
+
+#proj-search input {
+	width: 250px;
+	padding: 10px;
+	border-radius: 5px 0 0 5px;
+	border: 1px solid var(--text1);
+	color: var(--text2);
+	box-shadow: inset 0 1px 2px rgba(0,0,0,.075);
+	font-size: inherit;
+	line-height: inherit;
+	background-color: var(--surface4);;
+}
+
+#proj-search .search-container button {
+	padding: 10px;
+	border: 1px solid var(--text1);
+	border-left: none;
+	background-color: #007bff;
+	color: white;
+	border-radius: 0 5px 5px 0;
+	cursor: pointer;
+	font-size: 1em;
+	line-height: inherit;
+}
+
+#proj-search .search-container button:hover {
+	background-color: #0056b3;
+}
+
+/* PROJECTS TABLE */
+
+#proj-table {
+	width: 90%;
+	margin: auto;
+
+	table-layout: auto;
+	border: 1px solid #dee2e6;
+	background-color: transparent;
+	border-collapse: collapse;
+}
+
+#proj-table thead {
+	display: table-header-group;
+	vertical-align: middle;
+	unicode-bidi: isolate;
+	border-color: inherit;
+}
+
+#proj-table tr {
+	display: table-row;
+	vertical-align: inherit;
+	unicode-bidi: isolate;
+	border-color: inherit;
+}
+
+#proj-table thead th {
+	border-bottom: 2px solid #dee2e6;
+	vertical-align: middle;
+	unicode-bidi: isolate;
+	border-color: inherit;
+}
+
+#proj-table tbody tr:nth-of-type(odd) {
+	background-color: #dee2e615;
+}
+
+#proj-table th, #proj-table td {
+	padding: 10px;
+	text-align: center;
+	border: 1px solid #dee2e6;
+}
+
+#proj-table .button-group {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+#proj-table .button-group .btn-action {
+	background-color: var(--brand);
+	color: white;
+	cursor: pointer;
+	margin: 5px;
+	padding: 10px 20px;
+	border: 1px solid var(--text1);
+	border-radius: 4px;
+	font-size: .875rem;
+	line-height: 1.5;
+
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#proj-table .button-group .btn-action:hover {
+	background-color: oklab(from var(--brand) calc(l + 0.1) a b);
+}
+
+/* CREAR INVERSIÓN */
+
+#modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+
+#modal .modal-content {
+	background-color: var(--surface4);
+	padding: 20px;
+	border: 1px solid #888;
+	width: 30%;
+	max-width: 350px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#modal .close-button {
+	color: var(--text2);
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+#modal .close-button:hover,
+#modal .close-button:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+
+#modal form{
+	display: inline-flex;
+	flex-direction: column;
+}
+
+#modal .form-group {
+	display: block;
+	margin-bottom: 15px;
+}
+
+#modal .form-group label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+#modal .form-group input {
+	width: 300px;
+	padding: 8px;
+	line-height: 1.2rem;
+	box-sizing: border-box;
+}
+
+#modal .button-group {
+	display: flex;
+	justify-content: space-between;
+}
+
+#modal .button-group button {
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#modal .button-group button[type="submit"] {
+	background-color: var(--brand);
+	color: white;
+}
+
+#modal .button-group button[type="submit"]:hover {
+	background-color: oklab(from var(--brand) calc(l + 0.1) a b);
+	color: var(--text2);
+}
+
+#modal .button-group button[type="button"] {
+	background-color: var(--btn-red);
+	color: white;
+}
+
+#modal .button-group button[type="button"]:hover {
+	background-color: oklab(from var(--btn-red) calc(l + 0.1) a b);
+	color: var(--text2);
+}
+
+
+/*
+.reset-button {
+	padding: 10px;
+	border: 1px solid #ddd;
+	background-color: #ffc107;
+	color: white;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 1em;
+}
+
+.reset-button:hover {
+	background-color: #e0a800;
+}
+
+
+#tituloMisProyectos {
+	margin-top: 20px;
+	margin-bottom: -45px;
+	font-size: 2em;
+	color: #333;
+	font-weight: bold;
+}*/
