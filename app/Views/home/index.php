@@ -130,7 +130,7 @@
 		<h2>Perfil</h2>
 		<label for="img_name">Foto de perfil</label>
 		<div class="profile-img">
-			<img src="'.base_url('/uploads/'.session('userSessionProfile')).'" width="250" style="border-radius:50%">
+			<img src="'.base_url(session('userSessionProfile')).'" width="250" style="border-radius:50%">
 		</div>
 		<input type="file" id="img_name" name="img_name" accept="image/*" class="hidden">
 		

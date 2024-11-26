@@ -30,7 +30,7 @@
         <?php endif; ?>   
 		
 		<br>
-		<img id="projectImage" src="<?= base_url('uploads/' . esc($project['img_name'])) ?>" alt="Imagen de <?= esc($project['name']) ?>" class="w-64 h-64 object-cover rounded-lg mb-6">
+		<img id="projectImage" src="<?= base_url(esc($project['img_name'])) ?>" alt="Imagen de <?= esc($project['name']) ?>" class="w-64 h-64 object-cover rounded-lg mb-6">
 		
 		<div class="grid grid-cols-2 gap-4 mb-6">
 			<div>

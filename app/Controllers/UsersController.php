@@ -95,7 +95,7 @@ class UsersController extends BaseController
 		session()->set(['userSessionID' => $query['id_users']]);
 		session()->set(['userSessionName' => $query['username']]);
 		session()->set(['userSessionEmail' => $query['email']]);
-		session()->set(['userSessionProfile' => 'profile.png']);
+		session()->set(['userSessionProfile' => 'uploads/profile.png']);
 
 		// La imagen placeholder se llama profile. Debe estar en public/uploads.
 		session()->set(['userSessionProfile' => 'profile']); 
@@ -135,32 +135,19 @@ class UsersController extends BaseController
 			}
 		}
 
-		////////////////////////////////////////////////////////////////////////
-
 		// Verificar carga de imagen
 		$file = $this->request->getFile('img_name');
-
-		if ($file && 
-			$file->isValid() && 
-			!$file->hasMoved() && 
+		if ($file->isValid() &&
 			in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/gif']) && 
-			$file->getSize() <= 2048 * 1024
-		) {
-			$uploadPath =  ROOTPATH . '/public/uploads/';
-			error_log("estoy creando el path - ".$uploadPath);
-			if (!is_dir($uploadPath)) {
-				mkdir($uploadPath, 0755, true);
+			$file->getSize() <= 2048 * 1024)
+		{
+			$newName = $file->getRandomName();
+			$file->move(ROOTPATH . '/public/uploads/', $newName);
+			$_POST['img_name'] = 'uploads/'.$newName;
 		}
 
-		$newName = $file->getRandomName();
-		$file->move($uploadPath, $newName);
-		$filePath = '/uploads/' . $newName;
-
-
-		////////////////////////////////////////////////////////////////////////
-
-		$model = model(UsersModel::class);
 		// Validar usuario repetido
+		$model = model(UsersModel::class);
 		$query = $model->where('username', $_POST['username'])->first();
 		$errors = ['errors' => ['Error, usuario duplicado']];
 		if(isset($query)) return redirect()->to('/')->with('error', 'Usuario duplicado');
@@ -175,20 +162,18 @@ class UsersController extends BaseController
 			$data['email'] = $_POST['email'];
 		else
 			$data['email'] = session('userSessionEmail');
-		if($_POST['img_name'] !== '')
+		if(isset($_POST['img_name']) && $_POST['img_name'] !== '')
 			$data['img_name'] = $_POST['img_name'];
 		else
 			$data['img_name'] = session('userSessionProfile');
         // Actualizar en BD
-		$model->update(session('userSessionID'),$data); 
+		$model->update(session('userSessionID'), $data);
 
-		// Actualizar variables de sesión
 		session()->set(['userSessionName' => $data['username']]);
 		session()->set(['userSessionEmail' => $data['email']]);
-		session()->set(['userSessionEmail' => $data['email']]);
+		session()->set(['userSessionProfile' => $data['img_name']]);
 
 		// La imagen placeholder se llama 'profile'. Debe estar en public/uploads.
 		return redirect()->to('/')->with('success', 'Usuario actualizado exitosamente.');
-	}
 	}
 }
