@@ -280,6 +280,12 @@
 					<option value="TECNOLOGIA">Tecnología</option>
 					<option value="PETROLEO">Petróleo</option>
 					<option value="INMOBILIARIO">Inmobiliario</option>
+                    <option value="Negocios">Negocios</option>
+                    <option value="Arte y Diseño">Arte y Diseño</option>
+                    <option value="Bien Social">Bien Social</option>
+                    <option value="Entretenimiento">Entretenimiento</option>
+                    <option value="Cultura">Cultura</option>
+                    <option value="sports">Sports</option>
 					<option value="OTROS">Otros</option>
 				</select>
 			</div>
