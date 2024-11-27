@@ -33,10 +33,7 @@ function closeProjectModal() {
         projectImage.hidden = true;
     var modal = document.getElementById('projectModal');
     modal.style.display = 'none';
-    
 }
-
-
 
 //funciones para modal de confirmacion de cancelacion
 function showCancelModal(id, name, url) {
@@ -60,8 +57,6 @@ function confirmCancel() {
     // Enviar el formulario para cancelar el proyecto
     document.getElementById('cancelForm').submit();
 }
-
-
 
 // Add event listeners when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {

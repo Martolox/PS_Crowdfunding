@@ -114,7 +114,7 @@ body {
 	align-items: center;
 }
 
-#proj-table .button-group .btn-action {
+#proj-table .button-group button {
 	width: 100px;
 	background-color: var(--brand);
 	color: white;
@@ -128,19 +128,102 @@ body {
 
 	display: inline-block;
 	font-weight: 400;
-	text-align: center;
+	text-align: baseline;
 	white-space: nowrap;
 	vertical-align: middle;
 	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-#proj-table .button-group .btn-action:hover {
+#proj-table .button-group button:hover {
 	background-color: oklab(from var(--brand) calc(l + 0.1) a b);
 }
 
+/* CREAR MI PROYECTO */
+
+#proj-table svg {
+	width: 18px;
+	height: 18px;
+	fill: var(--text1);
+	position: relative;
+	right: 4px;
+	top: 2px;
+}
+
+#proj-table .button-group .badge {
+	width: 100px;
+	background-color: var(--btn-red);
+	color: white;
+	cursor: pointer;
+	margin: 5px;
+	padding: 10px 20px;
+	border: 1px solid var(--text1);
+	border-radius: 4px;
+	font-size: .875rem;
+	line-height: 1.5;
+
+
+	display: inline-block;
+	font-weight: 400;
+	text-align: baseline;
+	white-space: nowrap;
+	vertical-align: middle;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#proj-table .button-group .badge:hover {
+	background-color: oklab(from var(--btn-red) calc(l + 0.1) a b);
+}
+
+#proj-table .button-group .btn-success {
+	width: 100px;
+	background-color: var(--btn-green);
+	color: white;
+	cursor: pointer;
+	margin: 5px;
+	padding: 10px 20px;
+	border: 1px solid var(--text1);
+	border-radius: 4px;
+	font-size: .875rem;
+	line-height: 1.5;
+
+
+	display: inline-block;
+	font-weight: 400;
+	text-align: baseline;
+	white-space: nowrap;
+	vertical-align: middle;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#proj-table .button-group .btn-success:hover {
+	background-color: oklab(from var(--btn-green) calc(l + 0.1) a b);
+}
+
+.create-project-btn {
+	margin: 20px;
+	padding-left: 40px;
+	cursor: pointer;
+	color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+
 /* CREAR INVERSIÓN */
 
-#modal {
+.modal {
 	display: none;
 	position: fixed;
 	z-index: 1;
@@ -152,7 +235,7 @@ body {
 	background-color: rgba(0, 0, 0, 0.4);
 }
 
-#modal .modal-content {
+.modal .modal-content {
 	background-color: var(--surface4);
 	padding: 20px;
 	border: 1px solid #888;
@@ -161,96 +244,267 @@ body {
 	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-#modal .close-button {
+.modal .close-button {
 	color: var(--text2);
 	float: right;
 	font-size: 28px;
 	font-weight: bold;
 }
 
-#modal .close-button:hover,
-#modal .close-button:focus {
+.modal .close-button:hover,
+.modal .close-button:focus {
 	color: black;
 	text-decoration: none;
 	cursor: pointer;
 }
 
 
-#modal form{
+.modal form{
 	display: inline-flex;
 	flex-direction: column;
 }
 
-#modal .form-group {
+.modal .form-group {
 	display: block;
 	margin-bottom: 15px;
 }
 
-#modal .form-group label {
+.modal .form-group label {
 	display: block;
 	margin-bottom: 5px;
 }
 
-#modal .form-group input {
+.modal .form-group input {
 	width: 300px;
 	padding: 8px;
 	line-height: 1.2rem;
 	box-sizing: border-box;
 }
 
-#modal .button-group {
+.modal .button-group {
 	display: flex;
 	justify-content: space-between;
 }
 
-#modal .button-group button {
+.modal .button-group button {
 	padding: 10px 20px;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
 }
 
-#modal .button-group button[type="submit"] {
+.modal .button-group button[type="submit"] {
 	background-color: var(--brand);
 	color: white;
 }
 
-#modal .button-group button[type="submit"]:hover {
+.modal .button-group button[type="submit"]:hover {
 	background-color: oklab(from var(--brand) calc(l + 0.1) a b);
 	color: var(--text2);
 }
 
-#modal .button-group button[type="button"] {
+.modal .button-group button[type="button"] {
 	background-color: var(--btn-red);
 	color: white;
 }
 
-#modal .button-group button[type="button"]:hover {
+.modal .button-group button[type="button"]:hover {
 	background-color: oklab(from var(--btn-red) calc(l + 0.1) a b);
 	color: var(--text2);
 }
 
+/* CREAR PROYECTO */
 
-/*
-.reset-button {
+#projectModal {
+	display: none;
+	position: fixed;
+	z-index: 1050;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.6;
+	overflow: hidden;
+	outline: 0;
+}
+
+#projectModal .modal-content {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	background-color: var(--surface4);
+	background-clip: padding-box;
+	border: 1px solid rgba(0, 0, 0, .2);
+	border-radius: .3rem;
+
+	margin: 5% auto;
+	padding: 20px;
+	border-radius: 8px;
+	max-width: 600px;
+	max-height: 90vh;
+	overflow-y: auto;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#projectModal .close {
+	cursor: pointer;
+	pointer-events: auto;
+	float: right;
+	font-size: 1.5rem;
+	font-weight: 700;
+	line-height: 1;
+	color: #000;
+	text-shadow: 0 1px 0 #fff;
+	opacity: .5;
+}
+
+#projectModal h2 {
+	font-size: 2rem;
+	margin-top: 0;
+	margin-bottom: .5rem;
+	font-family: inherit;
+	font-weight: 500;
+	line-height: 1.2;
+}
+
+#projectModal form {
+	display: block;
+}
+
+#projectModal .form-group {
+	display: block;
+	margin-bottom: 15px;
+}
+
+#projectModal .form-group label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: 500;
+}
+
+#projectModal .form-group input #projectModal .form-group select {
+	width: 100%;
 	padding: 10px;
 	border: 1px solid #ddd;
-	background-color: #ffc107;
-	color: white;
+	border-radius: 8px;
+	font-size: 1rem;
+	background-color: var(--surface3);
+}
+
+#projectModal .form-group textarea {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	font-size: 1rem;
+	background-color: var(--surface3);
+}
+
+#projectModal select {
+	padding: 10px;
+	font-size: 1rem;
+	color: var(--text1);
+	background-color: var(--surface3);
+}
+
+#projectModal button, #cancelModal button {
+	padding: 10px 20px;
+	border: none;
 	border-radius: 5px;
 	cursor: pointer;
-	font-size: 1em;
+	background-color: var(--brand);
+	color: white;
 }
 
-.reset-button:hover {
-	background-color: #e0a800;
+#projectModal button:hover, #cancelModal button:hover {
+	background-color: oklab(from var(--brand) calc(l + 0.1) a b);
+	color: var(--text2);
 }
 
+/* MODAL CANCELAR PROYECTO */
 
-#tituloMisProyectos {
-	margin-top: 20px;
-	margin-bottom: -45px;
-	font-size: 2em;
-	color: #333;
-	font-weight: bold;
-}*/
+#cancelModal {
+	position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    overflow: hidden;
+    outline: 0;
+    width: 100%;
+    height: 100%;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+}
+
+#cancelModal .modal-content {
+	position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #DDD;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: .3rem;
+    outline: 0;
+
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: var(--box-shadow);
+    margin: 5% auto;
+    padding: 20px;
+}
+
+#cancelModal .modal-content h2 {
+	font-size: 2rem;
+	margin-bottom: .5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.2;
+    color: inherit;
+    margin-top: 0;
+    display: block;
+    pointer-events: auto;
+
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+#cancelModal .modal-content p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+#cancelModal #confirmButton {
+    padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	background-color: var(--btn-red);
+	color: white;
+}
+
+#cancelModal #confirmButton:hover {
+	background-color: oklab(from var(--btn-red) calc(l + 0.1) a b);
+	color: var(--text2);
+}

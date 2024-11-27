@@ -7,21 +7,23 @@
 	<meta name="theme-color" content="#222">
 	<link rel="icon" type="image/ico" href="<?= base_url('img/favicon.ico') ?>"/>
 	<!-- CSS -->
-	<!--
-	<link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>">
+ 	<link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
-	<link rel="stylesheet" href="<?= base_url('css/tables.css') ?>"> -->
-
-	<link rel="stylesheet" href="/crowdfunding/public/css/crearProyecto.css">
+	<link rel="stylesheet" href="<?= base_url('css/tables.css') ?>">
+	
+<!--  	<link rel="stylesheet" href="/crowdfunding/public/css/crearProyecto.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">-->
+	<!-- JS -->
+	<script src="<?= base_url('js/modalCrearProyecto.js') ?>"></script>
+	<script src="<?= base_url('js/alertasYMensajesProjets.js') ?>"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 	<script type="module" src="<?= base_url('js/util.js') ?>"></script>
-	<script src="<?= base_url('js/modalCrearProyecto.js') ?>"></script>
-	<script src="<?= base_url('js/alertasYMensajesProjets.js') ?>"></script>
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+	
+	
 	
 </head>
 <body>
@@ -237,12 +239,12 @@
 				<?php elseif ($project['status'] == 'CANCELADO'): ?>
 				<!-- Proyecto cancelado - sin acciones adicionales -->
 				<span class="badge badge-danger">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="var(--text1)"><path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>Proyecto Cancelado
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="var(--text1)"><path d="M367.2 412.5L99.5 144.8C77.1 176.1 64 214.5 64 256c0 106 86 192 192 192c41.5 0 79.9-13.1 111.2-35.5zm45.3-45.3C434.9 335.9 448 297.5 448 256c0-106-86-192-192-192c-41.5 0-79.9 13.1-111.2 35.5L412.5 367.2zM0 256a256 256 0 1 1 512 0A256 256 0 1 1 0 256z"/></svg>Proyecto<br>Cancelado
 					</span>
 				<?php elseif ($project['status'] == 'FINALIZADO'): ?>
 				<!-- Proyecto finalizado - sin acciones adicionales -->
 				<span class="badge badge-success">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="var(--text1)"><path d="M4.1 38.2C1.4 34.2 0 29.4 0 24.6C0 11 11 0 24.6 0L133.9 0c11.2 0 21.7 5.9 27.4 15.5l68.5 114.1c-48.2 6.1-91.3 28.6-123.4 61.9L4.1 38.2zm503.7 0L405.6 191.5c-32.1-33.3-75.2-55.8-123.4-61.9L350.7 15.5C356.5 5.9 366.9 0 378.1 0L487.4 0C501 0 512 11 512 24.6c0 4.8-1.4 9.6-4.1 13.6zM80 336a176 176 0 1 1 352 0A176 176 0 1 1 80 336zm184.4-94.9c-3.4-7-13.3-7-16.8 0l-22.4 45.4c-1.4 2.8-4 4.7-7 5.1L168 298.9c-7.7 1.1-10.7 10.5-5.2 16l36.3 35.4c2.2 2.2 3.2 5.2 2.7 8.3l-8.6 49.9c-1.3 7.6 6.7 13.5 13.6 9.9l44.8-23.6c2.7-1.4 6-1.4 8.7 0l44.8 23.6c6.9 3.6 14.9-2.2 13.6-9.9l-8.6-49.9c-.5-3 .5-6.1 2.7-8.3l36.3-35.4c5.6-5.4 2.5-14.8-5.2-16l-50.1-7.3c-3-.4-5.7-2.4-7-5.1l-22.4-45.4z"/></svg>Proyecto Finalizado
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="16" height="16" fill="var(--text1)"><path d="M4.1 38.2C1.4 34.2 0 29.4 0 24.6C0 11 11 0 24.6 0L133.9 0c11.2 0 21.7 5.9 27.4 15.5l68.5 114.1c-48.2 6.1-91.3 28.6-123.4 61.9L4.1 38.2zm503.7 0L405.6 191.5c-32.1-33.3-75.2-55.8-123.4-61.9L350.7 15.5C356.5 5.9 366.9 0 378.1 0L487.4 0C501 0 512 11 512 24.6c0 4.8-1.4 9.6-4.1 13.6zM80 336a176 176 0 1 1 352 0A176 176 0 1 1 80 336zm184.4-94.9c-3.4-7-13.3-7-16.8 0l-22.4 45.4c-1.4 2.8-4 4.7-7 5.1L168 298.9c-7.7 1.1-10.7 10.5-5.2 16l36.3 35.4c2.2 2.2 3.2 5.2 2.7 8.3l-8.6 49.9c-1.3 7.6 6.7 13.5 13.6 9.9l44.8-23.6c2.7-1.4 6-1.4 8.7 0l44.8 23.6c6.9 3.6 14.9-2.2 13.6-9.9l-8.6-49.9c-.5-3 .5-6.1 2.7-8.3l36.3-35.4c5.6-5.4 2.5-14.8-5.2-16l-50.1-7.3c-3-.4-5.7-2.4-7-5.1l-22.4-45.4z"/></svg>Proyecto<br>Finalizado
 				</span>
 				<?php endif; ?>
 			</div></td>
@@ -250,12 +252,12 @@
 		<?php endforeach; ?>
 	</tbody>
 </table>
-</section>
 
-
-<button onclick="openProjectModal()" class="btn btn-primary create-project-btn" width="16" height="16" fill="var(--text1)">
-	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>Crear Proyecto
+<button onclick="openProjectModal()" class="btn btn-primary create-project-btn" width="20" height="20" fill="var(--text1)">
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"  width="16" height="16" fill="var(--text1)"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>Crear Proyecto
 </button>
+
+</section>
 
 <!-- MODAL CREAR PROYECTO -->
 
@@ -340,7 +342,7 @@
 	<div class="modal-content">
 		<h2>Confirmar Cancelación</h2>
 		<p id="modal-text">¿Estás seguro de que deseas cancelar este proyecto?</p>
-		<div class="modal-buttons">
+		<div class="button-group">
 			<button id='confirmButton' onclick="confirmCancel()">Confirmar</button>
 			<button onclick="closeModal()">Cancelar</button>
 		</div>
@@ -350,7 +352,15 @@
 <form id="cancelForm"  method="POST" style="display:none;">
 	<input type="hidden" name="id_project" id="cancelProjectId">
 </form>
-										 
+
+<!-- FOOTER -->
+
+<section  id="footer"  class="surface1">
+	<p>Except as otherwise noted, the content of this page is licensed under the Creative Commons Attribution 4.0 License, and code samples are licensed under the Apache 2.0 License. For details, see the SCV Developers Site Policies. Impulsa is a registered trademark of UNRN and/or its affiliates.<br><br>
+	Last updated 2024-11-01 UTC.</p>
+	
+</section>
+									 
 <!-- SCRIPTS -->
 
 <script>
