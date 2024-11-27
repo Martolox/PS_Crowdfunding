@@ -61,6 +61,7 @@ body {
 /* PROJECTS/INVESTMENT TABLE */
 
 #tbl-container {
+	display: block;
 	min-height: 70vh;
 	padding-bottom: 80px;
 }
@@ -110,9 +111,11 @@ body {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
+	align-items: center;
 }
 
 #proj-table .button-group .btn-action {
+	width: 100px;
 	background-color: var(--brand);
 	color: white;
 	cursor: pointer;
