@@ -25,6 +25,12 @@ class ProjectsController extends BaseController
                         $file->getSize() <= 2048 * 1024 // 2 MB
                         );
             $projectId = $this->request->getPost('project_id');
+            //SI VIENE PROJECTID, ESTA EDITANDO PONGO EL STATUS QUE VIENE, SINO EL INICIAL
+            if ($projectId){
+                $status= $this->request->getPost('status');
+            }else{
+                $status='EN PROCESO';
+            }
             //si viene $projectId estoy editando, no es obligatorio el archivo
 			if ($projectId  || $isFile  ) {
 				
@@ -53,7 +59,7 @@ class ProjectsController extends BaseController
                             'category' => $this->request->getPost('category'),
                             'impact' => $this->request->getPost('impact'),
                             'budget' => $this->request->getPost('budget'),
-                            'status' => $this->request->getPost('status'),
+                            'status' => $status,
                             'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
                             'reward_plan' => $this->request->getPost('reward_plan'),
                             'img_name' => $filePath,
@@ -65,7 +71,7 @@ class ProjectsController extends BaseController
                         'category' => $this->request->getPost('category'),
                         'impact' => $this->request->getPost('impact'),
                         'budget' => $this->request->getPost('budget'),
-                        'status' => $this->request->getPost('status'),
+                        'status' => $status,
                         'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
                         'reward_plan' => $this->request->getPost('reward_plan')
                     ];
@@ -103,7 +109,7 @@ class ProjectsController extends BaseController
 	public function list(): string {
 		if (session('userSessionName') == null) return  view('account/login'); 
 		$projectModel = new ProjectsModel();
-		$projects = $projectModel->getProjects();
+		$projects = $projectModel->getProjectsNotLogged(session('userSessionID'));
 		return view('projects/proyects', ['projects' => $projects]);
 	}
 

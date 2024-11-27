@@ -36,6 +36,12 @@ class ProjectsModel extends Model
     return $this->whereIn('status', ['PUBLICADO', 'FINALIZADO', 'CANCELADO'])->findAll();
 	}
 
+    public function getProjectsNotLogged($userID){
+        return $this->whereIn('status', ['PUBLICADO', 'FINALIZADO', 'CANCELADO'])
+                    ->whereNotIn('id_users', [$userID])
+                    ->findAll();
+        }
+
     public function getProject($projectId)
     {
         return $this->where('id_projects', $projectId)->first(); // debemos de ponerle $userId
