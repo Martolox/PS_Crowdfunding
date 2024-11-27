@@ -292,7 +292,7 @@
 
 			<div class="form-group">
 				<label for="budget">Presupuesto</label>
-				<input type="number" id="budget" name="budget" required>
+				<input type="number" id="budget" name="budget" min="1" step="1" required>
 			</div>
 
 			<div class="form-group">
