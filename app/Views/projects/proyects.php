@@ -238,7 +238,7 @@
 			</div>
 			<div class="form-group">
 				<label for="amount">Monto:</label>
-				<input type="number" id="amount" name="amount" placeholder="Ingresar monto" required>
+				<input type="number" id="amount" name="amount" placeholder="Ingresar monto" min="1" step="1" required>
 			</div>
 			<div class="form-group button-group">
 				<button type="submit" value="data">Aceptar</button>

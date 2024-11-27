@@ -223,11 +223,11 @@
 			</div>
 			<div class="form-group">
 				<label for="monto_viejo">Invertido</label>
-				<input type="number" id="monto_viejo" name="monto_viejo" placeholder="Enter amount" required readonly>
+				<input type="number" id="monto_viejo" name="monto_viejo" placeholder="Enter amount" min="1" step="1" required readonly>
 			</div>
 			<div class="form-group">
 				<label for="monto_nuevo">Nuevo monto</label>
-				<input type="number" id="monto_nuevo" name="monto_nuevo" placeholder="Enter new amount" required>
+				<input type="number" id="monto_nuevo" name="monto_nuevo" placeholder="Enter new amount" min="1" step="1" required>
 			</div>
 			<div class="form-group button-group">
 				<button type="submit" value="data">Aceptar</button>
