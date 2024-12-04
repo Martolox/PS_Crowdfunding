@@ -11,3 +11,5 @@ buscan apoyar ideas revolucionarias y disruptivas. A través de nuestra platafor
 ### Objetivo 
  
 Desarrollar una plataforma online que facilite la financiación colectiva de proyectos, conectando a emprendedores con una comunidad de potenciales patrocinadores.
+
+![Screenshot 1](/public/img/png/screenshot-1.png)
