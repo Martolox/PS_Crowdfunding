@@ -192,11 +192,11 @@ $1000: Visita al proyecto y participación en la inauguración de la nueva fuent
 'uploads/prod-11.png');
 
 
-INSERT INTO investments (id_investments, id_projects, id_users, amount, status, investment_date) VALUES
-(1, 10, 10, 400000, 'active', '2024-11-04');
-
-INSERT INTO investments (id_investments, id_projects, id_users, amount, status, investment_date) VALUES
-(2, 10, 10, 400000, 'active', '2024-11-05');
+INSERT INTO investments (id_projects, id_users, amount, status, investment_date) VALUES
+( 6,  3,   5000, 'active', '2024-11-02'),
+( 7,  3,   2000, 'active', '2024-11-04'),
+(10, 10, 400000, 'active', '2024-11-14'),
+(10, 10, 400000, 'active', '2024-11-25');
 
 
 INSERT INTO comments (id_projects, id_users, comment, email, comment_date) VALUES
