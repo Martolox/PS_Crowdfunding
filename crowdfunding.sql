@@ -63,12 +63,13 @@ CREATE TABLE scores (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE comments (
-	id_comments SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	id_projects SMALLINT UNSIGNED NOT NULL,
 	id_users SMALLINT UNSIGNED NOT NULL,
-	description TEXT NOT NULL,
+	comment TEXT NOT NULL,
+	email VARCHAR(40) UNIQUE NOT NULL,
 	comment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY (id_comments),
+	PRIMARY KEY (id),
 	FOREIGN KEY (id_projects) REFERENCES projects(id_projects),
 	FOREIGN KEY (id_users) REFERENCES users(id_users)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -81,6 +82,7 @@ CREATE TABLE notifications (
 	PRIMARY KEY (id_notifications),
 	FOREIGN KEY (id_users) REFERENCES users(id_users)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 INSERT INTO users (id_users, username, password, email, img_name) VALUES
 (1, 'admin'  ,'admin'    ,'admin@mail.com' ,'uploads/profile.png'),
@@ -116,18 +118,18 @@ $5000: Mobiliario personalizado (mesa o silla).
 $10000: Curso completo de ebanistería + mención en el taller.',
 'uploads/prod-2.png'),
 
-(3, 4, 'Encuadernación de libro botánico', 'Negocios',
+(3, 3, 'Encuadernación de libro botánico', 'Negocios',
 'Rediseñar y unificar los conocimientos botánicos hallados en libros antiguos mediante un proceso de restauración y encuadernación artesanal. El proyecto utilizará la serigrafía para crear ilustraciones botánicas que complementen los textos originales, proporcionando una edición renovada y enriquecida que preserve la impresión tradición.',
-40000, 'PUBLICADO', '2024-12-03',
+40000, 'EN PROCESO', '2024-12-03',
 '$30: Ilustración digital botánica exclusiva.
 $75: Una edición limitada de un cuaderno botánico.
 $200: Libro botánico exclusivo, con ilustraciones y encuadernación personalizada.
 $1000: Colección completa de libros botánicos restaurados y serigrafiados, junto con una visita al taller para ver el proceso de restauración y encuadernación.',
 'uploads/prod-3.png'),
 
-(4, 5, 'Techo para viajantes y gente de paso', 'Bien Social',
+(4, 3, 'Techo para viajantes y gente de paso', 'Bien Social',
 'Construir un techo comunitario que brinde refugio a viajeros y personas de paso, proporcionando un espacio seguro y accesible para descansar, con instalaciones mínimas pero cómodas.',
-160000, 'PUBLICADO', '2025-01-23',
+160000, 'PUBLICADO', '2024-12-02',
 '$10: Agradecimiento en redes sociales.
 $100: Estancia de una noche en el refugio para dos personas.
 $500: Mención en una placa dentro del refugio.
@@ -195,3 +197,7 @@ INSERT INTO investments (id_investments, id_projects, id_users, amount, status, 
 
 INSERT INTO investments (id_investments, id_projects, id_users, amount, status, investment_date) VALUES
 (2, 10, 10, 400000, 'active', '2024-11-05');
+
+
+INSERT INTO comments (id_projects, id_users, comment, email, comment_date) VALUES
+(1, 10, 'Comentario prueba', 'diegoo@mail.com', '2024-11-15');

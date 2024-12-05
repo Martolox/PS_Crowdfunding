@@ -8,7 +8,7 @@
 	--brand-lightness: 50%;
 	--btn-red-hue: 6;      /*   6, 78%, 57% #e74c3c*/
 	--btn-green-hue: 145;  /* 145, 63%, 49% #2ecc71*/
-	--btn-orange-hue: 145; /*  37, 90%, 51% #f39c12*/
+	--btn-orange-hue: 37; /*  37, 90%, 51% #f39c12*/
 
 	/* light */
 	--brand-light: hsl(var(--brand-hue) var(--brand-saturation) var(--brand-lightness));
@@ -49,7 +49,7 @@
 	--btn-orange-dark: hsl(
 		var(--btn-orange-hue) 
 		calc(var(--brand-saturation) / 2)
-		calc(var(--brand-lightness) / 1.5));
+		calc(var(--brand-lightness) / 1.2));
 
 	/* dim */
 	--brand-dim: hsl(
@@ -168,6 +168,10 @@
 }
 
 /* GENERAL */
+
+::-webkit-scrollbar {
+    display: none;
+}
 
 * {
 	box-sizing: border-box;

@@ -10,15 +10,14 @@
 	justify-content: flex-start;
 	position: relative;
 	display: flex;
-	align-items: center;
 	padding: .5rem 0;
+	height: 50px;
 }
 
 #navbar nav {
 	display: flex;
 	flex-wrap: inherit;
 	align-items: center;
-	vertical-align: baseline;
 	justify-content: space-between;
 	width: 100%;
 	padding-right: 0.75rem;
@@ -27,16 +26,7 @@
 	margin-left: auto;
 }
 
-#navbar nav svg{
-	position:relative;
-	top: 3px;
-	right: 4px;
-}
-
-#navbar .theme-switcher label {
-	cursor: pointer;
-	display: inline-block;
-	align-items: center;
+#navbar .theme-switcher {
 	gap: 8px;
 }
 
@@ -47,28 +37,23 @@
 	font-size: 1.4rem;
 }
 
-#navbar a:hover {
+#navbar a:hover, #navbar i:hover {
+	cursor: pointer;
 	color: var(--text2);
 	text-decoration: none;
 	background-color: transparent;
 }
 
-/* SVG */
-
-#navbar .radio-container {
-	display: inline-block;
-	margin-top: 4px;
-}
+/* Theme Switcher */
 
 #navbar .custom-radio {
 	display: none; /* Ocultamos el radio button original */
+	cursor: pointer;
 }
-
 
 #navbar .checked {
 	display: none; /* Por defecto, ocultamos el SVG del estado checked */
 }
-
 
 #navbar .custom-radio:checked + label .checked {
 	display: block; /* Cuando el radio está seleccionado */
@@ -96,11 +81,12 @@
 	cursor: pointer;
 }
 
-#navbar .ms-auto { /* Botones derechos */
+#navbar nav .ms-auto { /* Botones derechos */
 	margin-left: auto;
+	align-items: center;
 }
 
-#navbar .ms-auto b {
+#navbar nav .ms-auto b {
 	padding: 0 1rem;
 	cursor: default;
 }
@@ -110,6 +96,7 @@
 #navbar .user-profile {
     cursor: pointer;
     text-decoration: none;
+    vertical-align: baseline;
 }
 
 #navbar .user-profile h3 {
@@ -148,7 +135,6 @@
 .alert {
     position: relative;
     padding: .75rem 1.25rem;
-    /*margin-bottom: 1rem;*/
     border: 1px solid transparent;
     border-radius: .25rem;
 }
@@ -183,8 +169,6 @@
     text-shadow: 0 1px 0 #fff;
     opacity: .5;
 }
-
-
 
 /* SIDEBAR */
 

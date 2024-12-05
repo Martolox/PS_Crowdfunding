@@ -161,7 +161,6 @@ body {
 	font-size: .875rem;
 	line-height: 1.5;
 
-
 	display: inline-block;
 	font-weight: 400;
 	text-align: baseline;
@@ -197,6 +196,31 @@ body {
 
 #proj-table .button-group .btn-success:hover {
 	background-color: oklab(from var(--btn-green) calc(l + 0.1) a b);
+}
+
+#proj-table .button-group .btn-warning {
+	width: 100px;
+	background-color: var(--btn-orange);
+	color: white;
+	cursor: pointer;
+	margin: 5px;
+	padding: 10px 20px;
+	border: 1px solid var(--text1);
+	border-radius: 4px;
+	font-size: .875rem;
+	line-height: 1.5;
+
+
+	display: inline-block;
+	font-weight: 400;
+	text-align: baseline;
+	white-space: nowrap;
+	vertical-align: middle;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+#proj-table .button-group .btn-warning:hover {
+	background-color: oklab(from var(--btn-orange) calc(l + 0.1) a b);
 }
 
 .create-project-btn {
