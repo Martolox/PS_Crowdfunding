@@ -117,7 +117,7 @@ class ProjectsController extends BaseController
 		if (session('userSessionID') == null) return  view('account/login');
 		$projectModel = new ProjectsModel();
 		$projects = $projectModel->getProjectsByUserId(session('userSessionID'));
-		return view('projects/myProjects', ['projects' => $projects]);
+		return view('projects/my_projects', ['projects' => $projects]);
 	}
 
 	public function detail($id): string {   
@@ -128,7 +128,7 @@ class ProjectsController extends BaseController
 		if (!$project) {
 			return redirect()->to(base_url('/')); // Redirigir si no se encuentra el proyecto
 		}
-		return view('projects/detalleProjet', ['project' => $project]);
+		return view('projects/project_details', ['project' => $project]);
 	}
 
 	public function changeStatus($projectId, $newStatus) {
@@ -185,7 +185,7 @@ class ProjectsController extends BaseController
 		if (session('userSessionName') == null) return  view('account/login');
 		$projectModel = new ProjectsModel();
 		$projects = $projectModel->filtrarIProjets($text);
-		return view('projects/myProjects', ['projects' => $projects]);
+		return view('projects/my_projects', ['projects' => $projects]);
 	}
 
 	public function getProject($id) {

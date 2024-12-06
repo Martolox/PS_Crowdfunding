@@ -3,5 +3,5 @@ function showProjectDetails(project) {
     const encodedData = encodeURIComponent(JSON.stringify(project));
     
     // Redirigir a la página de detalles con los datos codificados
-    window.location.href = "<?= site_url('proyects/detalleProjet') ?>?data=" + encodedData;
+    window.location.href = "<?= site_url('proyects/project_details') ?>?data=" + encodedData;
 }

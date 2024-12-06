@@ -69,6 +69,6 @@ class InvestmentsController extends BaseController
             'investments_proyects' => $investments_proyects
         ];
     
-        return view('investments', $data);
+        return view('investments/my_investments', $data);
     }
 }

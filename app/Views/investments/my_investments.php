@@ -9,32 +9,9 @@
 <!-- INDEX -->
 
 <?= $this->section('content') ?>
-
-<!-- Alerts -->
-<?php if (session()->getFlashdata('message') || session()->getFlashdata('error')): ?>
-	<input type="hidden" id="alertMessage" value="<?= session()->getFlashdata('message') ?>">
-	<input type="hidden" id="alertError" value="<?= session()->getFlashdata('error') ?>">
-<?php endif; ?>
+<?= $this->include('messages/alert') ?>
 <?= $this->include('layouts/navbar') ?>
-
-<!-- Messages -->
-<?php if (session()->has('success')): ?>
-	<div class="alert alert-success alert-dismissible fade show" role="alert">
-		<?= session('success') ?>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-<?php endif; ?>
-
-<?php if (session()->has('error')): ?>
-	<div class="alert alert-danger alert-dismissible fade show" role="alert">
-		<?= session('error') ?>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-<?php endif; ?>  
+<?= $this->include('messages/message') ?>
 <?= $this->include('layouts/sidebar') ?>
 
 <!-- Investments Title -->

@@ -1,31 +1,13 @@
 <?= $this->extend('layouts/default') ?>
 <?= $this->section('page_title') ?>Detalles del Proyecto<?= $this->endSection() ?>
 <?= $this->section('css_js-init') ?>
-	<link rel="stylesheet" href="<?= base_url('css/detalleProyecto.css') ?>">
+	<link rel="stylesheet" href="<?= base_url('css/project-details.css') ?>">
 <?= $this->endSection() ?>
 
 <!-- PROJECT DETAILS -->
 <?= $this->section('content') ?>
 <?= $this->include('layouts/navbar') ?>
-
-<!-- Messages -->
-<?php if (session()->has('success')): ?>
-	<div class="alert alert-success alert-dismissible fade show" role="alert">
-		<?= session('success') ?>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-<?php endif; ?>
-
-<?php if (session()->has('error')): ?>
-	<div class="alert alert-danger alert-dismissible fade show" role="alert">
-		<?= session('error') ?>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
-			<span aria-hidden="true">&times;</span>
-		</button>
-	</div>
-<?php endif; ?>  
+<?= $this->include('messages/message') ?>
 <?= $this->include('layouts/sidebar') ?>
 
 <!-- Project Details -->
