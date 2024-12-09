@@ -1,7 +1,7 @@
 <?= $this->extend('layouts/default') ?>
 <?= $this->section('page_title') ?>Detalle de Inversión<?= $this->endSection() ?>
 
-<!-- INVESTMENT DETAILS -->
+<!-- INVESTMENT DETAIL -->
 <?= $this->section('content') ?>
 <?= $this->include('layouts/navbar') ?>
 <?= $this->include('layouts/sidebar') ?>
