@@ -43,3 +43,11 @@ $routes->post('investments/create', 'InvestmentsController::create');
 $routes->get('/investments/create', 'InvestmentsController::create');
 $routes->post('/investments/save', 'InvestmentsController::save');
 $routes->get('/investments/list', 'InvestmentsController::list');
+
+
+/* Notifications */
+
+// $routes->get('user/(:num)', 'NotificationController::getUserNotifications/$1'); // Obtener notificaciones de un usuario
+ $routes->post('create', 'NotificationController::createNotification');   // Crear una nueva notificación
+ $routes->get('notifications/getUserNotifications', 'NotificationController::getUserNotifications');
+      

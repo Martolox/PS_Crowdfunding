@@ -127,34 +127,15 @@
 		</li>
 
 		<!-- Notifications Dropdown Menu -->
-
-		<li class="nav-item dropdown">
+		<li id="notificationBell" class="nav-item dropdown">
 			<a class="nav-link" data-bs-toggle="dropdown" href="#">
 				<i class="far fa-bell"></i>
-				<span class="navbar-badge badge bg-warning">15</span>
+				<span class="navbar-badge badge bg-warning" id="notificationCount"></span>
 			</a>
 
-<!-- ELIMINAR Y AGREGAR NOTIFICACIONES -->
- 
-			<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-				<span class="dropdown-item dropdown-header">15 Notifications</span>
+			<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end" id="notificationDropdown">
+				<span class="dropdown-item dropdown-header">Cargando notificaciones...</span>
 				<div class="dropdown-divider"></div>
-				<a href="#" class="dropdown-item">
-					<i class="fas fa-envelope me-2"></i> 4 new messages
-					<span class="float-end text-muted fs-7">3 mins</span>
-				</a>
-				<div class="dropdown-divider"></div>
-				<a href="#" class="dropdown-item">
-					<i class="fas fa-users me-2"></i> 8 friend requests
-					<span class="float-end text-muted fs-7">12 hours</span>
-				</a>
-				<div class="dropdown-divider"></div>
-				<a href="#" class="dropdown-item">
-					<i class="fas fa-file me-2"></i> 3 new reports
-					<span class="float-end text-muted fs-7">2 days</span>
-				</a>
-				<div class="dropdown-divider"></div>
-				<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
 			</div>
 		</li>
 

@@ -3,6 +3,8 @@
 namespace App\Controllers;
 use CodeIgnite\Controller;
 use App\Models\ProjectsModel;
+use App\Models\InvestmentsModel;
+use App\Models\NotificationModel;
 use CodeIgniter\I18n\Time;
 use DateTime;
 
@@ -146,9 +148,26 @@ class ProjectsController extends BaseController
 	public function cancel_project($projectId) {
 		if (session('userSessionName') == null) return  view('account/login');
 		$projectModel = new ProjectsModel();
+		//agregado para enviar las notificaciones
+		$investmentsModel = new InvestmentsModel();
+   		$notificationModel = new NotificationModel();
+
 		$success = $projectModel->cancelProject($projectId);  
 		
 		if ($success) {
+
+			 // Obtener los usuarios inversores asociados al proyecto
+			 $investorIds = $investmentsModel->getUsersByProjectId($projectId);
+
+			 // Enviar una notificación a cada inversor
+			 foreach ($investorIds as $investorId) {
+				 $notificationModel->save([
+					 'id_users' => $investorId,
+					 'description' => "El proyecto con ID $projectId ha sido cancelado.",
+					 'notification_date' => date('Y-m-d H:i:s')
+				 ]);
+			 }
+
 			return redirect()->to('projects/myList')->with('success', 'El proyecto y sus inversiones fueron cancelados.');
 		} else {
 			return redirect()->to('projects/myList')->with('error', 'Hubo un error al cancelar el proyecto.');
@@ -158,6 +177,12 @@ class ProjectsController extends BaseController
 	public function final_project($id_project) {
 		if (session('userSessionName') == null) return  view('account/login');
 		$projectModel = new ProjectsModel();
+
+		//agregado para enviar las notificaciones
+		$investmentsModel = new InvestmentsModel();
+   		$notificationModel = new NotificationModel();
+
+
 		$project = $projectModel->getProject($id_project);
 		if ($project === null) {
 			return redirect()->to('projects/myList')->with('error', 'El proyecto no existe.');
@@ -170,8 +195,24 @@ class ProjectsController extends BaseController
 				return redirect()->to('projects/myList')->with('error', 'No se puede finalizar un proyecto antes de su fecha de finalización.');
 			}
 
-		$projectModel->finalProject($id_project);
-		return redirect()->to('projects/myList')->with('success', 'Estado del proyecto actualizado correctamente.');
+		$success = $projectModel->finalProject($id_project);
+
+		if ($success) {
+			// Obtener los usuarios inversores asociados al proyecto
+			$investorIds = $investmentsModel->getUsersByProjectId($id_project);
+
+			// Enviar una notificación a cada inversor
+			foreach ($investorIds as $investorId) {
+				$notificationModel->save([
+					'id_users' => $investorId,
+					'description' => "El proyecto con ID $id_project ha sido Finalizado."//,
+					//'notification_date' => date('Y-m-d H:i:s')
+				]);
+			}
+			return redirect()->to('projects/myList')->with('success', 'El proyecto y sus inversiones fueron Finalizados.');
+		} else {
+			return redirect()->to('projects/myList')->with('error', 'Hubo un error al Finalizar el proyecto.');
+		}    
 	}
 
 	public function filtrar($text): string {

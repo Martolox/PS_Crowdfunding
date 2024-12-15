@@ -145,4 +145,6 @@ public function filtrarIProjets($texto)
         return $db->transStatus(); // Devuelve true si todo fue exitoso
     }
 
+    
+
 }
