@@ -163,8 +163,7 @@ class ProjectsController extends BaseController
 			 foreach ($investorIds as $investorId) {
 				 $notificationModel->save([
 					 'id_users' => $investorId,
-					 'description' => "El proyecto con ID $projectId ha sido cancelado.",
-					 'notification_date' => date('Y-m-d H:i:s')
+					 'description' => "El proyecto con ID $projectId ha sido cancelado."
 				 ]);
 			 }
 
@@ -205,8 +204,7 @@ class ProjectsController extends BaseController
 			foreach ($investorIds as $investorId) {
 				$notificationModel->save([
 					'id_users' => $investorId,
-					'description' => "El proyecto con ID $id_project ha sido Finalizado."//,
-					//'notification_date' => date('Y-m-d H:i:s')
+					'description' => "El proyecto con ID $id_project ha sido Finalizado."
 				]);
 			}
 			return redirect()->to('projects/myList')->with('success', 'El proyecto y sus inversiones fueron Finalizados.');

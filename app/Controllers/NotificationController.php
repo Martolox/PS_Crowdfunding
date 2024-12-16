@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\NotificationModel;
+use CodeIgniter\CLI\Console;
 
 class NotificationController extends BaseController
 {
@@ -27,8 +28,9 @@ class NotificationController extends BaseController
             return redirect()->to('account/login');
         }
         // Obtener las notificaciones desde el modelo
+       
         $notifications = $this->notificationModel->getNotificationsByUser(session('userSessionID'));
-
+        
         // Verificar si hay notificaciones
         if (empty($notifications)) {
             return $this->response->setJSON([
@@ -36,7 +38,7 @@ class NotificationController extends BaseController
                 'message' => 'No se encontraron notificaciones para este usuario.'
             ])->setStatusCode(404);
         }
-        error_log('prueba del conteo count' .count($notifications));
+     
         // Responder con las notificaciones en formato JSON
         return $this->response->setJSON([
             'status' => 'success', 
@@ -54,7 +56,7 @@ class NotificationController extends BaseController
     {
         // Obtener los datos de la solicitud POST
         $data = $this->request->getPost();
-
+        error_log('entro aca');
         // Validar los datos de entrada
         $validationRules = [
             'id_users' => 'required|is_natural_no_zero',

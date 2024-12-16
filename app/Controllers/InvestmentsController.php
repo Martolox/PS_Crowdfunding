@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 use App\Models\InvestmentsModel;
+use App\Models\ProjectsModel;
+use App\Models\NotificationModel;
 
 class InvestmentsController extends BaseController
 {
@@ -18,9 +20,26 @@ class InvestmentsController extends BaseController
             'amount' => $this->request->getPost('amount')              
         ];
         $investmentsModel = new InvestmentsModel();
+
+        $projectsModel = new ProjectsModel();
+        $notificationModel = new NotificationModel();
+
         $result = $investmentsModel->insertInvestment($investmentData);
     
         if ($result) {
+
+            // Obtener información del proyecto
+            $project = $projectsModel->getProject($investmentData['id_projects']);
+
+            if ($project) {
+                // Crear notificación para el creador del proyecto
+                $notificationData = [
+                    'id_users' => $project['id_users'], // Usuario creador del proyecto
+                    'description' => 'Se ha realizado una nueva inversión de ' . $investmentData['amount'] . ' en tu proyecto "' . $project['name'] . '".'
+                ];
+                
+               $notificationModel->save($notificationData);
+            }
             return redirect()->to(base_url('projects/list'))->with('success', 'Inversión realizada exitosamente.');
         } else {
             return redirect()->to(base_url('projects/list'))->with('error', 'No se puede invertir en este proyecto porque está cancelado o finalizado.');
@@ -35,9 +54,31 @@ class InvestmentsController extends BaseController
         $monto_viejo = $this->request->getPost('monto_viejo');
     
         $investmentsModel = new InvestmentsModel();
+
+        $projectsModel = new ProjectsModel();
+        $notificationModel = new NotificationModel();
+
+        
         $result = $investmentsModel->updateMonto($id_inversion, $monto_nuevo, $monto_viejo);
     
         if ($result) {
+
+             // Obtener información de la inversión
+            $investment = $investmentsModel->getInvestmentById($id_inversion);
+
+            if ($investment) {
+                // Obtener información del proyecto
+                $project = $projectsModel->getProject($investment['id_projects']);
+
+                if ($project) {
+                    // Crear notificación para el creador del proyecto
+                    $notificationData = [
+                        'id_users' => $project['id_users'], // Usuario creador del proyecto
+                        'description' => 'Se ha actualizado una inversión en tu proyecto "' . $project['name'] . '". Nuevo monto: ' . $monto_nuevo . '.'
+                    ];
+                    $notificationModel->save($notificationData);
+                }
+            }
             return redirect()->to(base_url('investments/list'))->with('success', 'Inversión actualizada exitosamente.');
         } else {
             return redirect()->to(base_url('investments/list'))->with('error', 'Error al actualizar la inversión. El nuevo monto debe ser mayor que el anterior.');
@@ -49,9 +90,32 @@ class InvestmentsController extends BaseController
     {
         if (session('userSessionName') == null) return  view('account/login');
         $investmentsModel = new InvestmentsModel();
+
+        $projectsModel = new ProjectsModel();
+        $notificationModel = new NotificationModel();
+
         $result = $investmentsModel->eliminarInversion($id_inversion);
 
         if ($result) {
+
+            // Obtener información de la inversión
+            $investment = $investmentsModel->getInvestmentById($id_inversion);
+
+            if ($investment) {
+                // Obtener información del proyecto
+                $project = $projectsModel->getProject($investment['id_projects']);
+
+                if ($project) {
+                    // Crear notificación para el creador del proyecto
+                    $notificationData = [
+                        'id_users' => $project['id_users'], // Usuario creador del proyecto
+                        'description' => 'Se ha cancelado una inversión en tu proyecto "' . $project['name'] . '".'
+                    ];
+                   
+                    $notificationModel->save($notificationData);
+                   
+                }
+            }
             return redirect()->to(base_url('investments/list'))->with('success', 'Inversión cancelada exitosamente.');
         } else {
             return redirect()->to(base_url('investments/list'))->with('error', 'No se puede cancelar la inversión porque el proyecto ha sido finalizado.');
