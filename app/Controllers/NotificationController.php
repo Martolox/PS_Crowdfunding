@@ -9,8 +9,7 @@ class NotificationController extends BaseController
 {
     protected $notificationModel;
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->notificationModel = new NotificationModel();
     }
 
@@ -20,8 +19,7 @@ class NotificationController extends BaseController
      * @param int $userId
      * @return \CodeIgniter\HTTP\Response
      */
-    public function getUserNotifications()
-    {
+    public function getUserNotifications() {
        
          // Verifica si hay una sesión de usuario activa
          if (session('userSessionName') == null) {
@@ -52,8 +50,7 @@ class NotificationController extends BaseController
      *
      * @return \CodeIgniter\HTTP\Response
      */
-    public function createNotification()
-    {
+    public function createNotification() {
         // Obtener los datos de la solicitud POST
         $data = $this->request->getPost();
         error_log('entro aca');

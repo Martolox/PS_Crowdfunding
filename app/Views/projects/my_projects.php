@@ -245,7 +245,7 @@
 
 <!-- SCRIPTS -->
 
-<?= $this->section('js-init') ?>
+<?= $this->section('css_js-init') ?>
 <script>
 function showCancelModal(id, name, url) {
 	// Mostrar el modal

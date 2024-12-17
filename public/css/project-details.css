@@ -174,102 +174,79 @@ body {
 
 #s-content {
 	background-color: #f2f2f2;
-	padding-top: 16.2rem;
-	padding-bottom: 7.2rem;
+	padding-top: 4rem;
+	padding-bottom: 3rem;
+	margin: auto;
 }
 
-.comments-wrap {
+#s-content .comments-wrap {
 	font-family: "Nunito Sans", sans-serif;
-	font-size: 1.8rem;
+	font-size: 1.8em;
 	font-style: normal;
 	font-weight: normal;
 	line-height: 1.8333;
 	color: rgba(0, 0, 0, 0.8);
 }
 
-.row {
+#s-content .row {
     width: 89%;
     margin: 0 auto;
 }
 
-#comments {
+#s-content {
     padding-top: 1.2rem;
     padding-bottom: 1.2rem;
     max-width: 900px;
 }
 
-#comments .row {
-    width: 89%;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-#comments .col-full {
+#s-content .col-full {
     width: 100%;
 }
 
-#comments [class*="col-"] {
+#s-content [class*="col-"] {
     float: left;
     padding: 0 20px;
 }
 
-.comments-wrap h3 {
+#s-content h3 {
     font-family: "Libre Baskerville", serif;
     font-weight: 700;
-    font-size: 3rem;
     line-height: 1.5;
     text-align: center;
-    margin-top: 0;
-    margin-bottom: 1.5rem;
 }
 
-#comments ol, #comments ul {
+#s-content .commentlist {
+    margin: 3rem 0 2.4rem;
+    padding: 0;
     list-style: none;
 }
 
-.commentlist {
-    margin: 6rem 0 5.4rem;
-    padding: 0;
-}
-
-.commentlist > .comment {
+#s-content .commentlist > .comment {
     position: relative;
     list-style: none;
     margin: 0;
-    padding: 1.8rem 0 0 0;
-    padding-left: 14%;
+    padding-left: 15%;
 }
 
-.comment__avatar img {
+#s-content .comment__avatar {
+    position: absolute;
+    left: 0;
+    display: block;
+}
+
+#s-content .comment__avatar img {
     height: 6.6rem;
     width: 6.6rem;
     border-radius: 100%;
     vertical-align: bottom;
 }
 
-img {
-    max-width: 100%;
-    border-style: none;
-    height: auto;
-}
-
-li {
-    display: list-item;
-}
-
-.comment__info {
-    position: relative;
-}
-
-.comment__info .comment__author {
+#s-content .comment__info .comment__author {
     font-weight: 700;
-    font-size: 1.9rem;
-    line-height: 1.579;
-    font-style: normal;
-    color: #000000;
+    font-size: 1.2rem;
 }
 
-.comment__meta {
+#s-content .comment__meta {
     font-family: "Nunito Sans", sans-serif;
     font-style: normal;
     display: block;
@@ -281,78 +258,97 @@ li {
     right: 0;
 }
 
-.comment__meta .comment__reply a {
-    font-size: 1.3rem;
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .2rem;
-    color: #000000;
-
-    transition: all 0.3s ease-in-out;
-    text-decoration: none;
-    line-height: inherit;
-    background-color: transparent;
-}
-
-.comment__meta .comment__time {
-    font-size: 1.4rem;
+#s-content .comment__meta .comment__time {
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: .1rem;
     color: rgba(0, 0, 0, 0.5);
 }
 
-.comment__text {
+#s-content .comment__text {
     clear: both;
     margin: 1.5rem 0 0 0;
     padding: 0 175px 0 0;
 }
 
-.comment__text p {
-    margin-bottom: 3rem;
+#s-content .comment__text p {
+    margin-bottom: 2rem;
+    max-inline-size: 55ch;
+    font-size: 1rem;
 }
 
-#comments ol, #comments ul {
-    list-style: none;
-}
-
-.comment ul.children {
-    margin: 0;
-    padding: 0;
-}
-
-.comment ul.children li {
-    padding-left: 5%;
-    margin-top: calc(3rem + 1.8rem);
-    border-left: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-
-
-
-
-.comments-wrap .comment-respond {
+#s-content .comments-wrap .comment-respond {
     max-width: 800px;
     margin-top: 6rem;
 }
 
-.comment-respond form {
+#s-content .comment-respond form {
     padding-top: 6rem;
 }
 
-input[type="email"], input[type="number"], input[type="search"], input[type="text"], input[type="tel"], input[type="url"], input[type="password"], textarea, select {
+#s-content input[type="email"], #s-content input[type="text"], #s-content textarea {
     display: block;
-    height: 6.6rem;
+    height: 3.6rem;
     padding: 1.8rem 0;
     border: 0;
     outline: none;
     color: rgba(0, 0, 0, 0.8);
     font-family: "Nunito Sans", sans-serif;
-    font-size: 1.6rem;
+    font-size: 1rem;
     line-height: 3rem;
-    max-width: 100%;
+    width: 100%;
     background: transparent;
     border-bottom: 1px solid rgba(0, 0, 0, 0.15);
     -webkit-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+}
+
+/* Form */
+
+#s-content .comments-wrap .comment-respond {
+    max-width: 800px;
+    margin-top: 6rem;
+}
+
+#s-content .comment-respond form {
+    padding-top: 3rem;
+    margin-bottom: 2.4rem;
+}
+
+#s-content .comment-respond fieldset {
+    border: none;
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+#s-content textarea {
+    min-height: 10rem;
+    width: 100%;
+}
+
+.comment-respond .btn--primary, .comment-respond button.btn--primary, .comment-respond input[type="submit"].btn--primary, .comment-respond input[type="reset"].btn--primary, .comment-respond input[type="button"].btn--primary {
+    background: hsl(200 50 20);
+    border-color: hsl(200 50 20);
+    color: #DDD;
+    width: 30%;
+    margin-top: 3rem;
+
+}
+
+.comment-respond .btn, .comment-respond button, .comment-respond input[type="submit"], .comment-respond input[type="reset"], .comment-respond input[type="button"] {
+    display: inline-block;
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    line-height: 3.6rem;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #c5c5c5;
+    border: .2rem solid #c5c5c5;
 }

@@ -58,7 +58,7 @@
 	<div class="comments-wrap">
 		<div id="comments" class="row">
 			<div class="col-full">
-				<h3 class="h2">5 Comments</h3>
+				<h3 class="h2">5 Comentarios</h3>
 				<!-- START commentlist -->
 				<ol class="commentlist">
 					<li class="depth-1 comment">
@@ -70,9 +70,6 @@
 								<div class="comment__author">Itachi Uchiha</div>
 								<div class="comment__meta">
 									<div class="comment__time">Jun 15, 2018</div>
-									<div class="comment__reply">
-										<a class="comment-reply-link" href="#0">Responder</a>
-									</div>
 								</div>
 							</div>
 
@@ -93,11 +90,8 @@
 						<div class="comment__content">
 							<div class="comment__info">
 								<div class="comment__author">John Doe</div>
-									<div class="comment__meta">
-										<div class="comment__time">Jun 15, 2018</div>
-										<div class="comment__reply">
-											<a class="comment-reply-link" href="#0">Responder</a>
-									</div>
+								<div class="comment__meta">
+									<div class="comment__time">Jun 15, 2018</div>
 								</div>
 							</div>
 
@@ -106,59 +100,7 @@
 							urbanitas ut sed, et duo scaevola pericula splendide. Primis veritus contentiones nec ad, nec et
 							tantas semper delicatissimi.</p>
 							</div>
-
 						</div>
-
-						<ul class="children">
-							<li class="depth-2 comment">
-								<div class="comment__avatar">
-									<img class="avatar" src="<?= base_url('uploads/user-7.jpg') ?>" alt="" width="50" height="50">
-								</div>
-
-								<div class="comment__content">
-									<div class="comment__info">
-										<div class="comment__author">Kakashi Hatake</div>
-											<div class="comment__meta">
-												<div class="comment__time">Jun 15, 2018</div>
-												<div class="comment__reply">
-													<a class="comment-reply-link" href="#0">Responder</a>
-											</div>
-										</div>
-									</div>
-
-									<div class="comment__text">
-										<p>Duis sed odio sit amet nibh vulputate
-										cursus a sit amet mauris. Morbi accumsan ipsum velit. Duis sed odio sit amet nibh vulputate
-										cursus a sit amet mauris</p>
-									</div>
-
-								</div>
-
-								<ul class="children">
-									<li class="depth-3 comment">
-										<div class="comment__avatar">
-											<img class="avatar" src="<?= base_url('uploads/user-3.jpg') ?>" alt="" width="50" height="50">
-										</div>
-										<div class="comment__content">
-											<div class="comment__info">
-												<div class="comment__author">John Doe</div>
-													<div class="comment__meta">
-														<div class="comment__time">Jun 15, 2018</div>
-														<div class="comment__reply">
-															<a class="comment-reply-link" href="#0">Responder</a>
-													</div>
-												</div>
-											</div>
-
-											<div class="comment__text">
-											<p>Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est
-											etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum.</p>
-											</div>
-										</div>
-									</li>
-								</ul>
-							</li>
-						</ul>
 					</li> <!-- end comment level 1 -->
 					<li class="depth-1 comment">
 						<div class="comment__avatar">
@@ -167,11 +109,8 @@
 						<div class="comment__content">
 							<div class="comment__info">
 								<div class="comment__author">Shikamaru Nara</div>
-									<div class="comment__meta">
-										<div class="comment__time">Jun 15, 2018</div>
-										<div class="comment__reply">
-											<a class="comment-reply-link" href="#0">Responder</a>
-									</div>
+								<div class="comment__meta">
+									<div class="comment__time">Jun 15, 2018</div>
 								</div>
 							</div>
 							<div class="comment__text">
@@ -186,27 +125,19 @@
 		<div class="row comment-respond">
 			<!-- START respond -->
 			<div id="respond" class="col-full">
-				<h3 class="h2">Add Comment</h3>
+				<h3 class="h2">Agregar Comentario</h3>
 				<form name="contactForm" id="contactForm" method="post" action="" autocomplete="off">
 					<fieldset>
-
-						<div class="form-field">
-							<input name="cName" id="cName" class="full-width" placeholder="Your Name*" value="" type="text">
+						<div>
+							<input name="cName" id="cName" class="full-width" placeholder="Nombre" value="" type="text">
 						</div>
-
-						<div class="form-field">
-							<input name="cEmail" id="cEmail" class="full-width" placeholder="Your Email*" value="" type="text">
+						<div>
+							<input name="cEmail" id="cEmail" class="full-width" placeholder="Email" value="" type="text">
 						</div>
-
-						<div class="form-field">
-							<input name="cWebsite" id="cWebsite" class="full-width" placeholder="Website" value="" type="text">
+						<div>
+							<textarea name="cMessage" id="cMessage" class="full-width" placeholder="Tu Mensaje*"></textarea>
 						</div>
-
-						<div class="message form-field">
-							<textarea name="cMessage" id="cMessage" class="full-width" placeholder="Your Message*"></textarea>
-						</div>
-
-						<input name="submit" id="submit" class="btn btn--primary btn-wide btn--large full-width" value="Add Comment" type="submit">
+						<input name="submit" id="submit" class="btn--primary" value="Agregar" type="submit">
 					</fieldset>
 				</form> <!-- end form -->
 			</div><!-- END respond-->

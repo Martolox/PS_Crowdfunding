@@ -6,6 +6,7 @@ use App\Controllers\LogController;
 use App\Controllers\InvestmentsController;
 use App\Controllers\ProjectsController;
 use App\Controllers\UsersController;
+use App\Controllers\NotificationController;
 
 $routes->get('/', 						[HomeController::class, 'index']);
 
@@ -44,17 +45,19 @@ $routes->get('/investments/create', 'InvestmentsController::create');
 $routes->post('/investments/save', 'InvestmentsController::save');
 $routes->get('/investments/list', 'InvestmentsController::list');
 
+/* Comments */
+
 
 /* Notifications */
 
 // $routes->get('user/(:num)', 'NotificationController::getUserNotifications/$1'); // Obtener notificaciones de un usuario
  $routes->post('create', 'NotificationController::createNotification');   // Crear una nueva notificación
  $routes->get('notifications/getUserNotifications', 'NotificationController::getUserNotifications');
-      
+	  
  $routes->group('updates', ['namespace' => 'App\Controllers'], function ($routes) {
-    // Ruta para crear una nueva actualización
-    $routes->post('create', 'UpdatesController::create');
-    
-    // Ruta para listar actualizaciones por ID de proyecto
-    $routes->get('listByProject/(:num)', 'UpdatesController::listByProject/$1');
+	// Ruta para crear una nueva actualización
+	$routes->post('create', 'UpdatesController::create');
+	
+	// Ruta para listar actualizaciones por ID de proyecto
+	$routes->get('listByProject/(:num)', 'UpdatesController::listByProject/$1');
 });
