@@ -51,3 +51,10 @@ $routes->get('/investments/list', 'InvestmentsController::list');
  $routes->post('create', 'NotificationController::createNotification');   // Crear una nueva notificación
  $routes->get('notifications/getUserNotifications', 'NotificationController::getUserNotifications');
       
+ $routes->group('updates', ['namespace' => 'App\Controllers'], function ($routes) {
+    // Ruta para crear una nueva actualización
+    $routes->post('create', 'UpdatesController::create');
+    
+    // Ruta para listar actualizaciones por ID de proyecto
+    $routes->get('listByProject/(:num)', 'UpdatesController::listByProject/$1');
+});

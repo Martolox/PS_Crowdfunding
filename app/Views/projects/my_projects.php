@@ -79,6 +79,12 @@
 					<button onclick="editProject(<?= $project['id_projects'] ?>)" class="btn btn-primary btn-sm">
 						<i class="fa-solid fa-pen-to-square"></i>Editar
 					</button>
+					<!-- Botón para abrir el modal actualizacion-->
+					<button 
+						onclick="showAddUpdateModal(<?= $project['id_projects']; ?>)" 
+						class="btn btn-success btn-sm">
+						<i class="fa-solid fa-plus"></i> Actualización
+					</button>
 
 					 <!-- Finalizar si end_date <= hoy -->
 					<?php if (strtotime($project['end_date']) <= strtotime(date('Y-m-d'))): ?>
@@ -196,8 +202,46 @@
 <form id="cancelForm"  method="POST" style="display:none;">
 	<input type="hidden" name="id_project" id="cancelProjectId">
 </form>
+
+
+
+<!-- Modal Actualizaciones-->
+<div class="modal fade" id="addUpdateModal" tabindex="-1" aria-labelledby="addUpdateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addUpdateModalLabel">Agregar Actualización</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario -->
+                <form id="addUpdateForm">
+                    <input type="hidden" id="id_projects" name="id_projects"> <!-- Campo oculto con el ID del proyecto -->
+
+                    <div class="mb-3">
+                        <label for="version" class="form-label">Versión</label>
+                        <input type="number" class="form-control" id="version" name="version" placeholder="Ingrese la versión" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="change_date" class="form-label">Fecha de Cambio</label>
+                        <input type="datetime-local" class="form-control" id="change_date" name="change_date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" placeholder="Ingrese una descripción" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveUpdateBtn">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?= $this->include('layouts/footer') ?>
 <?= $this->endSection() ?>
+
 
 <!-- SCRIPTS -->
 
@@ -252,5 +296,35 @@ function editProject(projectId) {
 		})
 		.catch(error => console.error('Error al cargar los datos del proyecto:', error));
 }
+// Función para pasar el ID del proyecto al campo oculto del formulario en el modal
+function showAddUpdateModal(projectId) {
+    // Establecer el valor del campo oculto id_projects
+    document.getElementById('id_projects').value = projectId;
+
+    // Mostrar el modal
+    var modal = new bootstrap.Modal(document.getElementById('addUpdateModal'));
+    modal.show();
+}
+
+// Función para enviar los datos del formulario al servidor
+document.getElementById('saveUpdateBtn').addEventListener('click', function () {
+    const form = document.getElementById('addUpdateForm');
+    const formData = new FormData(form);
+
+    fetch('<?= base_url('updatesController/create') ?>', { // Ajusta la URL según tu ruta
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Actualización creada con éxito.');
+            location.reload(); // Opcional: refrescar la página o actualizar la lista dinámicamente
+        } else {
+            alert('Error al crear la actualización: ' + JSON.stringify(data.errors));
+        }
+    })
+    .catch(error => console.error('Error al guardar la actualización:', error));
+});
 </script>
 <?= $this->endSection() ?>
