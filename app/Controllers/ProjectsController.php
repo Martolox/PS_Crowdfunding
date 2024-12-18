@@ -5,6 +5,7 @@ use CodeIgnite\Controller;
 use App\Models\ProjectsModel;
 use App\Models\InvestmentsModel;
 use App\Models\NotificationModel;
+use App\Models\UpdatesModel;
 use CodeIgniter\I18n\Time;
 use DateTime;
 
@@ -129,13 +130,19 @@ class ProjectsController extends BaseController
 		if (!$project) {
 			return redirect()->to(base_url('/'));
 		}
+		
+		$updatesModel=new UpdatesModel();
+		$updates = $updatesModel->where('id_projects', $id)->orderBy('version', 'ASC')->findAll();
+		
+		//dd($updates);
 		// Saber si el usuario actual es inversor del proyecto
-		$data = ['project' => $project];
+		$data = ['project' => $project, 'updates' => $updates];
 		$data['project']['show_form'] = false;
+
 		if ($this->is_investor($id)) {
 			$data['project']['show_form'] = true;
 		}
-		return view('projects/project_details', $data);
+		return view('projects/project_details',  $data);
 	}
 
 	public function changeStatus($projectId, $newStatus) {

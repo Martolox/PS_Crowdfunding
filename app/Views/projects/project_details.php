@@ -50,7 +50,27 @@
 			<p id="projectRewardPlan" class="text-lg text-gray-800"><?= esc($project['reward_plan']) ?></p>
 		</div>
 	</div>
+	<!-- Listado de actualizaciones -->
+	<div id="projectUpdates" class="bg-white rounded-lg shadow-xl p-8 m-4 max-w-xl w-full">
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">Actualizaciones del proyecto</h2>
+        <?php if (!empty($updates)): ?>
+            <ul class="divide-y divide-gray-200">
+                <?php foreach ($updates as $update): ?>
+                    <li class="py-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-semibold text-gray-800">Versión <?= esc($update['version']) ?></h3>
+                            <p class="text-sm text-gray-500"><?= date('d/m/Y H:i:s', strtotime($update['change_date'])) ?></p>
+                        </div>
+                        <p class="text-gray-700 mt-2"><?= esc($update['description']) ?></p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p class="text-gray-600">No hay actualizaciones registradas para este proyecto.</p>
+        <?php endif; ?>
+    </div>
 </div>
+ 
 </section>
 
 <!-- Project Comments -->
