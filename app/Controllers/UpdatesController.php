@@ -21,41 +21,53 @@ class UpdatesController extends BaseController
 
     // Método para crear una nueva actualización de proyecto
     public function create()
-    {
+    { error_log('entre en updates');
         if (session('userSessionName') == null) {
             return redirect()->to('account/login');
         }
 
+        $idProjects = $this->request->getPost('id_projects');
+
+        // Obtener la última versión del proyecto
+        $lastVersion = $this->updatesModel
+            ->where('id_projects', $idProjects)
+            ->selectMax('version')
+            ->get()
+            ->getRowArray()['version'];
+    
+        // Incrementar la versión
+        $nextVersion = $lastVersion ? $lastVersion + 1 : 1;
+
+
         $data = [
-            'version' => $this->request->getPost('version'),
+            'version' => $nextVersion ,
             'description' => $this->request->getPost('description'),
-            'id_projects' => $this->request->getPost('id_projects')
+            'id_projects' => $idProjects
         ];
 
-        if (!$this->updatesModel->insert($data)) {
-            return $this->response->setJSON([
-                'status' => 'error',
-                'errors' => $this->updatesModel->errors()
-            ])->setStatusCode(ResponseInterface::HTTP_BAD_REQUEST);
+        $result = $this->updatesModel->insert($data);
+
+        if ($result) {
+        
+					
+            // Obtener los inversores asociados al proyecto
+            $id_projects = $data['id_projects'];
+            $investors = $this->investmentsModel->where('id_projects', $id_projects)->findAll();
+
+            // Crear notificaciones para cada inversor
+            foreach ($investors as $investor) {
+                $notificationData = [
+                    'id_users' => $investor['id_users'],
+                    'description' => "El proyecto con ID {$id_projects} tiene una nueva actualización: {$data['description']}"
+                ];
+                $this->notificationModel->save($notificationData);
+            }
+
+            return redirect()->to('projects/myList')->with('success', 'Proyecto actualizado exitosamente, se enviaron las notificaciones.');
+        } else {
+            return redirect()->to('projects/myList')->with('error', 'Error al actualizar el proyecto.');
         }
-
-        // Obtener los inversores asociados al proyecto
-        $id_projects = $data['id_projects'];
-        $investors = $this->investmentsModel->where('id_projects', $id_projects)->findAll();
-
-        // Crear notificaciones para cada inversor
-        foreach ($investors as $investor) {
-            $notificationData = [
-                'id_users' => $investor['id_users'],
-                'description' => "El proyecto con ID {$id_projects} tiene una nueva actualización: {$data['description']}"
-            ];
-            $this->notificationModel->save($notificationData);
-        }
-
-        return $this->response->setJSON([
-            'status' => 'success',
-            'message' => 'Actualización del proyecto creada con éxito y notificaciones enviadas a los inversores.'
-        ])->setStatusCode(ResponseInterface::HTTP_OK);
+       
     }
 
     // Método para listar actualizaciones por ID de proyecto

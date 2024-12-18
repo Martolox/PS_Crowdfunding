@@ -18,8 +18,7 @@ class UpdatesModel extends Model
 
     // Validación opcional
     protected $validationRules = [
-        'version' => 'required|numeric',
-        'change_date' => 'required|valid_date',
+       
         'description' => 'required|string|max_length[255]',
         'id_projects' => 'required|numeric|is_not_unique[projects.id_projects]'
     ];
