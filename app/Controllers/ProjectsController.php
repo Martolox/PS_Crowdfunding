@@ -126,17 +126,16 @@ class ProjectsController extends BaseController
 		if (session('userSessionName') == null) return  view('account/login');
 		$projectModel = new ProjectsModel();
 		$project = $projectModel->getProjectWithInvestmentTotal($id);
-
 		if (!$project) {
-			return redirect()->to(base_url('/')); // Redirigir si no se encuentra el proyecto
+			return redirect()->to(base_url('/'));
 		}
 		// Saber si el usuario actual es inversor del proyecto
-		
-
-
-//		$projectModel->getUsersByProjectId();
-
-		return view('projects/project_details', ['project' => $project]);
+		$data = ['project' => $project];
+		$data['project']['show_form'] = false;
+		if ($this->is_investor($id)) {
+			$data['project']['show_form'] = true;
+		}
+		return view('projects/project_details', $data);
 	}
 
 	public function changeStatus($projectId, $newStatus) {
@@ -162,16 +161,16 @@ class ProjectsController extends BaseController
 		
 		if ($success) {
 
-			 // Obtener los usuarios inversores asociados al proyecto
-			 $investorIds = $investmentsModel->getUsersByProjectId($projectId);
+			// Obtener los usuarios inversores asociados al proyecto
+			$investorIds = $investmentsModel->getUsersByProjectId($projectId);
 
-			 // Enviar una notificación a cada inversor
-			 foreach ($investorIds as $investorId) {
-				 $notificationModel->save([
-					 'id_users' => $investorId,
-					 'description' => "El proyecto con ID $projectId ha sido cancelado."
-				 ]);
-			 }
+			// Enviar una notificación a cada inversor
+			foreach ($investorIds as $investorId) {
+				$notificationModel->save([
+					'id_users' => $investorId,
+					'description' => "El proyecto con ID $projectId ha sido cancelado."
+				]);
+			}
 
 			return redirect()->to('projects/myList')->with('success', 'El proyecto y sus inversiones fueron cancelados.');
 		} else {
@@ -243,5 +242,14 @@ class ProjectsController extends BaseController
 			return $this->response->setJSON($project);
 		}
 		return $this->response->setJSON(['error' => 'Proyecto no encontrado.'], 404);
+	}
+
+	private function is_investor($id_project) : bool {
+		$investmentsModel = new InvestmentsModel();
+		$investorIds = $investmentsModel->getUsersByProjectId($id_project);
+		if (in_array(session('userSessionID'), $investorIds)) {
+			return true;
+		}
+		return false;
 	}
 }

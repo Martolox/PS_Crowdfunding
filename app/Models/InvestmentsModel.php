@@ -73,8 +73,7 @@ class InvestmentsModel extends Model
      * @param int $projectId El ID del proyecto.
      * @return array Lista de IDs de usuarios.
      */
-    public function getUsersByProjectId(int $projectId): array
-    {
+    public function getUsersByProjectId(int $projectId): array {
         return $this->where('id_projects', $projectId)
                     ->groupBy('id_users')
                     ->findColumn('id_users') ?? [];

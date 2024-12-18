@@ -122,8 +122,8 @@
 				<!-- END commentlist -->           
 			</div>
 		</div>
+		<?php if ($project['show_form']): ?>
 		<div class="row comment-respond">
-			
 			<div id="respond" class="col-full">
 				<h3 class="h2">Agregar Comentario</h3>
 				<form name="contactForm" id="contactForm" method="post" action="<?= base_url('comments/create') ?>" autocomplete="off">
@@ -142,6 +142,7 @@
 				</form>
 			</div>
 		</div>
+		<?php endif; ?>
 	</div>
 </section>
 
