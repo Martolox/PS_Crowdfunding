@@ -80,7 +80,7 @@
 
 						</div>
 
-					</li> <!-- end comment level 1 -->
+					</li>
 
 					<li class="thread-alt depth-1 comment">
 						<div class="comment__avatar">
@@ -101,7 +101,7 @@
 							tantas semper delicatissimi.</p>
 							</div>
 						</div>
-					</li> <!-- end comment level 1 -->
+					</li>
 					<li class="depth-1 comment">
 						<div class="comment__avatar">
 							<img class="avatar" src="<?= base_url('uploads/user-10.jpg') ?>" alt="" width="50" height="50">
@@ -117,33 +117,33 @@
 								<p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem.</p>
 							</div>
 						</div>
-					</li>  <!-- end comment level 1 -->
+					</li>
 				</ol>
 				<!-- END commentlist -->           
-			</div> <!-- end col-full -->
-		</div> <!-- end comments -->
+			</div>
+		</div>
 		<div class="row comment-respond">
-			<!-- START respond -->
+			
 			<div id="respond" class="col-full">
 				<h3 class="h2">Agregar Comentario</h3>
-				<form name="contactForm" id="contactForm" method="post" action="" autocomplete="off">
+				<form name="contactForm" id="contactForm" method="post" action="<?= base_url('comments/create') ?>" autocomplete="off">
 					<fieldset>
+						<!-- Pasar la URL actual -->
+						<?php
+							$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+						?>
+						<input type="hidden" name="url" value="<?=$actual_link?>" />
+						<input type="hidden" name="id_project" value="<?=$project['id_projects']?>" />
 						<div>
-							<input name="cName" id="cName" class="full-width" placeholder="Nombre" value="" type="text">
+							<textarea name="cMessage" id="cMessage" class="full-width" placeholder="Escribe tu Mensaje*"></textarea>
 						</div>
-						<div>
-							<input name="cEmail" id="cEmail" class="full-width" placeholder="Email" value="" type="text">
-						</div>
-						<div>
-							<textarea name="cMessage" id="cMessage" class="full-width" placeholder="Tu Mensaje*"></textarea>
-						</div>
-						<input name="submit" id="submit" class="btn--primary" value="Agregar" type="submit">
+						<input name="submit" id="submit" class="btn--primary" value="Enviar" type="submit">
 					</fieldset>
-				</form> <!-- end form -->
-			</div><!-- END respond-->
-		</div> <!-- end comment-respond -->
-	</div> <!-- end comments-wrap -->
-</section> <!-- end s-content -->
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
 
 <?= $this->include('layouts/footer') ?>
 <?= $this->endSection() ?>

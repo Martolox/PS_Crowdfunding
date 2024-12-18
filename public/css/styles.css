@@ -37,6 +37,11 @@
 	font-size: 1.4rem;
 }
 
+#navbar i {
+	color: var(--text1);
+	text-decoration: none;
+}
+
 #navbar a:hover, #navbar i:hover {
 	cursor: pointer;
 	color: var(--text2);

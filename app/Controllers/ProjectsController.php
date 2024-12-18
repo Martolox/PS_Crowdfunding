@@ -130,6 +130,12 @@ class ProjectsController extends BaseController
 		if (!$project) {
 			return redirect()->to(base_url('/')); // Redirigir si no se encuentra el proyecto
 		}
+		// Saber si el usuario actual es inversor del proyecto
+		
+
+
+//		$projectModel->getUsersByProjectId();
+
 		return view('projects/project_details', ['project' => $project]);
 	}
 
