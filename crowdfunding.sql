@@ -67,7 +67,7 @@ CREATE TABLE comments (
 	id_projects SMALLINT UNSIGNED NOT NULL,
 	id_users SMALLINT UNSIGNED NOT NULL,
 	comment TEXT NOT NULL,
-	email VARCHAR(40) UNIQUE NOT NULL,
+	email VARCHAR(40) NOT NULL,
 	comment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id_projects) REFERENCES projects(id_projects),
@@ -193,6 +193,8 @@ $1000: Visita al proyecto y participación en la inauguración de la nueva fuent
 
 
 INSERT INTO investments (id_projects, id_users, amount, status, investment_date) VALUES
+( 1,  3,    300, 'active', '2024-10-30'),
+( 1,  7,   1400, 'active', '2024-11-03'),
 ( 6,  3,   5000, 'active', '2024-11-02'),
 ( 7,  3,   2000, 'active', '2024-11-04'),
 (10, 10, 400000, 'active', '2024-11-14'),
@@ -200,4 +202,16 @@ INSERT INTO investments (id_projects, id_users, amount, status, investment_date)
 
 
 INSERT INTO comments (id_projects, id_users, comment, email, comment_date) VALUES
-(1, 10, 'Comentario prueba', 'diegoo@mail.com', '2024-11-15');
+(1, 3 , 'Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Neque convallis a cras semper auctor. Libero id faucibus nisl tincidunt eget.', 'juan@mail.com', '2024-11-15'),
+(1, 4 , 'Me parece genia la iniciativa. A la espera de novedades en el proyecto.', 'daiana@mail.com', '2024-11-18'),
+(1, 5 , 'Comentario corto', 'ruben@mail.com', '2024-11-22'),
+(1, 3 , 'Sit amet nulla facilisi morbi tempus. Nulla facilisi cras fermentum odio eu.', 'juan@mail.com', '2024-12-01'),
+
+(2, 10, 'Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Neque convallis a cras semper auctor. Libero id faucibus nisl tincidunt eget.', 'diegoo@mail.com', '2024-11-15'),
+(2, 3 , 'Et malesuada fames ac turpis egestas sed. Sit amet nisl suscipit adipiscing bibendum est ultricies.', 'daiana@mail.com', '2024-11-18'),
+(2, 5 , 'Comentario corto', 'ruben@mail.com', '2024-11-22'),
+(2, 7 , 'Sit amet nulla facilisi morbi tempus. Nulla facilisi cras fermentum odio eu.', 'juana@mail.com', '2024-12-01'),
+
+(2, 3 , 'Sit amet nisl suscipit adipiscing.', 'juan@mail.com', '2024-11-15'),
+(2, 3 , 'Et malesuada fames ac turpis egestas sed. Sit amet nisl suscipit adipiscing bibendum est ultricies.', 'juan@mail.com', '2024-12-01'),
+(2, 7 , 'Sit amet nulla facilisi morbi tempus. Nulla facilisi cras fermentum odio eu.', 'juana@mail.com', '2024-12-03');

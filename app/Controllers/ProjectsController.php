@@ -266,6 +266,7 @@ class ProjectsController extends BaseController
 		$comments = $commentModel->getCommentsByProjectId($id);
 		$userModel = new UsersModel();
 		$users = $userModel->getUsers();
+		$commentList = [];
 		foreach ($comments as $c) {
 			foreach ($users as $u) {
 				if ($c['id_users'] == $u['id_users']) {

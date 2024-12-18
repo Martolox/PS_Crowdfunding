@@ -117,7 +117,7 @@
 							$actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 						?>
 						<input type="hidden" name="url" value="<?=$actual_link?>" />
-						<input type="hidden" name="id_project" value="<?=$project['id_projects']?>" />
+						<input type="hidden" name="id_projects" value="<?=$project['id_projects']?>" />
 						<div>
 							<textarea name="cMessage" id="cMessage" class="full-width" placeholder="Escribe tu Mensaje*"></textarea>
 						</div>

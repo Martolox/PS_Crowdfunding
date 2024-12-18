@@ -14,6 +14,7 @@ class CommentsController extends BaseController
 				->with('error', implode(array_pop($errors)));
 		}
 		$model = model(CommentsModel::class);
+
 		$data = array('id_projects' => $_POST['id_projects'],
 					  'id_users' => session('userSessionID'),
 					  'comment' => $_POST['cMessage'],
