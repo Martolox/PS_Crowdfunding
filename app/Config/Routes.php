@@ -1,12 +1,14 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
+use App\Controllers\CommentsController;
 use App\Controllers\HomeController;
-use App\Controllers\LogController;
 use App\Controllers\InvestmentsController;
+use App\Controllers\LogController;
+use App\Controllers\NotificationController;
 use App\Controllers\ProjectsController;
 use App\Controllers\UsersController;
-use App\Controllers\NotificationController;
+
 
 $routes->get('/', 						[HomeController::class, 'index']);
 
@@ -37,21 +39,21 @@ $routes->post('/projectsController/cancel_project/(:num)', 'ProjectsController::
 /* Investments */
 $routes->get('/investments/eliminarInversion/(:num)', 'InvestmentsController::updateEstado/$1');
 $routes->get('/investments/update', 'InvestmentsController::update');
-$routes->post('/investments/update', 'InvestmentsController::update');
 $routes->get('/investments', 'InvestmentsController::index');
-$routes->post('/investments', 'InvestmentsController::index');
-$routes->post('investments/create', 'InvestmentsController::create');
 $routes->get('/investments/create', 'InvestmentsController::create');
-$routes->post('/investments/save', 'InvestmentsController::save');
 $routes->get('/investments/list', 'InvestmentsController::list');
+$routes->post('/investments/update', 'InvestmentsController::update');
+$routes->post('/investments', 'InvestmentsController::index');
+$routes->post('/investments/create', 'InvestmentsController::create');
+$routes->post('/investments/save', 'InvestmentsController::save');
 
 /* Comments */
-
+$routes->post('/comments/create', 				[CommentsController::class, 'create']);
 
 /* Notifications */
 
 // $routes->get('user/(:num)', 'NotificationController::getUserNotifications/$1'); // Obtener notificaciones de un usuario
- $routes->post('create', 'NotificationController::createNotification');   // Crear una nueva notificación
+ $routes->post('create', 'NotificationController::createNotification');
  $routes->get('notifications/getUserNotifications', 'NotificationController::getUserNotifications');
 	  
  $routes->group('updatesController', ['namespace' => 'App\Controllers'], function ($routes) {

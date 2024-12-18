@@ -141,7 +141,7 @@
 
 		<!-- Logout Icon -->
  		<li><a href="<?= base_url('logout') ?>">
-			<i class="fa-solid fa-arrow-right-from-bracket"></i>
+			<i class="fa-solid fa-arrow-right-from-bracket logout"></i>
 		</a></li>
 		
 	</ul>
