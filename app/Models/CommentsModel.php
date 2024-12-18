@@ -10,4 +10,8 @@ class CommentsModel extends Model
 	protected $primaryKey = 'id';
 	protected $returnType = 'array';
 	protected $allowedFields = ['id_projects', 'id_users', 'comment', 'email'];
+
+	public function getCommentsByProjectId($projectId): array {
+		return $this->where('id_projects', $projectId)->findAll();
+	}
 }

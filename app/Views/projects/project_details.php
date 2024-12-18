@@ -81,63 +81,27 @@
 				<h3 class="h2">5 Comentarios</h3>
 				<!-- START commentlist -->
 				<ol class="commentlist">
+					<?php foreach ($comments as $c) { 
+						$comment_date = new DateTime($c['comment_date']);?>
 					<li class="depth-1 comment">
 						<div class="comment__avatar">
-							<img class="avatar" src="<?= base_url('uploads/user-4.jpg') ?>" alt="" width="50" height="50">
+							<img class="avatar" src="<?= base_url($c['img_name']) ?>" alt="" width="50" height="50">
 						</div>
 						<div class="comment__content">
 							<div class="comment__info">
-								<div class="comment__author">Itachi Uchiha</div>
+								<div class="comment__author"><?=$c['username']?></div>
 								<div class="comment__meta">
-									<div class="comment__time">Jun 15, 2018</div>
+									<div class="comment__time"><?= $comment_date->format('d/m/Y') ?></div>
 								</div>
 							</div>
 
 							<div class="comment__text">
-							<p>Adhuc quaerendum est ne, vis ut harum tantas noluisse, id suas iisque mei. Nec te inani ponderum vulputate,
-							facilisi expetenda has et. Iudico dictas scriptorem an vim, ei alia mentitum est, ne has voluptua praesent.</p>
-							</div>
-
-						</div>
-
-					</li>
-
-					<li class="thread-alt depth-1 comment">
-						<div class="comment__avatar">
-							<img class="avatar" src="<?= base_url('uploads/profile.png') ?>" alt="" width="50" height="50">
-						</div>
-
-						<div class="comment__content">
-							<div class="comment__info">
-								<div class="comment__author">John Doe</div>
-								<div class="comment__meta">
-									<div class="comment__time">Jun 15, 2018</div>
-								</div>
-							</div>
-
-							<div class="comment__text">
-							<p>Sumo euismod dissentiunt ne sit, ad eos iudico qualisque adversarium, tota falli et mei. Esse euismod
-							urbanitas ut sed, et duo scaevola pericula splendide. Primis veritus contentiones nec ad, nec et
-							tantas semper delicatissimi.</p>
+							<p><?=$c['comment']?></p>
 							</div>
 						</div>
 					</li>
-					<li class="depth-1 comment">
-						<div class="comment__avatar">
-							<img class="avatar" src="<?= base_url('uploads/user-10.jpg') ?>" alt="" width="50" height="50">
-						</div>
-						<div class="comment__content">
-							<div class="comment__info">
-								<div class="comment__author">Shikamaru Nara</div>
-								<div class="comment__meta">
-									<div class="comment__time">Jun 15, 2018</div>
-								</div>
-							</div>
-							<div class="comment__text">
-								<p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem.</p>
-							</div>
-						</div>
-					</li>
+					<?php }; ?>
+
 				</ol>
 				<!-- END commentlist -->           
 			</div>

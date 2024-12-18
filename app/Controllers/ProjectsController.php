@@ -3,9 +3,11 @@
 namespace App\Controllers;
 use CodeIgnite\Controller;
 use App\Models\ProjectsModel;
+use App\Models\CommentsModel;
 use App\Models\InvestmentsModel;
 use App\Models\NotificationModel;
 use App\Models\UpdatesModel;
+use App\Models\UsersModel;
 use CodeIgniter\I18n\Time;
 use DateTime;
 
@@ -21,69 +23,69 @@ class ProjectsController extends BaseController
 
 			// Cargar el servicio para manejar archivos
 			$file = $this->request->getFile('project_image');
-            $isFile = ($file && 
-                        $file->isValid() && 
-                        !$file->hasMoved() && 
-                        in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/gif']) && 
-                        $file->getSize() <= 2048 * 1024 // 2 MB
-                        );
-            $projectId = $this->request->getPost('project_id');
-            //SI VIENE PROJECTID, ESTA EDITANDO PONGO EL STATUS QUE VIENE, SINO EL INICIAL
-            if ($projectId){
-                $status= $this->request->getPost('status');
-            }else{
-                $status='EN PROCESO';
-            }
-            //si viene $projectId estoy editando, no es obligatorio el archivo
+			$isFile = ($file && 
+						$file->isValid() && 
+						!$file->hasMoved() && 
+						in_array($file->getMimeType(), ['image/jpeg', 'image/png', 'image/gif']) && 
+						$file->getSize() <= 2048 * 1024 // 2 MB
+						);
+			$projectId = $this->request->getPost('project_id');
+			//SI VIENE PROJECTID, ESTA EDITANDO PONGO EL STATUS QUE VIENE, SINO EL INICIAL
+			if ($projectId){
+				$status= $this->request->getPost('status');
+			}else{
+				$status='EN PROCESO';
+			}
+			//si viene $projectId estoy editando, no es obligatorio el archivo
 			if ($projectId  || $isFile  ) {
 				
-                if ($isFile ){
-                        // Ruta relativa dentro de tu proyecto donde guardarás el archivo
-                        $uploadPath =  ROOTPATH . 'public/uploads/';
-                        
-                        // Crear la carpeta si no existe
-                        if (!is_dir($uploadPath)) {
-                            mkdir($uploadPath, 0755, true);
-                        }
+				if ($isFile ){
+						// Ruta relativa dentro de tu proyecto donde guardarás el archivo
+						$uploadPath =  ROOTPATH . 'public/uploads/';
+						
+						// Crear la carpeta si no existe
+						if (!is_dir($uploadPath)) {
+							mkdir($uploadPath, 0755, true);
+						}
 
-                        // Generar un nombre único para evitar colisiones
-                        $newName = $file->getRandomName();
-                        
-                        // Mover el archivo a la carpeta
-                        $file->move($uploadPath, $newName);
-                        
-                        // Guardar la ruta del archivo en la base de datos o donde corresponda
-                        $filePath = '/uploads/' . $newName;
-                
-                
-                        $projectData = [
-                            'id_users' => session('userSessionID'),
-                            'name' => $this->request->getPost('name'),
-                            'category' => $this->request->getPost('category'),
-                            'impact' => $this->request->getPost('impact'),
-                            'budget' => $this->request->getPost('budget'),
-                            'status' => $status,
-                            'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
-                            'reward_plan' => $this->request->getPost('reward_plan'),
-                            'img_name' => $filePath,
-                        ];
-                 }else{
-                    $projectData = [
-                        'id_users' => session('userSessionID'),
-                        'name' => $this->request->getPost('name'),
-                        'category' => $this->request->getPost('category'),
-                        'impact' => $this->request->getPost('impact'),
-                        'budget' => $this->request->getPost('budget'),
-                        'status' => $status,
-                        'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
-                        'reward_plan' => $this->request->getPost('reward_plan')
-                    ];
-
-                 }
+						// Generar un nombre único para evitar colisiones
+						$newName = $file->getRandomName();
+						
+						// Mover el archivo a la carpeta
+						$file->move($uploadPath, $newName);
+						
+						// Guardar la ruta del archivo en la base de datos o donde corresponda
+						$filePath = '/uploads/' . $newName;
 				
-               
+				
+						$projectData = [
+							'id_users' => session('userSessionID'),
+							'name' => $this->request->getPost('name'),
+							'category' => $this->request->getPost('category'),
+							'impact' => $this->request->getPost('impact'),
+							'budget' => $this->request->getPost('budget'),
+							'status' => $status,
+							'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
+							'reward_plan' => $this->request->getPost('reward_plan'),
+							'img_name' => $filePath,
+						];
+				 }else{
+					$projectData = [
+						'id_users' => session('userSessionID'),
+						'name' => $this->request->getPost('name'),
+						'category' => $this->request->getPost('category'),
+						'impact' => $this->request->getPost('impact'),
+						'budget' => $this->request->getPost('budget'),
+						'status' => $status,
+						'end_date' => $endDate, // El formato es válido, así que lo puedes guardar directamente
+						'reward_plan' => $this->request->getPost('reward_plan')
+					];
+
+				 }
+				
+			   
 				if ($projectId) {
-                   // error_log('esto quiero guardar'.$projectData);
+				   // error_log('esto quiero guardar'.$projectData);
 					// Actualiza el proyecto existente
 					$result = $model->update_project($projectId, $projectData);
 					if ($result) {
@@ -130,13 +132,12 @@ class ProjectsController extends BaseController
 		if (!$project) {
 			return redirect()->to(base_url('/'));
 		}
-		
 		$updatesModel=new UpdatesModel();
 		$updates = $updatesModel->where('id_projects', $id)->orderBy('version', 'ASC')->findAll();
 		
-		//dd($updates);
-		// Saber si el usuario actual es inversor del proyecto
-		$data = ['project' => $project, 'updates' => $updates];
+		$data = ['project' => $project,
+				 'updates' => $updates,
+				 'comments' => $this->addCommentData($id)];
 		$data['project']['show_form'] = false;
 
 		if ($this->is_investor($id)) {
@@ -162,7 +163,7 @@ class ProjectsController extends BaseController
 		$projectModel = new ProjectsModel();
 		//agregado para enviar las notificaciones
 		$investmentsModel = new InvestmentsModel();
-   		$notificationModel = new NotificationModel();
+		$notificationModel = new NotificationModel();
 
 		$success = $projectModel->cancelProject($projectId);  
 		
@@ -191,7 +192,7 @@ class ProjectsController extends BaseController
 
 		//agregado para enviar las notificaciones
 		$investmentsModel = new InvestmentsModel();
-   		$notificationModel = new NotificationModel();
+		$notificationModel = new NotificationModel();
 
 
 		$project = $projectModel->getProject($id_project);
@@ -258,5 +259,26 @@ class ProjectsController extends BaseController
 			return true;
 		}
 		return false;
+	}
+
+	private function addCommentData($id): array {
+		$commentModel = new CommentsModel();
+		$comments = $commentModel->getCommentsByProjectId($id);
+		$userModel = new UsersModel();
+		$users = $userModel->getUsers();
+		foreach ($comments as $c) {
+			foreach ($users as $u) {
+				if ($c['id_users'] == $u['id_users']) {
+					$comm 				= $c;
+					$comm['username'] 	= $u['username'];
+					$comm['img_name'] 	= $u['img_name'];
+					$comm['email'] 		= $u['email'];
+					$comm['date']		= $c['comment_date'];
+					$commentList[] 		= $comm;
+					break;
+				}
+			}
+		}
+		return $commentList;
 	}
 }
