@@ -60,50 +60,50 @@
 					
 					<!-- Activar proyecto -->
 					<a href="<?= base_url('ProjectsController/changeStatus/' . $project['id_projects'] . '/PUBLICADO') ?>" class="btn btn-warning btn-sm">
-						<i class="fa-solid fa-toggle-on"></i>Publicar
+						<i class="fa-solid fa-toggle-on"></i>  Publicar
 					</a>			   
 					
 					<!-- Editar proyecto -->
 					<button onclick="editProject(<?= $project['id_projects'] ?>)" class="btn btn-primary btn-sm">
-						<i class="fa-solid fa-pen-to-square"></i>Editar
+						<i class="fa-solid fa-pen-to-square"></i>  Editar
 					</button>
 				<?php elseif ($project['status'] == 'PUBLICADO'): ?>
 					<!-- Botón para abrir el modal actualizacion-->
 					<button 
 						onclick="showAddUpdateModal(<?= $project['id_projects']; ?>)" 
 						class="btn btn-success btn-sm">
-						<i class="fa-solid fa-pen-to-square"></i> Actualizar
+						<i class="fa-solid fa-pen-to-square"></i>  Actualizar
 					</button>
 					
 					
 					<!-- Editar proyecto 	   
 					<button onclick="editProject(<?= $project['id_projects'] ?>)" class="btn btn-primary btn-sm">
-						<i class="fa-solid fa-pen-to-square"></i>Editar
+						<i class="fa-solid fa-pen-to-square"></i>  Editar
 					</button>
 					-->
 				
 					 <!-- Finalizar si end_date <= hoy -->
 					<?php if (strtotime($project['end_date']) <= strtotime(date('Y-m-d'))): ?>
 						<a href="<?= base_url('projectsController/final_project/' . $project['id_projects'] ) ?>" class="btn btn-success btn-sm">
-							<i class="fa-solid fa-circle-xmark"></i></svg>Finalizar
+							<i class="fa-solid fa-circle-xmark"></i>  Finalizar
 						</a>
 					<?php endif; ?>
 					<!-- Cancelar proyecto -->
 					<button  onclick="showCancelModal(<?= $project['id_projects']; ?>, '<?= addslashes($project['name']); ?>', '<?= base_url('projectsController/cancel_project/' . $project['id_projects']); ?>')" 
 								class="btn btn-danger btn-sm">
-						<i class="fa-solid fa-circle-xmark"></i>Cancelar
+						<i class="fa-solid fa-circle-xmark"></i>  Cancelar
 					</button>
 				<?php elseif ($project['status'] == 'CANCELADO'): ?>
 
 				<!-- Proyecto cancelado - sin acciones adicionales -->
 				<span class="badge badge-danger">
-					<i class="fa-solid fa-ban"></i>Proyecto<br>Cancelado
+					<i class="fa-solid fa-ban"></i>Proyecto<br>  Cancelado
 					</span>
 				<?php elseif ($project['status'] == 'FINALIZADO'): ?>
 
 				<!-- Proyecto finalizado - sin acciones adicionales -->
-				<span class="badge badge-success" style="background-color: #28a745; color: white; font-size: 1rem; padding: 10px; display: inline-flex; align-items: center;" >
-					<i class="fa-solid fa-medal"></i></svg>Proyecto<br>Finalizado
+				<span class="badge badge-success">
+					<i class="fa-solid fa-medal"></i>  Proyecto<br>  Finalizado
 				</span>
 				<?php endif; ?>
 			</div></td>
@@ -112,7 +112,7 @@
 	</tbody>
 </table>
 <button onclick="openProjectModal()" class="btn btn-primary create-project-btn" width="20" height="20" fill="var(--text1)">
-	<i class="fa-solid fa-plus"></i>Crear Proyecto
+	<i class="fa-solid fa-plus"></i>  Crear Proyecto
 </button>
 </section>
 

@@ -114,13 +114,13 @@ body {
 	align-items: center;
 }
 
-#proj-table .button-group button {
-	width: 100px;
-	background-color: var(--brand);
-	color: white;
+#proj-table button, #proj-table .badge,
+#proj-table .btn-success, #proj-table .btn-warning {
+	width: 105px;
+	color: #FDFDFD;
 	cursor: pointer;
 	margin: 5px;
-	padding: 10px 20px;
+	padding: 10px;
 	border: 1px solid var(--text1);
 	border-radius: 4px;
 	font-size: .875rem;
@@ -132,96 +132,43 @@ body {
 	white-space: nowrap;
 	vertical-align: middle;
 	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/* Buttons color */
+
+#proj-table button {
+	background-color: var(--brand);
+}
+
+#proj-table .badge {
+	background-color: var(--btn-red);
+}
+
+#proj-table .button-group .btn-success {
+	background-color: var(--btn-green);
+}
+
+#proj-table .button-group .btn-warning {
+	background-color: var(--btn-orange);
 }
 
 #proj-table .button-group button:hover {
 	background-color: oklab(from var(--brand) calc(l + 0.1) a b);
 }
 
-/* CREAR MI PROYECTO */
-
-#proj-table svg {
-	width: 18px;
-	height: 18px;
-	fill: var(--text1);
-	position: relative;
-	right: 4px;
-	top: 2px;
-}
-
-#proj-table .button-group .badge {
-	width: 100px;
-	background-color: var(--btn-red);
-	color: white;
-	cursor: pointer;
-	margin: 5px;
-	padding: 10px 20px;
-	border: 1px solid var(--text1);
-	border-radius: 4px;
-	font-size: .875rem;
-	line-height: 1.5;
-
-	display: inline-block;
-	font-weight: 400;
-	text-align: baseline;
-	white-space: nowrap;
-	vertical-align: middle;
-	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-
 #proj-table .button-group .badge:hover {
 	background-color: oklab(from var(--btn-red) calc(l + 0.1) a b);
-}
-
-#proj-table .button-group .btn-success {
-	width: 100px;
-	background-color: var(--btn-green);
-	color: white;
-	cursor: pointer;
-	margin: 5px;
-	padding: 10px 20px;
-	border: 1px solid var(--text1);
-	border-radius: 4px;
-	font-size: .875rem;
-	line-height: 1.5;
-
-
-	display: inline-block;
-	font-weight: 400;
-	text-align: baseline;
-	white-space: nowrap;
-	vertical-align: middle;
-	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
 #proj-table .button-group .btn-success:hover {
 	background-color: oklab(from var(--btn-green) calc(l + 0.1) a b);
 }
 
-#proj-table .button-group .btn-warning {
-	width: 100px;
-	background-color: var(--btn-orange);
-	color: white;
-	cursor: pointer;
-	margin: 5px;
-	padding: 10px 20px;
-	border: 1px solid var(--text1);
-	border-radius: 4px;
-	font-size: .875rem;
-	line-height: 1.5;
-
-
-	display: inline-block;
-	font-weight: 400;
-	text-align: baseline;
-	white-space: nowrap;
-	vertical-align: middle;
-	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-
 #proj-table .button-group .btn-warning:hover {
 	background-color: oklab(from var(--btn-orange) calc(l + 0.1) a b);
 }
+
+/* CREAR MI PROYECTO */
 
 .create-project-btn {
 	margin: 20px;

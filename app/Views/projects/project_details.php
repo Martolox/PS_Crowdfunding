@@ -11,66 +11,85 @@
 <?= $this->include('layouts/sidebar') ?>
 
 <!-- Project Details -->
-<section id="proj-details">
-<div id="projectDetails" class="bg-white rounded-lg shadow-xl p-8 m-4 max-w-xl w-full">
-	<div class="inner-container">
-		<h1 id="projectName" class="text-3xl font-bold mb-4 text-center text-gray-800"><?= esc($project['name']) ?></h1>
-			
-		<br>
-		<img id="projectImage" src="<?= base_url(esc($project['img_name'])) ?>" alt="Imagen de <?= esc($project['name']) ?>" class="w-64 h-64 object-cover rounded-lg mb-6">
-			
-		<div class="grid grid-cols-2 gap-4 mb-6">
-			<div>
-				<p class="text-sm font-semibold text-gray-600">Categoría:</p>
-				<p id="projectCategory" class="text-lg text-gray-800"><?= esc($project['category']) ?></p>
-			</div>
-			<div>
-				<p class="text-sm font-semibold text-gray-600">Estado:</p>
-				<p id="projectStatus" class="text-lg text-gray-800"><?= esc($project['status']) ?></p>
-			</div>
-			<div>
-				<p class="text-sm font-semibold text-gray-600">Presupuesto:</p>
-				<p id="projectBudget" class="text-lg text-gray-800"><?= number_format($project['budget'], 2, ',', '.') ?> €</p>
-			</div>
-			<div>
-				<p class="text-sm font-semibold text-gray-600">Recaudado:</p>
-				<p id="projectTotalInvestment" class="text-lg text-gray-800"><?= number_format($project['total_investment'], 2, ',', '.') ?> €</p>
-			</div>
-			<div>
-				<p class="text-sm font-semibold text-gray-600">Fecha de finalización:</p>
-				<p id="projectEndDate" class="text-lg text-gray-800"><?= date('d/m/Y', strtotime($project['end_date'])) ?></p>
-			</div>
+<section>
+	<div id="projectDetails">
+		<div class="titleContainer">
+			<h1 id="projectName"><?= esc($project['name']) ?></h1>
 		</div>
-		<div class="mb-6">
-			<p class="text-sm font-semibold text-gray-600">Impacto:</p>
-			<p id="projectImpact" class="text-lg text-gray-800"><?= esc($project['impact']) ?></p>
+		<div class="grid">
+			<div class="grid-item">
+				<div class="grid-item">
+					<p class="gridLabel">Categoría:</p>
+					<p class="gridText"><?= esc($project['category']) ?></p>
+				</div>
+				<div class="grid-item">
+					<p class="gridLabel">Estado:</p>
+					<p id="projectStatus" class="gridText"><?= esc($project['status']) ?></p>
+				</div>
+				<div class="grid-item">
+					<p class="gridLabel">Fecha de finalización:</p>
+					<p class="gridText"><?= date('d/m/Y', strtotime($project['end_date'])) ?></p>
+				</div>
+
+				<!-- Estrellas -->
+				<div class="grid-item">
+					<p class="gridLabel">Puntuación:</p>
+					<div class="rate">
+						<input type="radio" id="star5" name="rate" value="5" />
+						<label for="star5" title="text">5 stars</label>
+						<input type="radio" id="star4" name="rate" value="4" />
+						<label for="star4" title="text">4 stars</label>
+						<input type="radio" id="star3" name="rate" value="3" />
+						<label for="star3" title="text">3 stars</label>
+						<input type="radio" id="star2" name="rate" value="2" />
+						<label for="star2" title="text">2 stars</label>
+						<input type="radio" id="star1" name="rate" value="1" />
+						<label for="star1" title="text">1 star</label>
+					</div>
+				
+				</div>
+			</div>
+			<img id="projectImage" src="<?= base_url(esc($project['img_name'])) ?>" alt="Imagen de <?= esc($project['name']) ?>">
+			<div class="grid-item">
+				<p class="gridLabel">Presupuesto:</p>
+				<p id="projectBudget" class="gridText">$ <?= number_format($project['budget'], 2, ',', '.') ?></p>
+			</div>
+			<div class="grid-item">
+				<p class="gridLabel">Recaudado:</p>
+				<p class="gridText">$ <?= number_format($project['total_investment'], 2, ',', '.') ?></p>
+			</div>
 		</div>
 		<div>
-			<p class="text-sm font-semibold text-gray-600">Plan de recompensa:</p>
-			<p id="projectRewardPlan" class="text-lg text-gray-800"><?= esc($project['reward_plan']) ?></p>
+			<p class="gridLabel">Impacto:</p>
+			<p id="projectImpact" class="gridText"><?= esc($project['impact']) ?></p>
+		</div>
+		<div>
+			<p class="gridLabel">Plan de recompensa:</p>
+			<p id="projectRewardPlan" class="gridText"><?= esc($project['reward_plan']) ?></p>
 		</div>
 	</div>
-	<!-- Listado de actualizaciones -->
-	<div id="projectUpdates" class="bg-white rounded-lg shadow-xl p-8 m-4 max-w-xl w-full">
-        <h2 class="text-2xl font-bold mb-4 text-gray-800">Actualizaciones del proyecto</h2>
-        <?php if (!empty($updates)): ?>
-            <ul class="divide-y divide-gray-200">
-                <?php foreach ($updates as $update): ?>
-                    <li class="py-4">
-                        <div class="flex justify-between items-center">
-                            <h3 class="text-lg font-semibold text-gray-800">Versión <?= esc($update['version']) ?></h3>
-                            <p class="text-sm text-gray-500"><?= date('d/m/Y H:i:s', strtotime($update['change_date'])) ?></p>
-                        </div>
-                        <p class="text-gray-700 mt-2"><?= esc($update['description']) ?></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php else: ?>
-            <p class="text-gray-600">No hay actualizaciones registradas para este proyecto.</p>
-        <?php endif; ?>
-    </div>
-</div>
- 
+</section>
+
+<!-- Listado de actualizaciones -->
+<section>
+	<div id="projectUpdates">
+		<h2 class="updatesTitle">Actualizaciones del proyecto</h2>
+		<?php if (!empty($updates)): ?>
+			<ul>
+				<?php foreach ($updates as $update): ?>
+					<li>
+						<div class="flex justify-between items-center">
+							<h3 class="updVersion">Versión <?= esc($update['version']) ?></h3>
+							<p class="updDate"><?= date('d/m/Y H:i:s', strtotime($update['change_date'])) ?></p>
+						</div>
+						<p class="text-gray-700 mt-2"><?= esc($update['description']) ?></p>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		<?php else: ?>
+			<p class="noUpdates">No hay actualizaciones registradas para este proyecto.</p>
+		<?php endif; ?>
+	</div>
 </section>
 
 <!-- Project Comments -->
@@ -78,7 +97,11 @@
 	<div class="comments-wrap">
 		<div id="comments" class="row">
 			<div class="col-full">
-				<h3 class="h2">5 Comentarios</h3>
+				<?php if(count($comments)!= 0) {
+					if (count($comments) == 1) echo '<h3 class="h2">1 Comentario</h3>';
+					else echo '<h3 class="h2">'.count($comments).' Comentarios</h3>';
+				}
+				?>
 				<!-- START commentlist -->
 				<ol class="commentlist">
 					<?php foreach ($comments as $c) { 
