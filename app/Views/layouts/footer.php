@@ -48,7 +48,8 @@
                         notifications.forEach(notification => {
                             html += `
                                 <a href="#" class="dropdown-item">
-                                    <i class="fas fa-bell me-2"></i> ${notification.description}
+                                    <i class="fas fa-bell me-2"></i>
+									<span class="notification-text">${notification.description}</span>
                                     <span class="float-end text-muted fs-7">
                                         ${new Date(notification.notification_date).toLocaleString()}
                                     </span>
@@ -58,7 +59,7 @@
                         });
 
                         html += `
-                            <a href="<?= base_url('notifications'); ?>" class="dropdown-item dropdown-footer">
+                            <a href="<?= base_url('myNotifications'); ?>" class="dropdown-item dropdown-footer">
                                 Ver todas las notificaciones
                             </a>
                         `;

@@ -55,6 +55,7 @@ $routes->post('/comments/create', 				[CommentsController::class, 'create']);
 // $routes->get('user/(:num)', 'NotificationController::getUserNotifications/$1'); // Obtener notificaciones de un usuario
  $routes->post('create', 'NotificationController::createNotification');
  $routes->get('notifications/getUserNotifications', 'NotificationController::getUserNotifications');
+ $routes->get('myNotifications', 		[NotificationController::class, 'listMyNotifications']);
 	  
  $routes->group('updatesController', ['namespace' => 'App\Controllers'], function ($routes) {
 	// Ruta para crear una nueva actualización

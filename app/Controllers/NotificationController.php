@@ -27,7 +27,7 @@ class NotificationController extends BaseController
         }
         // Obtener las notificaciones desde el modelo
        
-        $notifications = $this->notificationModel->getNotificationsByUser(session('userSessionID'));
+        $notifications = $this->notificationModel->getNotificationsByUser(session('userSessionID'),5);
         
         // Verificar si hay notificaciones
         if (empty($notifications)) {
@@ -78,4 +78,18 @@ class NotificationController extends BaseController
             'message' => 'Notificación creada con éxito.'
         ])->setStatusCode(201);
     }
+
+
+    
+	public function listMyNotifications(): string {   
+		 // Verifica si hay una sesión de usuario activa
+         if (session('userSessionName') == null) {
+            return redirect()->to('account/login');
+        }
+        // Obtener las notificaciones desde el modelo
+       error_log('estoy aca');
+        $notifications = $this->notificationModel->getNotificationsByUser(session('userSessionID'),50);
+        
+		return view('notifications/my_notifications', ['notifications' => $notifications]);
+	}
 }
