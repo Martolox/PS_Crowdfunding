@@ -54,7 +54,7 @@
 				</a>
 			<?php endif;?>
 				<button class="btn-action" onclick="openModal(<?= $inv_pro['id_investments'] ?>, <?= $inv_pro['amount'] ?>)">Modificar</button>
-				<button class="btn-action">Detalles</button>
+				<button class="btn-action" onclick="location.href='<?= base_url('investments/detail/' . $inv_pro['id_investments']) ?>'">Detalles</button>
 			</div>
 			</td>
 		</tr>

@@ -67,6 +67,27 @@ class InvestmentsModel extends Model
 		return $this->where('id_projects', $id_project)->set($data)->update();
 	}
 
+	
+	public function detailInvestment($id): array {
+		$builder = $this->db->table('investments');
+		$builder->select('
+			investments.id_investments,
+			investments.amount,
+			investments.investment_date,
+			investments.status,
+			projects.name as project_name,
+			projects.category,
+			projects.reward_plan,
+			projects.end_date,
+			users.username as creator_name
+		');
+		$builder->join('projects', 'projects.id_projects = investments.id_projects', 'left');
+		$builder->join('users', 'users.id_users = projects.id_users', 'left');
+		$builder->where('investments.id_investments', $id);
+	
+		$query = $builder->get();
+		return $query->getRowArray();
+	}
 	  /**
      * Obtener todos los usuarios asociados a un proyecto específico.
      *

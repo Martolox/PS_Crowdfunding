@@ -135,4 +135,16 @@ class InvestmentsController extends BaseController
     
         return view('investments/my_investments', $data);
     }
+    
+    public function detail($id): string {   
+		if (session('userSessionName') == null) return  view('account/login');
+		$InvestmentsModel = new InvestmentsModel();
+		$investment = $InvestmentsModel->detailInvestment($id);
+
+		if (!$investment) {
+			return redirect()->to(base_url('/')); // Redirigir si no se encuentra la inversion
+		}
+		return view('investments/investment_detail', ['investment' => $investment]);
+	}
+
 }

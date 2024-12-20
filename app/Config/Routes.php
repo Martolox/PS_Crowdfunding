@@ -46,6 +46,7 @@ $routes->post('/investments/update', 'InvestmentsController::update');
 $routes->post('/investments', 'InvestmentsController::index');
 $routes->post('/investments/create', 'InvestmentsController::create');
 $routes->post('/investments/save', 'InvestmentsController::save');
+$routes->get('/investments/detail/(:num)', 'InvestmentsController::detail/$1'); 
 
 /* Comments */
 $routes->post('/comments/create', 				[CommentsController::class, 'create']);
