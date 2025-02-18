@@ -50,18 +50,17 @@ $routes->get('/investments/detail/(:num)', 'InvestmentsController::detail/$1');
 
 /* Comments */
 $routes->post('/comments/create', 				[CommentsController::class, 'create']);
+$routes->get('/comments/getUserComments', 		[CommentsController::class, 'getUserComments']);
+$routes->get('myComments', 						[CommentsController::class, 'listMyComments']);
 
 /* Notifications */
-
-// $routes->get('user/(:num)', 'NotificationController::getUserNotifications/$1'); // Obtener notificaciones de un usuario
- $routes->post('create', 'NotificationController::createNotification');
- $routes->get('notifications/getUserNotifications', 'NotificationController::getUserNotifications');
- $routes->get('myNotifications', 		[NotificationController::class, 'listMyNotifications']);
+$routes->post('create', 'NotificationController::createNotification');
+$routes->get('notifications/getUserNotifications', 'NotificationController::getUserNotifications');
+$routes->get('myNotifications', 				[NotificationController::class, 'listMyNotifications']);
 	  
- $routes->group('updatesController', ['namespace' => 'App\Controllers'], function ($routes) {
+$routes->group('updatesController', ['namespace' => 'App\Controllers'], function ($routes) {
 	// Ruta para crear una nueva actualización
 	$routes->post('create', 'UpdatesController::create');
-	
 	// Ruta para listar actualizaciones por ID de proyecto
 	$routes->get('listByProject/(:num)', 'UpdatesController::listByProject/$1');
 });

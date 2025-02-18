@@ -14,4 +14,10 @@ class CommentsModel extends Model
 	public function getCommentsByProjectId($projectId): array {
 		return $this->where('id_projects', $projectId)->findAll();
 	}
+
+	public function getCommentsByUser($userId, $limit = 15)	{
+		return $this->where('id', $userId)
+					->orderBy('comments_date', 'DESC')
+					->findAll($limit);
+	}
 }

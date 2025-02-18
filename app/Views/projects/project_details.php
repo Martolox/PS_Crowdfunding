@@ -34,6 +34,9 @@
 				<!-- Estrellas -->
 				<div class="grid-item">
 					<p class="gridLabel">Puntuación:</p>
+					<div>
+						<p>Texto de prueba</p>
+					</div>
 					<div class="rate">
 						<input type="radio" id="star5" name="rate" value="5" />
 						<label for="star5" title="text">5 stars</label>
@@ -55,7 +58,7 @@
 				<p id="projectBudget" class="gridText">$ <?= number_format($project['budget'], 2, ',', '.') ?></p>
 			</div>
 			<div class="grid-item">
-				<p class="gridLabel">Recaudado:</p>
+				<p class="gridLabel">Monto recaudado:</p>
 				<p class="gridText">$ <?= number_format($project['total_investment'], 2, ',', '.') ?></p>
 			</div>
 		</div>

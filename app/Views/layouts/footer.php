@@ -7,90 +7,151 @@
 </section>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    const notificationBell = document.getElementById('notificationBell');
-    const notificationDropdown = document.getElementById('notificationDropdown');
-    const notificationCount = document.getElementById('notificationCount');
+	document.addEventListener('DOMContentLoaded', function () {
+	const notificationBell = document.getElementById('notificationBell');
+	const notificationDropdown = document.getElementById('notificationDropdown');
+	const notificationCount = document.getElementById('notificationCount');
 
-    if (!notificationBell || !notificationDropdown || !notificationCount) {
-        console.error("Elementos HTML de notificaciones no encontrados.");
-        return;
-    }
+	const commentsGlobe = document.getElementById('commentsGlobe');
+	const commentsDropdown = document.getElementById('commentsDropdown');
+	const commentsCount = document.getElementById('commentsCount');
 
-    // Función para cargar las notificaciones
-    function loadNotifications() {
-        fetch('<?= base_url('notifications/getUserNotifications'); ?>')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Error en la respuesta del servidor.');
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.status === 'success') {
-                    const notifications = data.data || [];
-                    const count = notifications.length;
+	function loadNotifications() {
+		fetch('<?= base_url('notifications/getUserNotifications'); ?>')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Error en la respuesta del servidor.');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data.status === 'success') {
+					const notifications = data.data || [];
+					const count = notifications.length;
 
-                    // Actualizar el contador de notificaciones
-                    if (count > 0) {
-                        notificationCount.textContent = count;
-                        notificationCount.style.display = 'inline';
-                    } else {
-                        notificationCount.style.display = 'none';
-                    }
+					// Actualizar el contador de notificaciones
+					if (count > 0) {
+						notificationCount.textContent = count;
+						notificationCount.style.display = 'inline';
+					} else {
+						notificationCount.style.display = 'none';
+					}
 
-                    // Actualizar el contenido del dropdown
-                    let html = '';
-                    if (count > 0) {
-                        html += `<span class="dropdown-item dropdown-header">${count} Notificaciones</span>`;
-                        html += `<div class="dropdown-divider"></div>`;
+					// Actualizar el contenido del dropdown
+					let html = '';
+					if (count > 0) {
+						html += `<span class="dropdown-item dropdown-header">${count} Notificaciones</span>`;
+						html += `<div class="dropdown-divider"></div>`;
 
-                        notifications.forEach(notification => {
-                            html += `
-                                <a href="#" class="dropdown-item">
-                                    <i class="fas fa-bell me-2"></i>
+						notifications.forEach(notification => {
+							html += `
+								<a href="#" class="dropdown-item">
+									<i class="fas fa-bell me-2"></i>
 									<span class="notification-text">${notification.description}</span>
-                                    <span class="float-end text-muted fs-7">
-                                        ${new Date(notification.notification_date).toLocaleString()}
-                                    </span>
-                                </a>
-                                <div class="dropdown-divider"></div>
-                            `;
-                        });
+									<span class="float-end text-muted fs-7">
+										${new Date(notification.notification_date).toLocaleString()}
+									</span>
+								</a>
+								<div class="dropdown-divider"></div>
+							`;
+						});
 
-                        html += `
-                            <a href="<?= base_url('myNotifications'); ?>" class="dropdown-item dropdown-footer">
-                                Ver todas las notificaciones
-                            </a>
-                        `;
-                    } else {
-                        html += `<span class="dropdown-item dropdown-header">No tienes notificaciones nuevas.</span>`;
-                    }
+						html += `
+							<a href="<?= base_url('myNotifications'); ?>" class="dropdown-item dropdown-footer">
+								Ver todas las notificaciones
+							</a>
+						`;
+					} else {
+						html += `<span class="dropdown-item dropdown-header">No tienes notificaciones nuevas.</span>`;
+					}
 
-                    notificationDropdown.innerHTML = html;
-                } else {
-                    notificationCount.style.display = 'none';
-                    notificationDropdown.innerHTML = `
-                        <span class="dropdown-item dropdown-header">No tienes notificaciones nuevas.</span>
-                    `;
-                }
-            })
-            .catch(error => {
-                console.error('Error al cargar las notificaciones:', error);
+					notificationDropdown.innerHTML = html;
+				} else {
+					notificationCount.style.display = 'none';
+					notificationDropdown.innerHTML = `
+						<span class="dropdown-item dropdown-header">No tienes notificaciones nuevas.</span>
+					`;
+				}
+			})
+			.catch(error => {
+				console.error('Error al cargar las notificaciones:', error);
+				notificationCount.style.display = 'none';
+				notificationDropdown.innerHTML = `
+					<span class="dropdown-item dropdown-header">No hay notificaciones.</span>
+				`;
+			});
+	}
 
-                notificationCount.style.display = 'none';
-                notificationDropdown.innerHTML = `
-                    <span class="dropdown-item dropdown-header">Error al cargar notificaciones.</span>
-                `;
-            });
-    }
+	function loadComments() {
+		fetch('<?= base_url('comments/getUserComments'); ?>')
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Error en la respuesta del servidor.');
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (data.status === 'success') {
+					const comments = data.data || [];
+					const count = comments.length;
 
-    // Llamada inicial para cargar las notificaciones
-    loadNotifications();
+					// Actualizar el contador de notificaciones
+					if (count > 0) {
+						commentsCount.textContent = count;
+						commentsCount.style.display = 'inline';
+					} else {
+						commentsCount.style.display = 'none';
+					}
 
-    // Intervalo para recargar las notificaciones cada 30 segundos
-    setInterval(loadNotifications, 30000);
+					// Actualizar el contenido del dropdown
+					let html = '';
+					if (count > 0) {
+						html += `<span class="dropdown-item dropdown-header">${count} Comentarios</span>`;
+						html += `<div class="dropdown-divider"></div>`;
+
+						comments.forEach(comment => {
+							html += `
+								<a href="#" class="dropdown-item">
+									<i class="fas fa-bell me-2"></i>
+									<span class="comment-text">${comment.description}</span>
+									<span class="float-end text-muted fs-7">
+										${new Date(comment.comment_date).toLocaleString()}
+									</span>
+								</a>
+								<div class="dropdown-divider"></div>
+							`;
+						});
+
+						html += `
+							<a href="<?= base_url('myComments'); ?>" class="dropdown-item dropdown-footer">
+								Ver todas los comentarios
+							</a>
+						`;
+					} else {
+						html += `<span class="dropdown-item dropdown-header">No tienes comentarios nuevos.</span>`;
+					}
+
+					commentsDropdown.innerHTML = html;
+				} else {
+					commentsCount.style.display = 'none';
+					commentsDropdown.innerHTML = `
+						<span class="dropdown-item dropdown-header">No tienes comentarios nuevos.</span>
+					`;
+				}
+			})
+			.catch(error => {
+				console.error('Error al cargar los comentarios:', error);
+				commentsCount.style.display = 'none';
+				commentsDropdown.innerHTML = `
+					<span class="dropdown-item dropdown-header">No hay comentarios.</span>
+				`;
+			});
+	}
+
+	loadComments();
+	loadNotifications();
+	// Intervalo para recargar las notificaciones cada 30 segundos
+	// setInterval(loadNotifications, 30000);
 });
-
 
 </script>

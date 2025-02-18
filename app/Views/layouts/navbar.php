@@ -10,7 +10,7 @@
 		</a></li>
 		<?php if (session()->has('userSessionName')): ?>
 			<li><a href="<?= base_url('projects/list') ?>" class="nav-link">Proyectos</a></li>
-			<li><a href="<?= base_url('investments/list') ?>" class="nav-link">Inversiones</a></li>
+			<li><a href="<?= base_url('investments/list') ?>" class="nav-link">Mis Inversiones</a></li>
 			<li><a href="<?= base_url('projects/myList') ?>" class="nav-link">Mis Proyectos</a></li>
 		<?php endif; ?>
 	</ul>
@@ -48,81 +48,16 @@
 			<h3 class="btn"><?= session('userSessionName') ?></h3>
 		</a></li>
 
-		<!-- Messages Dropdown Menu -->
-		<li class="nav-item dropdown">
+		<!-- Comments Dropdown Menu -->
+		<li id="commentsGlobe" class="nav-item dropdown">
 			<a class="nav-link" data-bs-toggle="dropdown" href="#" aria-expanded="false">
 				<i class="far fa-comments"></i>
-				<span class="bg-danger">3</span>
+				<span id="commentsCount" class="bg-danger"></span>
 			</a>
 
-<!-- ELIMINAR Y AGREGAR COMENTARIOS PROPIOS -->
-			<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-				<a href="#" class="dropdown-item">
-
-					<!-- Message Start -->
-					<div class="d-flex">
-						<div class="flex-shrink-0">
-							<img src="<?= base_url('uploads/user-10.jpg')?>" alt="User Avatar" class="img-size-50 img-circle me-3">
-						</div>
-						<div class="flex-grow-1">
-							<h3 class="dropdown-item-title">
-								Brad Diesel
-								<span class="float-end fs-7 text-danger"><i class="fas fa-star"></i></span>
-							</h3>
-							<p class="fs-7">Call me whenever you can...</p>
-							<p class="fs-7 text-muted"><i class="far fa-clock me-1"></i> 4 Hours Ago</p>
-						</div>
-					</div>
-
-					<!-- Message End -->
-
-				</a>
+			<div id="commentsDropdown" class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+				<span class="dropdown-item dropdown-header">Cargando comentarios...</span>
 				<div class="dropdown-divider"></div>
-				<a href="#" class="dropdown-item">
-
-					<!-- Message Start -->
- 
-					<div class="d-flex">
-						<div class="flex-shrink-0">
-							<img src="<?= base_url('uploads/profile.png')?>" alt="User Avatar" class="img-size-50 img-circle me-3">
-						</div>
-						<div class="flex-grow-1">
-							<h3 class="dropdown-item-title">
-								John Pierce
-								<span class="float-end fs-7 text-muted"><i class="fas fa-star"></i></span>
-							</h3>
-							<p class="fs-7">I got your message bro</p>
-							<p class="fs-7 text-muted"><i class="far fa-clock me-1"></i> 4 Hours Ago</p>
-						</div>
-					</div>
-
-				<!-- Message End -->
-
-				</a>
-				<div class="dropdown-divider"></div>
-				<a href="#" class="dropdown-item">
-
-					<!-- Message Start -->
-
-					<div class="d-flex">
-						<div class="flex-shrink-0">
-							<img src="<?= base_url('uploads/user-10.jpg')?>" alt="User Avatar" class="img-size-50 img-circle me-3">
-						</div>
-						<div class="flex-grow-1">
-							<h3 class="dropdown-item-title">
-								Nora Silvester
-								<span class="float-end fs-7 text-warning"><i class="fas fa-star"></i></span>
-							</h3>
-							<p class="fs-7">The subject goes here</p>
-							<p class="fs-7 text-muted"><i class="far fa-clock me-1"></i> 4 Hours Ago</p>
-						</div>
-					</div>
-
-					<!-- Message End -->
- 
-				</a>
-				<div class="dropdown-divider"></div>
-				<a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
 			</div>
 		</li>
 
@@ -130,10 +65,10 @@
 		<li id="notificationBell" class="nav-item dropdown">
 			<a class="nav-link" data-bs-toggle="dropdown" href="#">
 				<i class="far fa-bell"></i>
-				<span class="navbar-badge badge bg-warning" id="notificationCount"></span>
+				<span id="notificationCount" class="navbar-badge badge bg-warning"></span>
 			</a>
 
-			<div class="dropdown-menu dropdown-menu-lg dropdown-menu-end" id="notificationDropdown">
+			<div id="notificationDropdown" class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
 				<span class="dropdown-item dropdown-header">Cargando notificaciones...</span>
 				<div class="dropdown-divider"></div>
 			</div>

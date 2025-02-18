@@ -2,17 +2,25 @@
 
 namespace App\Controllers;
 use App\Models\CommentsModel;
+use CodeIgniter\CLI\Console;
 
 class CommentsController extends BaseController
 {
+	protected $commentsModel;
+
+	public function __construct() {
+		$this->commentsModel = new CommentsModel();
+	}
+
 	public function create() {
 		if (session('userSessionName') == null) return  view('account/login');
+		/*
 		$errors = $this->validateCommentsForm();
 		if (isset($errors)) {
 			return redirect()
 				->to($_POST['url'])
 				->with('error', implode(array_pop($errors)));
-		}
+		}*/
 		$model = model(CommentsModel::class);
 
 		$data = array('id_projects' => $_POST['id_projects'],
@@ -23,18 +31,33 @@ class CommentsController extends BaseController
 		return redirect()->to($_POST['url'])->with('success', 'Mensaje enviado satisfactoriamente');
 	}
 
-	private function validateCommentsForm() {
-		if (! $this->validateData($_POST, [
-			'cMessage' => [
-				'rules'  => 'required|max_length[200]|min_length[4]',
-				'errors' => [
-					'required'  =>'El campo del mensaje no puede quedar vacío.',
-					'min_length'=>'Se requieren al menos 4 caracteres en el mensaje.',
-					'max_length'=>'Se requieren como máximo 200 caracteres en el mensaje.'
-				],
-			]
-		])) {
-			return $errors = array('errors' => $this->validator->getErrors());
+	public function getUserComments() {	   	   
+		$comments = $this->commentsModel->getCommentsByUser(session('userSessionID'),5);
+		
+		// Verificar si hay comments
+		if (empty($comments)) {
+			return $this->response->setJSON([
+				'status' => 'error',
+				'message' => 'No se encontraron comentarios para este usuario.'
+			])->setStatusCode(404);
 		}
+	 
+		return $this->response->setJSON([
+			'status' => 'success', 
+			'count' => count($comments),
+			'data' => $comments
+		]);
+	}
+
+	public function listMyNotifications(): string {   
+		 // Verifica si hay una sesión de usuario activa
+		 if (session('userSessionName') == null) {
+			return redirect()->to('account/login');
+		}
+		// Obtener las notificaciones desde el modelo
+	   error_log('estoy aca');
+		$notifications = $this->notificationModel->getNotificationsByUser(session('userSessionID'),50);
+		
+		return view('notifications/my_notifications', ['notifications' => $notifications]);
 	}
 }

@@ -115,7 +115,7 @@ class ProjectsController extends BaseController
 		if (session('userSessionName') == null) return  view('account/login'); 
 		$projectModel = new ProjectsModel();
 		$projects = $projectModel->getProjectsNotLogged(session('userSessionID'));
-		return view('projects/proyects', ['projects' => $projects]);
+		return view('projects/projects', ['projects' => $projects]);
 	}
 
 	public function listMyProjects(): string {   
