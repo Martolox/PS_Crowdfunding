@@ -11,6 +11,7 @@
 <?= $this->include('layouts/sidebar') ?>
 
 <!-- Project Details -->
+
 <section>
 	<div id="projectDetails">
 		<div class="titleContainer">
@@ -32,25 +33,45 @@
 				</div>
 
 				<!-- Estrellas -->
-				<div class="grid-item">
-					<p class="gridLabel">Puntuación:</p>
-					<div>
-						<p>Texto de prueba</p>
+				<form id="ratingForm" action="<?= base_url('/scores/new') ?>" method="POST">
+					<!-- Datos que se pasan con el  -->
+					<input type="hidden" name="id_project" value="<?= esc($project['id_projects']) ?>">
+					<input type="hidden" name="id_user" value="<?= session('userSessionID') ?>">
+					
+					<div class="grid-item">
+						<p class="gridLabel">Puntuación:</p>
+						<div style="display: wrap;">
+							<p style="color: red; font-size: .8rem;"><?= $scoreRate ?> (<?= $scoreCount ?> votos)</p>
+						</div>
+
+							<div class="rate">
+								<input type="radio" id="star5" name="rate" value="5" />
+								<label for="star5" title="text">5 stars</label>
+								<input type="radio" id="star4" name="rate" value="4" />
+								<label for="star4" title="text">4 stars</label>
+								<input type="radio" id="star3" name="rate" value="3" />
+								<label for="star3" title="text">3 stars</label>
+								<input type="radio" id="star2" name="rate" value="2" />
+								<label for="star2" title="text">2 stars</label>
+								<input type="radio" id="star1" name="rate" value="1" />
+								<label for="star1" title="text">1 star</label>
+							</div>
+						
 					</div>
-					<div class="rate">
-						<input type="radio" id="star5" name="rate" value="5" />
-						<label for="star5" title="text">5 stars</label>
-						<input type="radio" id="star4" name="rate" value="4" />
-						<label for="star4" title="text">4 stars</label>
-						<input type="radio" id="star3" name="rate" value="3" />
-						<label for="star3" title="text">3 stars</label>
-						<input type="radio" id="star2" name="rate" value="2" />
-						<label for="star2" title="text">2 stars</label>
-						<input type="radio" id="star1" name="rate" value="1" />
-						<label for="star1" title="text">1 star</label>
-					</div>
-				
-				</div>
+				</form>
+
+				<script>
+					// Seleccionar todos los inputs de tipo radio
+					const radioInputs = document.querySelectorAll('input[type="radio"]');
+					// Añadir evento change a cada input
+					radioInputs.forEach(input => {
+						input.addEventListener('change', function() {
+							// Enviar el formulario cuando se selecciona una estrella
+							document.getElementById('ratingForm').submit();
+						});
+					});
+				</script>
+
 			</div>
 			<img id="projectImage" src="<?= base_url(esc($project['img_name'])) ?>" alt="Imagen de <?= esc($project['name']) ?>">
 			<div class="grid-item">

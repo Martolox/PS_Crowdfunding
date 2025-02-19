@@ -6,6 +6,7 @@ use App\Models\ProjectsModel;
 use App\Models\CommentsModel;
 use App\Models\InvestmentsModel;
 use App\Models\NotificationModel;
+use App\Models\ScoresModel;
 use App\Models\UpdatesModel;
 use App\Models\UsersModel;
 use CodeIgniter\I18n\Time;
@@ -127,17 +128,39 @@ class ProjectsController extends BaseController
 
 	public function detail($id): string {   
 		if (session('userSessionName') == null) return  view('account/login');
+		// Obtener datos del proyecto
 		$projectModel = new ProjectsModel();
 		$project = $projectModel->getProjectWithInvestmentTotal($id);
 		if (!$project) {
 			return redirect()->to(base_url('/'));
 		}
-		$updatesModel=new UpdatesModel();
+		// Obtener datos de actualizaciones
+		$updatesModel = new UpdatesModel();
 		$updates = $updatesModel->where('id_projects', $id)->orderBy('version', 'ASC')->findAll();
-		
+		// Obtener datos del puntaje del proyecto
+		$scoresModel = new ScoresModel();
+		$scores = $scoresModel->where('id_projects', $id)->findAll();
+		// Ocultar estrellas si usuario ya votó
+		$hideStars = false;
+		$scoreCount = 0;
+		$scoreRate = 0;
+		foreach ($scores as $s) {
+			$scoreCount++;
+			$scoreRate += $s['score'];
+			if ($s['id_users'] == session('userSessionID')) $hideStars = true;
+		}
+		if ($scoreCount == 0) {
+			$scoreRate = '';
+		} else {
+			$scoreRate = number_format(($scoreRate/$scoreCount), 2);
+		}
+
 		$data = ['project' => $project,
 				 'updates' => $updates,
-				 'comments' => $this->addCommentData($id)];
+				 'comments' => $this->addCommentData($id),
+				 'hideStars' => $hideStars,
+				 'scoreCount' => $scoreCount,
+				 'scoreRate' => $scoreRate];
 		$data['project']['show_form'] = false;
 
 		if ($this->is_investor($id)) {

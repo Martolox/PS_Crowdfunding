@@ -53,13 +53,11 @@ CREATE TABLE scores (
 	id_score SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	id_projects SMALLINT UNSIGNED NOT NULL,
 	id_users SMALLINT UNSIGNED NOT NULL,
-	stars TINYINT UNSIGNED NOT NULL CHECK (stars >= 1 AND stars <= 5),
-	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	score TINYINT UNSIGNED NOT NULL CHECK (score >= 1 AND score <= 5),
 	score_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (id_score),
 	FOREIGN KEY (id_projects) REFERENCES projects(id_projects),
-	FOREIGN KEY (id_users) REFERENCES users(id_users),
-	UNIQUE KEY unique_user_project (id_users, id_projects)
+	FOREIGN KEY (id_users) REFERENCES users(id_users)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE comments (
@@ -215,3 +213,7 @@ INSERT INTO comments (id_projects, id_users, comment, email, comment_date) VALUE
 (2, 3 , 'Sit amet nisl suscipit adipiscing.', 'juan@mail.com', '2024-11-15'),
 (2, 3 , 'Et malesuada fames ac turpis egestas sed. Sit amet nisl suscipit adipiscing bibendum est ultricies.', 'juan@mail.com', '2024-12-01'),
 (2, 7 , 'Sit amet nulla facilisi morbi tempus. Nulla facilisi cras fermentum odio eu.', 'juana@mail.com', '2024-12-03');
+
+INSERT INTO scores (id_projects, id_users, score) VALUES
+(1, 5, 4),
+(1, 6, 5);

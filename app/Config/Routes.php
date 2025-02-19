@@ -7,25 +7,26 @@ use App\Controllers\InvestmentsController;
 use App\Controllers\LogController;
 use App\Controllers\NotificationController;
 use App\Controllers\ProjectsController;
+use App\Controllers\ScoresController;
 use App\Controllers\UsersController;
 
 
-$routes->get('/', 						[HomeController::class, 'index']);
+$routes->get('/', 							[HomeController::class, 'index']);
 
 /* Login */
-$routes->get('/login', 					[LogController::class, 'login']);
-$routes->get('/logout', 				[LogController::class, 'logout']);
-$routes->get('/register', 				[LogController::class, 'register']);
+$routes->get('/login', 						[LogController::class, 'login']);
+$routes->get('/logout', 					[LogController::class, 'logout']);
+$routes->get('/register', 					[LogController::class, 'register']);
 
 /* Users */
-$routes->post('/users/new', 			[UsersController::class, 'new']);
-$routes->post('/users/update', 			[UsersController::class, 'update']);
-$routes->post('/authenticate', 			[UsersController::class, 'authenticate']);
+$routes->post('/users/new', 				[UsersController::class, 'new']);
+$routes->post('/users/update', 				[UsersController::class, 'update']);
+$routes->post('/authenticate', 				[UsersController::class, 'authenticate']);
 
 /* Projects */
-$routes->get('/projects/list', 			[ProjectsController::class, 'list']);
-$routes->get('/projects/detail/(:num)', [ProjectsController::class, 'detail/$1']);
-$routes->get('/projects/myList', 		[ProjectsController::class, 'listMyProjects']);
+$routes->get('/projects/list', 				[ProjectsController::class, 'list']);
+$routes->get('/projects/detail/(:num)', 	[ProjectsController::class, 'detail/$1']);
+$routes->get('/projects/myList', 			[ProjectsController::class, 'listMyProjects']);
 
 $routes->get('/ProjectsController/changeStatus/(:num)/(:alpha)', 'ProjectsController::changeStatus/$1/$2');
 
@@ -47,6 +48,9 @@ $routes->post('/investments', 'InvestmentsController::index');
 $routes->post('/investments/create', 'InvestmentsController::create');
 $routes->post('/investments/save', 'InvestmentsController::save');
 $routes->get('/investments/detail/(:num)', 'InvestmentsController::detail/$1'); 
+
+/* Scores */
+$routes->post('/scores/new', 					[ScoresController::class, 'new']);
 
 /* Comments */
 $routes->post('/comments/create', 				[CommentsController::class, 'create']);
