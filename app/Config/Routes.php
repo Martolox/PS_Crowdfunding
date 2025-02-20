@@ -49,6 +49,7 @@ $routes->post('/investments/create', 'InvestmentsController::create');
 $routes->post('/investments/save', 'InvestmentsController::save');
 $routes->get('/investments/detail/(:num)', 'InvestmentsController::detail/$1'); 
 
+
 /* Scores */
 $routes->post('/scores/new', 					[ScoresController::class, 'new']);
 
@@ -61,6 +62,8 @@ $routes->get('myComments', 						[CommentsController::class, 'listMyComments']);
 $routes->post('create', 'NotificationController::createNotification');
 $routes->get('notifications/getUserNotifications', 'NotificationController::getUserNotifications');
 $routes->get('myNotifications', 				[NotificationController::class, 'listMyNotifications']);
+$routes->post('notifications/markAsRead/(:num)', 'NotificationController::markAsRead/$1');
+$routes->get('notifications/getUnreadNotifications', 'NotificationController::getUnreadNotifications');
 	  
 $routes->group('updatesController', ['namespace' => 'App\Controllers'], function ($routes) {
 	// Ruta para crear una nueva actualización

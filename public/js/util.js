@@ -6,3 +6,9 @@ switcher.addEventListener('input', e =>
 
 const setTheme = theme =>
     doc.setAttribute('color-scheme', theme)
+
+
+// Función para cerrar el modal
+function closeModalNotifications() {
+    document.getElementById('notificationModal').style.display = 'none';
+}

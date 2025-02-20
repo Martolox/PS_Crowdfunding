@@ -67,4 +67,35 @@ class NotificationController extends BaseController
 		
 		return view('notifications/my_notifications', ['notifications' => $notifications]);
 	}
+
+	public function markAsRead($id) {
+        $notification = $this->notificationModel->find($id);
+
+        if (!$notification) {
+            return $this->response->setJSON([
+                'status' => 'error',
+                'message' => 'Notificación no encontrada.'
+            ])->setStatusCode(404);
+        }
+
+        $this->notificationModel->update($id, ['is_read' => 1]);
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Notificación marcada como leída.'
+        ]);
+    }
+
+	public function getUnreadNotifications() {
+        $notifications = $this->notificationModel->where('id_users', session('userSessionID'))
+                                                ->where('is_read', 0)
+                                                ->orderBy('notification_date', 'DESC')
+                                                ->findAll();
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'count' => count($notifications),
+            'data' => $notifications
+        ]);
+    }
 }

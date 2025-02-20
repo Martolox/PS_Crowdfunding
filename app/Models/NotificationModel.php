@@ -10,7 +10,7 @@ class NotificationModel extends Model
 	protected $primaryKey = 'id_notifications';
 	protected $returnType  = 'array';
 	protected $dateFormat = 'datetime'; // o 'date', 'timestamp'
-	protected $allowedFields = ['id_users', 'description', 'notification_date'];
+	protected $allowedFields = ['id_users', 'description', 'notification_date', 'is_read'];
 	// Activar manejo de timestamps si es necesario
 	protected $useTimestamps = false;
 
@@ -19,4 +19,9 @@ class NotificationModel extends Model
 					->orderBy('notification_date', 'DESC')
 					->findAll($limit);
 	}
+
+	public function markAsRead($notificationId)
+    {
+        return $this->update($notificationId, ['is_read' => 1]);
+    }
 }

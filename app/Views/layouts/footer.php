@@ -17,7 +17,7 @@
 	const commentsCount = document.getElementById('commentsCount');
 
 	function loadNotifications() {
-		fetch('<?= base_url('notifications/getUserNotifications'); ?>')
+		fetch('<?= base_url('notifications/getUnreadNotifications'); ?>')
 			.then(response => {
 				if (!response.ok) {
 					throw new Error('Error en la respuesta del servidor.');
@@ -45,8 +45,9 @@
 
 						notifications.forEach(notification => {
 							html += `
-								<a href="#" class="dropdown-item">
-									<i class="fas fa-bell me-2"></i>
+							
+								<a href="#" class="dropdown-item notification-item" data-id="${notification.id_notifications}" data-description="${notification.description}" data-date="${notification.notification_date}">
+                              		<i class="fas fa-bell me-2"></i>
 									<span class="notification-text">${notification.description}</span>
 									<span class="float-end text-muted fs-7">
 										${new Date(notification.notification_date).toLocaleString()}
@@ -66,6 +67,24 @@
 					}
 
 					notificationDropdown.innerHTML = html;
+
+					 // Agregar evento a cada notificación para abrir el modal y marcar como leída
+					document.querySelectorAll('.notification-item').forEach(item => {
+						item.addEventListener('click', function (event) {
+							event.preventDefault();
+							const id = this.getAttribute('data-id');
+							const description = this.getAttribute('data-description');
+							const date = new Date(this.getAttribute('data-date')).toLocaleString();
+
+							document.getElementById('modalNotificationDescription').textContent = description;
+							document.getElementById('modalNotificationDate').textContent = date;
+							document.getElementById('notificationModal').style.display = 'block';
+
+							// Marcar como leída
+							markAsRead(id);
+						});
+                	});
+
 				} else {
 					notificationCount.style.display = 'none';
 					notificationDropdown.innerHTML = `
@@ -80,6 +99,24 @@
 					<span class="dropdown-item dropdown-header">No hay notificaciones.</span>
 				`;
 			});
+	}
+
+	// Función para marcar una notificación como leída
+	function markAsRead(id) {
+		fetch(`<?= base_url('notifications/markAsRead/'); ?>${id}`, {
+			method: 'POST'
+		}).then(response => response.json())
+		.then(data => {
+			if (data.status === 'success') {
+				loadNotifications(); // Recargar la lista para reflejar cambios
+			}
+		})
+		.catch(error => console.error('Error al marcar como leída:', error));
+	}
+
+	// Función para cerrar el modal
+	function closeModal() {
+		document.getElementById('notificationModal').style.display = 'none';
 	}
 
 	function loadComments() {

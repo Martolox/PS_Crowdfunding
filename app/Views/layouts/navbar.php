@@ -82,3 +82,12 @@
 	</ul>
 </nav>
 </section>
+
+<div id="notificationModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModalNotifications()">&times;</span>
+        <h2>Detalle de la Notificación</h2>
+        <p id="modalNotificationDescription"></p>
+        <small id="modalNotificationDate" class="text-muted"></small>
+    </div>
+</div>
