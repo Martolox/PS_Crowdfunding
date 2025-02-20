@@ -32,6 +32,14 @@
 					<p class="gridText"><?= date('d/m/Y', strtotime($project['end_date'])) ?></p>
 				</div>
 
+				<p class="gridLabel">Puntuación:</p>
+				<div style="display: wrap;">
+					<p style="color: red; font-size: .8rem;"><?= $scoreRate ?> (<?= $scoreCount ?> votos)</p>
+				</div>
+				<?php if ($hideStars): ?>
+				<p>Gracias por su valoración</p>
+				<?php else: ?>
+
 				<!-- Estrellas -->
 				<form id="ratingForm" action="<?= base_url('/scores/new') ?>" method="POST">
 					<!-- Datos que se pasan con el  -->
@@ -39,22 +47,19 @@
 					<input type="hidden" name="id_user" value="<?= session('userSessionID') ?>">
 					
 					<div class="grid-item">
-						<p class="gridLabel">Puntuación:</p>
-						<div style="display: wrap;">
-							<p style="color: red; font-size: .8rem;"><?= $scoreRate ?> (<?= $scoreCount ?> votos)</p>
-						</div>
+						
 
 							<div class="rate">
 								<input type="radio" id="star5" name="rate" value="5" />
-								<label for="star5" title="text">5 stars</label>
+								<label for="star5">5 stars</label>
 								<input type="radio" id="star4" name="rate" value="4" />
-								<label for="star4" title="text">4 stars</label>
+								<label for="star4">4 stars</label>
 								<input type="radio" id="star3" name="rate" value="3" />
-								<label for="star3" title="text">3 stars</label>
+								<label for="star3">3 stars</label>
 								<input type="radio" id="star2" name="rate" value="2" />
-								<label for="star2" title="text">2 stars</label>
+								<label for="star2">2 stars</label>
 								<input type="radio" id="star1" name="rate" value="1" />
-								<label for="star1" title="text">1 star</label>
+								<label for="star1">1 star</label>
 							</div>
 						
 					</div>
@@ -71,6 +76,8 @@
 						});
 					});
 				</script>
+
+				<?php endif; ?>
 
 			</div>
 			<img id="projectImage" src="<?= base_url(esc($project['img_name'])) ?>" alt="Imagen de <?= esc($project['name']) ?>">
