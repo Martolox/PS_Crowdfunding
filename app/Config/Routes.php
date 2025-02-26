@@ -49,22 +49,22 @@ $routes->post('/investments/create', 'InvestmentsController::create');
 $routes->post('/investments/save', 'InvestmentsController::save');
 $routes->get('/investments/detail/(:num)', 'InvestmentsController::detail/$1'); 
 
-
 /* Scores */
-$routes->post('/scores/new', 					[ScoresController::class, 'new']);
+$routes->post('/scores/new', 						[ScoresController::class, 'new']);
 
 /* Comments */
-$routes->post('/comments/create', 				[CommentsController::class, 'create']);
-$routes->get('/comments/getUserComments', 		[CommentsController::class, 'getUserComments']);
-$routes->get('myComments', 						[CommentsController::class, 'listMyComments']);
+$routes->post('/comments/create', 					[CommentsController::class, 'create']);
+$routes->post('/comments/markCommentAsRead/(:num)',	[CommentsController::class, 'markAsRead/$1']);
+$routes->get('/comments/getUnreadComments', 		[CommentsController::class, 'getUnreadComments']);
+$routes->get('/myComments', 						[CommentsController::class, 'listMyComments']);
 
 /* Notifications */
-$routes->post('create', 'NotificationController::createNotification');
-$routes->get('notifications/getUserNotifications', 'NotificationController::getUserNotifications');
-$routes->get('myNotifications', 				[NotificationController::class, 'listMyNotifications']);
-$routes->post('notifications/markAsRead/(:num)', 'NotificationController::markAsRead/$1');
-$routes->get('notifications/getUnreadNotifications', 'NotificationController::getUnreadNotifications');
-	  
+$routes->post('create', 							[NotificationController::class, 'createNotification']);
+$routes->post('notifications/markAsRead/(:num)', 	[NotificationController::class, 'markAsRead/$1']);
+$routes->get('notifications/getUserNotifications', 	[NotificationController::class, 'getUserNotifications']);
+$routes->get('myNotifications', 					[NotificationController::class, 'listMyNotifications']);
+$routes->get('notifications/getUnreadNotifications',[NotificationController::class, 'getUnreadNotifications']);
+
 $routes->group('updatesController', ['namespace' => 'App\Controllers'], function ($routes) {
 	// Ruta para crear una nueva actualización
 	$routes->post('create', 'UpdatesController::create');

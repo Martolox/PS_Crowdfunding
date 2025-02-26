@@ -67,6 +67,7 @@ CREATE TABLE comments (
 	comment TEXT NOT NULL,
 	email VARCHAR(40) NOT NULL,
 	comment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	is_read TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
 	PRIMARY KEY (id),
 	FOREIGN KEY (id_projects) REFERENCES projects(id_projects),
 	FOREIGN KEY (id_users) REFERENCES users(id_users)
@@ -77,6 +78,7 @@ CREATE TABLE notifications (
 	id_users SMALLINT UNSIGNED NOT NULL,
 	description TEXT NOT NULL,
 	notification_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	is_read TINYINT(1) UNSIGNED NOT NULL DEFAULT 0,
 	PRIMARY KEY (id_notifications),
 	FOREIGN KEY (id_users) REFERENCES users(id_users)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -200,19 +202,9 @@ INSERT INTO investments (id_projects, id_users, amount, status, investment_date)
 
 
 INSERT INTO comments (id_projects, id_users, comment, email, comment_date) VALUES
-(1, 3 , 'Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Neque convallis a cras semper auctor. Libero id faucibus nisl tincidunt eget.', 'juan@mail.com', '2024-11-15'),
+(1, 3 , 'Comentario', 'juan@mail.com', '2024-11-15'),
 (1, 4 , 'Me parece genia la iniciativa. A la espera de novedades en el proyecto.', 'daiana@mail.com', '2024-11-18'),
-(1, 5 , 'Comentario corto', 'ruben@mail.com', '2024-11-22'),
-(1, 3 , 'Sit amet nulla facilisi morbi tempus. Nulla facilisi cras fermentum odio eu.', 'juan@mail.com', '2024-12-01'),
-
-(2, 10, 'Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin. Neque convallis a cras semper auctor. Libero id faucibus nisl tincidunt eget.', 'diegoo@mail.com', '2024-11-15'),
-(2, 3 , 'Et malesuada fames ac turpis egestas sed. Sit amet nisl suscipit adipiscing bibendum est ultricies.', 'daiana@mail.com', '2024-11-18'),
-(2, 5 , 'Comentario corto', 'ruben@mail.com', '2024-11-22'),
-(2, 7 , 'Sit amet nulla facilisi morbi tempus. Nulla facilisi cras fermentum odio eu.', 'juana@mail.com', '2024-12-01'),
-
-(2, 3 , 'Sit amet nisl suscipit adipiscing.', 'juan@mail.com', '2024-11-15'),
-(2, 3 , 'Et malesuada fames ac turpis egestas sed. Sit amet nisl suscipit adipiscing bibendum est ultricies.', 'juan@mail.com', '2024-12-01'),
-(2, 7 , 'Sit amet nulla facilisi morbi tempus. Nulla facilisi cras fermentum odio eu.', 'juana@mail.com', '2024-12-03');
+(2, 3 , 'Et malesuada fames ac turpis egestas sed. Sit amet nisl suscipit adipiscing bibendum est ultricies.', 'daiana@mail.com', '2024-11-18');
 
 INSERT INTO scores (id_projects, id_users, score) VALUES
 (1, 5, 4),

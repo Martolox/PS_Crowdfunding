@@ -9,15 +9,9 @@ class CommentsModel extends Model
 	protected $table = 'comments';
 	protected $primaryKey = 'id';
 	protected $returnType = 'array';
-	protected $allowedFields = ['id_projects', 'id_users', 'comment', 'email'];
+	protected $allowedFields = ['id_projects', 'id_users', 'comment', 'email', 'comment_date', 'is_read'];
 
-	public function getCommentsByProjectId($projectId): array {
+	public function getCommentsByProjectId($projectId, $limit = 15): array {
 		return $this->where('id_projects', $projectId)->findAll();
-	}
-
-	public function getCommentsByUser($userId, $limit = 15)	{
-		return $this->where('id', $userId)
-					->orderBy('comments_date', 'DESC')
-					->findAll($limit);
 	}
 }

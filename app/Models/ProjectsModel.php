@@ -9,7 +9,7 @@ class ProjectsModel extends Model
 	protected $table = 'projects';
 	protected $primaryKey = 'id_projects';
 	protected $returnType  = 'array';
-	protected $dateFormat = 'date'; // o 'date', 'timestamp'
+	protected $dateFormat = 'date';
 	protected $allowedFields = ["id_users","name","category","impact","budget", "status","end_date", "reward_plan", "img_name"];
 
 	public function insert_project($data) {

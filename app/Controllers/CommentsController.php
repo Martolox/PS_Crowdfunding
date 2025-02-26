@@ -2,25 +2,39 @@
 
 namespace App\Controllers;
 use App\Models\CommentsModel;
+use App\Models\ProjectsModel;
 use CodeIgniter\CLI\Console;
 
 class CommentsController extends BaseController
 {
 	protected $commentsModel;
+	protected $projectsModel;
 
 	public function __construct() {
 		$this->commentsModel = new CommentsModel();
+		$this->projectsModel = new ProjectsModel();
+	}
+
+	public function getUnreadComments() {
+		$projects = $this->projectsModel->getProjectsByUserId(session('userSessionID'));
+		$comments = [];
+		foreach ($projects as $p) {
+			$projectComments = $this->commentsModel->where('id_projects', $p['id_projects'])
+												->where('is_read', 0)
+												->orderBy('comment_date', 'DESC')
+												->findAll();
+			$comments = array_merge($comments, $projectComments);
+		}
+
+		return $this->response->setJSON([
+			'status' => 'success',
+			'count' => count($comments),
+			'data' => $comments
+		]);
 	}
 
 	public function create() {
 		if (session('userSessionName') == null) return  view('account/login');
-		/*
-		$errors = $this->validateCommentsForm();
-		if (isset($errors)) {
-			return redirect()
-				->to($_POST['url'])
-				->with('error', implode(array_pop($errors)));
-		}*/
 		$model = model(CommentsModel::class);
 
 		$data = array('id_projects' => $_POST['id_projects'],
@@ -28,36 +42,38 @@ class CommentsController extends BaseController
 					  'comment' => $_POST['cMessage'],
 					  'email' => session('userSessionEmail'));
 		$model->insert($data);
+
 		return redirect()->to($_POST['url'])->with('success', 'Mensaje enviado satisfactoriamente');
 	}
 
-	public function getUserComments() {	   	   
-		$comments = $this->commentsModel->getCommentsByUser(session('userSessionID'),5);
-		
-		// Verificar si hay comments
-		if (empty($comments)) {
+	public function markAsRead($id) {
+		$comment = $this->commentsModel->find($id);
+
+		if (!$comment) {
 			return $this->response->setJSON([
 				'status' => 'error',
-				'message' => 'No se encontraron comentarios para este usuario.'
+				'message' => 'Comentario no encontrado.'
 			])->setStatusCode(404);
 		}
-	 
+
+		$this->commentsModel->update($id, ['is_read' => 1]);
+
 		return $this->response->setJSON([
-			'status' => 'success', 
-			'count' => count($comments),
-			'data' => $comments
+			'status' => 'success',
+			'message' => 'Comentario marcado como leído.'
 		]);
 	}
 
-	public function listMyNotifications(): string {   
-		 // Verifica si hay una sesión de usuario activa
-		 if (session('userSessionName') == null) {
-			return redirect()->to('account/login');
+	public function listMyComments(): string {   
+		$projects = $this->projectsModel->getProjectsByUserId(session('userSessionID'));
+		$comments = [];
+		foreach ($projects as $p) {
+			$projectComments = $this->commentsModel	->where('id_projects', $p['id_projects'])
+													->orderBy('comment_date', 'DESC')
+													->findAll();
+			$comments = array_merge($comments, $projectComments);
 		}
-		// Obtener las notificaciones desde el modelo
-	   error_log('estoy aca');
-		$notifications = $this->notificationModel->getNotificationsByUser(session('userSessionID'),50);
 		
-		return view('notifications/my_notifications', ['notifications' => $notifications]);
+		return view('notifications/my_comments', ['comments' => $comments]);
 	}
 }

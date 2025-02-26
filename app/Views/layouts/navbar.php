@@ -91,3 +91,12 @@
         <small id="modalNotificationDate" class="text-muted"></small>
     </div>
 </div>
+
+<div id="commentModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModalComments()">&times;</span>
+        <h2>Detalle del comentario</h2>
+        <p id="modalCommentDescription"></p>
+        <small id="modalCommentDate" class="text-muted"></small>
+    </div>
+</div>

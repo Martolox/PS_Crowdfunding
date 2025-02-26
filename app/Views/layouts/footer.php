@@ -47,7 +47,7 @@
 							html += `
 							
 								<a href="#" class="dropdown-item notification-item" data-id="${notification.id_notifications}" data-description="${notification.description}" data-date="${notification.notification_date}">
-                              		<i class="fas fa-bell me-2"></i>
+									<i class="fas fa-bell me-2"></i>
 									<span class="notification-text">${notification.description}</span>
 									<span class="float-end text-muted fs-7">
 										${new Date(notification.notification_date).toLocaleString()}
@@ -81,9 +81,9 @@
 							document.getElementById('notificationModal').style.display = 'block';
 
 							// Marcar como leída
-							markAsRead(id);
+							markNotificationAsRead(id);
 						});
-                	});
+					});
 
 				} else {
 					notificationCount.style.display = 'none';
@@ -101,8 +101,7 @@
 			});
 	}
 
-	// Función para marcar una notificación como leída
-	function markAsRead(id) {
+	function markNotificationAsRead(id) {
 		fetch(`<?= base_url('notifications/markAsRead/'); ?>${id}`, {
 			method: 'POST'
 		}).then(response => response.json())
@@ -120,7 +119,7 @@
 	}
 
 	function loadComments() {
-		fetch('<?= base_url('comments/getUserComments'); ?>')
+		fetch('<?= base_url('comments/getUnreadComments'); ?>')
 			.then(response => {
 				if (!response.ok) {
 					throw new Error('Error en la respuesta del servidor.');
@@ -132,43 +131,26 @@
 					const comments = data.data || [];
 					const count = comments.length;
 
-					// Actualizar el contador de notificaciones
-					if (count > 0) {
-						commentsCount.textContent = count;
-						commentsCount.style.display = 'inline';
-					} else {
-						commentsCount.style.display = 'none';
-					}
+					updateCommentsCounter(count);				
+					commentsDropdown.innerHTML = updateCommentsDropdown(count, comments);
 
-					// Actualizar el contenido del dropdown
-					let html = '';
-					if (count > 0) {
-						html += `<span class="dropdown-item dropdown-header">${count} Comentarios</span>`;
-						html += `<div class="dropdown-divider"></div>`;
+					 // Agregar evento a cada comentario para abrir el modal y marcar como leída
+					document.querySelectorAll('.comment-item').forEach(item => {
+						item.addEventListener('click', function (event) {
+							event.preventDefault();
+							const id = this.getAttribute('data-id');
+							const description = this.getAttribute('data-description');
+							const date = new Date(this.getAttribute('data-date')).toLocaleString();
 
-						comments.forEach(comment => {
-							html += `
-								<a href="#" class="dropdown-item">
-									<i class="fas fa-bell me-2"></i>
-									<span class="comment-text">${comment.description}</span>
-									<span class="float-end text-muted fs-7">
-										${new Date(comment.comment_date).toLocaleString()}
-									</span>
-								</a>
-								<div class="dropdown-divider"></div>
-							`;
+							document.getElementById('modalCommentDescription').textContent = description;
+							document.getElementById('modalCommentDate').textContent = date;
+							document.getElementById('commentModal').style.display = 'block';
+
+							// Marcar como leída
+							markCommentAsRead(id);
 						});
+					});
 
-						html += `
-							<a href="<?= base_url('myComments'); ?>" class="dropdown-item dropdown-footer">
-								Ver todas los comentarios
-							</a>
-						`;
-					} else {
-						html += `<span class="dropdown-item dropdown-header">No tienes comentarios nuevos.</span>`;
-					}
-
-					commentsDropdown.innerHTML = html;
 				} else {
 					commentsCount.style.display = 'none';
 					commentsDropdown.innerHTML = `
@@ -183,6 +165,54 @@
 					<span class="dropdown-item dropdown-header">No hay comentarios.</span>
 				`;
 			});
+	}
+
+	function updateCommentsCounter(count) {
+		if (count > 0) {
+			commentsCount.textContent = count;
+			commentsCount.style.display = 'inline';
+		} else commentsCount.style.display = 'none';
+	}
+
+	function updateCommentsDropdown(count, comments) {
+		let html = '';
+		if (count > 0) {
+			html += `<span class="dropdown-item dropdown-header">${count} comentarios</span>`;
+			html += `<div class="dropdown-divider"></div>`;
+
+			comments.forEach(comm => {
+				html += `		
+					<a href="#" class="dropdown-item comment-item" data-id="${comm.id}" data-description="${comm.comment}" data-date="${comm.comment_date}">
+						<i class="fas fa-comments me-2"></i>
+						<span class="comment-text">${comm.comment}</span>
+						<span class="float-end text-muted fs-7">
+							${new Date(comm.comment_date).toLocaleString()}
+						</span>
+					</a>
+					<div class="dropdown-divider"></div>
+				`;
+			});
+
+			html += `
+				<a href="<?= base_url('myComments'); ?>" class="dropdown-item dropdown-footer">
+					Ver todos los comentarios
+				</a>
+			`;
+		} else html += `<span class="dropdown-item dropdown-header">No tienes comentarios nuevos.</span>`;
+
+		return html;
+	}
+
+	function markCommentAsRead(id) {
+		fetch(`<?= base_url('comments/markCommentAsRead/'); ?>${id}`, {
+			method: 'POST'
+		}).then(response => response.json())
+		.then(data => {
+			if (data.status === 'success') {
+				loadComments();
+			}
+		})
+		.catch(error => console.error('Error al marcar comentario como leído:', error));
 	}
 
 	loadComments();
