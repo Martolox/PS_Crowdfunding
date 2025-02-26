@@ -17,11 +17,11 @@ CREATE TABLE projects (
 	id_users SMALLINT UNSIGNED NOT NULL,
 	name VARCHAR(40) NOT NULL,
 	category VARCHAR(30) NOT NULL,
-	impact VARCHAR(300) NOT NULL,
+	impact VARCHAR(1000) NOT NULL,
 	budget DECIMAL(10,2) NOT NULL,
 	status ENUM('EN PROCESO', 'CANCELADO', 'FINALIZADO', 'PUBLICADO') NOT NULL DEFAULT 'EN PROCESO', 
 	end_date DATE NOT NULL,
-	reward_plan varchar(300) NOT NULL,
+	reward_plan varchar(1000) NOT NULL,
 	img_name varchar(100) NOT NULL,
 	PRIMARY KEY (id_projects),
 	FOREIGN KEY (id_users) REFERENCES users(id_users)

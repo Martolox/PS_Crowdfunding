@@ -48,12 +48,6 @@
 			<td><?= $inv_pro['status'] ?></td>
 			<td>
 			<div class="button-group">
-			<?php if ($inv_pro['status'] != 'finalized'): ?>
-				<a href="<?= base_url('investments/eliminarInversion/' . $inv_pro['id_investments']) ?>">
-					<button class="btn-action">Cancelar</button>
-				</a>
-			<?php endif;?>
-				<button class="btn-action" onclick="openModal(<?= $inv_pro['id_investments'] ?>, <?= $inv_pro['amount'] ?>)">Modificar</button>
 				<button class="btn-action" onclick="location.href='<?= base_url('investments/detail/' . $inv_pro['id_investments']) ?>'">Detalles</button>
 			</div>
 			</td>

@@ -123,7 +123,22 @@ class InvestmentsController extends BaseController
     }
    
 
-    public function list()
+    public function list() // Inversiones recibidas
+    {
+        if (session('userSessionName') == null) return  view('account/login');
+        $userId = session('userSessionID');
+        $investmentsModel = new InvestmentsModel();
+
+        // TODO: 
+        $investments_proyects = $investmentsModel->InversionesRecibidas($userId); 
+        $data = [
+            'investments_proyects' => $investments_proyects
+        ];
+    
+        return view('investments/investments_recived', $data);
+    }
+
+    public function myList() // Mis inversiones
     {
         if (session('userSessionName') == null) return  view('account/login');
         $userId = session('userSessionID');

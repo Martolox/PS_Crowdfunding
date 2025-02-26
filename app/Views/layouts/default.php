@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="<?= base_url('css/dark-theme.css') ?>">
 	<link rel="stylesheet" href="<?= base_url('css/styles.css') ?>">
 	<!-- JS INIT -->
-	<script type="module" src="<?= base_url('js/util.js') ?>"></script>
+	<!--  <script type="module" src="<?= base_url('js/util.js') ?>"></script> -->
 	<script src="https://kit.fontawesome.com/a2f79b8376.js"></script>
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<?= $this->renderSection('css_js-init') ?>

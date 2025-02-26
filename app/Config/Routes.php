@@ -43,6 +43,7 @@ $routes->get('/investments/update', 'InvestmentsController::update');
 $routes->get('/investments', 'InvestmentsController::index');
 $routes->get('/investments/create', 'InvestmentsController::create');
 $routes->get('/investments/list', 'InvestmentsController::list');
+$routes->get('/investments/myList', 'InvestmentsController::myList');
 $routes->post('/investments/update', 'InvestmentsController::update');
 $routes->post('/investments', 'InvestmentsController::index');
 $routes->post('/investments/create', 'InvestmentsController::create');

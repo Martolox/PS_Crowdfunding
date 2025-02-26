@@ -10,7 +10,8 @@
 		</a></li>
 		<?php if (session()->has('userSessionName')): ?>
 			<li><a href="<?= base_url('projects/list') ?>" class="nav-link">Proyectos</a></li>
-			<li><a href="<?= base_url('investments/list') ?>" class="nav-link">Mis Inversiones</a></li>
+			<li><a href="<?= base_url('investments/myList') ?>" class="nav-link">Mis Inversiones</a></li>
+			<li><a href="<?= base_url('investments/list') ?>" class="nav-link">Inversiones Recibidas</a></li>
 			<li><a href="<?= base_url('projects/myList') ?>" class="nav-link">Mis Proyectos</a></li>
 		<?php endif; ?>
 	</ul>

@@ -63,6 +63,17 @@ class InvestmentsModel extends Model
 		return $query->getResultArray();
 	}
 
+	public function InversionesRecibidas($id_usuario) {
+		$builder = $this->db->table($this->table);
+		$builder->select('investments.*, projects.name as project_name, projects.end_date as project_end_date');
+		$builder->join('projects', 'projects.id_projects = investments.id_projects');
+		$builder->where('projects.id_users', $id_usuario);
+		// $builder->whereIn('investments.status', ['active', 'finalized']);
+
+		$query = $builder->get();
+		return $query->getResultArray();
+	}
+
 	public function updateByProject(int $id_project, array $data): bool {
 		return $this->where('id_projects', $id_project)->set($data)->update();
 	}
