@@ -113,11 +113,6 @@
 		.catch(error => console.error('Error al marcar como leída:', error));
 	}
 
-	// Función para cerrar el modal
-	function closeModal() {
-		document.getElementById('notificationModal').style.display = 'none';
-	}
-
 	function loadComments() {
 		fetch('<?= base_url('comments/getUnreadComments'); ?>')
 			.then(response => {

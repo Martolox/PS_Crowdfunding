@@ -8,7 +8,7 @@
 		<li><a href="<?= base_url('investments/list') ?>">Mis Inversiones</a></li>
 	</ul>
 
-	<?php 
+	<?php // TODO: Refactorizar
 	if ((session('userSessionName') !== null) && 
 		(session('userSessionEmail') !== null) && 
 		(session('userSessionProfile') !== null)) {
@@ -35,4 +35,3 @@
 	}
 	?>
 </nav>
-</section>
