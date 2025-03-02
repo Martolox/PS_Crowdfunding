@@ -12,4 +12,27 @@ buscan apoyar ideas revolucionarias y disruptivas. A través de nuestra platafor
  
 Desarrollar una plataforma online que facilite la financiación colectiva de proyectos, conectando a emprendedores con una comunidad de potenciales patrocinadores.
 
+# *Proyectos de Software 2ºC 2024*
+
+## Tecnologías Aplicadas
++ HTML
++ CSS
++ JS/AJAX
++ jQuery
++ Bootstrap
++ CodeIgniter
+
+## Vistas
+### Home 
 ![Screenshot 1](/public/img/png/screenshot-1.png)
+![Screenshot 2](/public/img/png/screenshot-2.png)
+![Screenshot 3](/public/img/png/screenshot-3.png)
+
+### Login/Register
+![Screenshot 4](/public/img/png/screenshot-4.png)
+
+### Projects
+![Screenshot 5](/public/img/png/screenshot-5.png)
+
+### My Projects
+![Screenshot 6](/public/img/png/screenshot-6.png)
